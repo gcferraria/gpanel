@@ -3,15 +3,12 @@
 
 # TEAM
 
-    Gonçalo Ferraria -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
+    Gonçalo Ferraria -- <developer>-- <gferraria@gmail.com>
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, PHP, Codeigniter, Bootstrap
+
 /* the humans responsible & colophon */
 /* humanstxt.org */

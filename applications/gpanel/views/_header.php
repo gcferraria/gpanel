@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<html class="no-js" lang="">
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title><?=$title?></title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
-    <link rel="shortcut icon" href="<?=base_url('favicon.png')?>">
-    <link rel="apple-touch-icon" href="<?=base_url('apple-touch-icon-precomposed.png')?>">
+    <link rel="shortcut icon" href="<?=base_url('favicon.ico')?>">
+    <link rel="apple-touch-icon" href="<?=base_url('apple-touch-icon.png')?>">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>
 
@@ -23,6 +22,9 @@
 
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-full-width">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
     <?php if ( isset( $this->administrator ) ) : ?>
     <header class="page-header navbar navbar-fixed-top">

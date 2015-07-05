@@ -4,8 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.extraPlugins = 'widget';
-	config.extraPlugins = 'lineutils';
+	config.extraPlugins = 'widget,lineutils';
     
     // Toolbar groups configuration.
     config.toolbarGroups = [
