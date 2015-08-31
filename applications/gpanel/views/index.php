@@ -1,19 +1,21 @@
 <div class="page-container">
 
+    <?=$this->load->view('_mobile_menu')?>
+
     <div class="page-content-wrapper">
 
         <div class="page-content">
 
             <h3 class="page-title"><?=$title?></h3>
             <div class="page-bar">
-                <ul class="page-breadcrumb breadcrumb">
+                <ul class="page-breadcrumb">
                     <?=$breadcrumbs?>
                 </ul>
                 <div class="page-toolbar">
                     <?php if( isset( $actions ) ) : ?>
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                            <span>Acções</span> <i class="fa fa-angle-down"></i>
+                            <span><?=$this->lang->line('actions')?></span> <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
                             <?php foreach ($actions as $action => $link) : ?>
@@ -22,6 +24,10 @@
                             </li>
                             <?php endforeach ?>
                         </ul>
+                    </div>
+                    <?php elseif( isset( $date_range ) ) : ?>
+                    <div class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range" data-jsb-name="date-range" data-jsb-class="App.DateRange">
+                        <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
                     </div>
                     <?php endif ?>
                 </div>

@@ -1,14 +1,10 @@
     <?php if ( isset( $this->administrator ) ) : ?>
     <div class="page-footer">
         <div class="page-footer-inner">
-            <?=date('Y')?> &copy; gPanel <?=VERSION?> Admin by Gonçalo Ferraria.<br />
-            <?="Loading Time: " . $this->benchmark->elapsed_time()?>;
-            <?="Memory Use: " . $this->benchmark->memory_usage()?>
+            <?=date('Y')?> &copy; gPanel <?=VERSION?> Admin by Gonçalo Ferraria.; <?="Loading Time: " . $this->benchmark->elapsed_time()?>; <?="Memory Use: " . $this->benchmark->memory_usage()?>
         </div>
-        <div class="page-footer-tools">
-            <span class="go-top" data-jsb-name="btnTop" data-jsb-class="Top">
-                <i class="fa fa-angle-up"></i>
-            </span>
+        <div class="scroll-to-top" data-jsb-name="btnTop" data-jsb-class="Top">
+            <i class="icon-arrow-up"></i>
         </div>
     </div>
     <?php endif ?>

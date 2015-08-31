@@ -10,11 +10,35 @@
                 this.profile = this.$.attr('data-profile');
                 this.options = {
                     grid: {
-                        hoverable: true,
-                        tickColor: "#eee",
+                        hoverable  : true,
+                        clickable  : true,
+                        tickColor  : "#eee",
                         borderColor: "#eee",
                         borderWidth: 1
-                    }
+                    },
+                    xaxis: {
+                        tickLength: 0,
+                        tickDecimals: 0,
+                        mode: "categories",
+                        min: 0,
+                        font: {
+                            lineHeight: 14,
+                            style: "normal",
+                            variant: "small-caps",
+                            color: "#6F7B8A"
+                        }
+                    },
+                    yaxis: {
+                        ticks: 5,
+                        tickDecimals: 0,
+                        tickColor: "#eee",
+                        font: {
+                            lineHeight: 14,
+                            style: "normal",
+                            variant: "small-caps",
+                            color: "#6F7B8A"
+                       }
+                    }, 
                 };
 
                 var that = this;
@@ -32,16 +56,34 @@
                     'data'      : data,
                     'dataType'  : 'json',
                     'beforeSend': function() {
-                        that.root.blockUI(that.caller)
+                        that.root.blockUI(that.context)
                     },
                     'error'     : function( XHR, textStatus ) {
-                        that.root.unblockUI(that.caller)
+                        that.root.unblockUI(that.context)
                     },
                     'complete'  : function() {
-                        that.root.unblockUI(that.caller)
+                        that.root.unblockUI(that.context)
                     },
                     'success'   : function( data ) {
-                        $.plot(that.$, data, that.options);
+                        $.plot(that.$, [{
+                            data: data,
+                            lines: {
+                                fill: 0.6,
+                                lineWidth: 0
+                            },
+                            color: ['#f89f9f']
+                        }, {
+                            data: data,
+                            points: {
+                                show: true,
+                                fill: true,
+                                radius: 5,
+                                fillColor: "#f89f9f",
+                                lineWidth: 3
+                            },
+                            color: '#fff',
+                            shadowSize: 0
+                        }], that.options); 
                     }
                 });
             }
@@ -53,8 +95,8 @@
                 this.bind('click')
             }
             , 'click': function() {
-                this.parent.parent.$chart.metric = this.$.find('input').val();
-                this.parent.parent.$chart.reload();
+                this.context.$body.$chart.metric = this.$.find('input').val();
+                this.context.$body.$chart.reload();
             }
         })
         , Profile = my.Class( JsB, {
@@ -64,8 +106,8 @@
                 this.bind('click')
             }
             , 'click': function() {
-                this.parent.$chart.profile = this.name;
-                this.parent.$chart.reload();
+                this.context.$body.$chart.profile = this.name;
+                this.context.$body.$chart.reload();
             }
         })
 	;

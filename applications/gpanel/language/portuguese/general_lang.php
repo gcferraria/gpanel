@@ -17,10 +17,12 @@ $lang = array (
     'open'          => 'Abrir',
     'operations'    => 'Operações',
     'active'        => 'Activo',
+    'actions'       => 'Acções',
     'hold'          => 'Pendente',
     'inactive'      => 'Inactivo',
     'translations'  => 'Traduções',
     'delete_record' => 'Tem a certeza que pretende apagar o registo',
+    'view_more'     => 'ver mais',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',

@@ -54,6 +54,7 @@ class HTML_Controller extends GP_Controller {
         $this->add_data( array(
                 'breadcrumbs'   => $this->breadcrumb->show(),
                 'sidebar'       => $this->find( $segments, '_sidebar'),
+                'menu_data'     => $this->_menu_data(),
                 'content'       => $this->find( $segments ),
             )
         );
@@ -65,7 +66,6 @@ class HTML_Controller extends GP_Controller {
     }
 
     /**
-     *
      * find: Find one file in a hierarchical path.
      *
      * @access public
@@ -94,7 +94,159 @@ class HTML_Controller extends GP_Controller {
 
         return $this->load->view( $path, $this->data, true );
     }
+    
+    /**
+     * _menu_data: Define menu struture for admin and normal users
+     * 
+     * @access private
+     * @return array 
+     */
+    private function _menu_data() {
+        $data = array(
+            array(
+                'title'    => 'Dashboard',
+                'url'      => 'dashboard',
+                'selected' => 'active', 
+                'children' => array(),
+            ),
+            array(
+                'title'    => 'Gestão de Conteúdos',
+                'url'      => 'categories/contents/index/1',
+                'selected' => '', 
+                'children' => array(),
+            ),
+            array(
+                'title'    => 'Multimédia',
+                'url'      => 'media',
+                'selected' => '', 
+                'children' => array(),
+            ),
+            array(
+                'title'    => 'Notificações',
+                'url'      => 'notifications',
+                'selected' => '', 
+                'children' => array(),
+            ),
+            array(
+                'title'    => 'Área Privada',
+                'url'      => '',
+                'selected' => '', 
+                'children' => array(
+                    array(
+                        'title'    => 'Utilizadores',
+                        'url'      => 'users',
+                        'selected' => '',
+                        'icon'     => 'user',
+                        'children' => array()
+                    ),
+                    array(
+                        'title'    => 'Funções',
+                        'url'      => 'roles',
+                        'selected' => '',
+                        'icon'     => 'puzzle-piece',
+                        'children' => array()
+                    ),
+                ),
+            ),
+            array(
+                'title'    => 'Newsletters',
+                'url'      => '',
+                'selected' => '', 
+                'children' => array(
+                    array(
+                        'title'    => 'Contatos',
+                        'url'      => 'newsletter_contacts',
+                        'selected' => '',
+                        'icon'     => 'male',
+                        'children' => array()
+                    ),
+                    array(
+                        'title'    => 'Newsletters',
+                        'url'      => 'newsletters',
+                        'selected' => '',
+                        'icon'     => 'envelope',
+                        'children' => array()
+                    ),
+                ),
+            ),
+        );
 
+        $admin_data = array(
+            array(
+                'title'    => 'Administração',
+                'url'      => '',
+                'selected' => '', 
+                'children' => array(
+                    array(
+                        'title'    => 'Acesso',
+                        'url'      => '',
+                        'selected' => '',
+                        'icon'     => '',
+                        'children' => array(
+                            array(
+                                'title'    => 'Administradores',
+                                'url'      => 'administrators',
+                                'selected' => '',
+                                'icon'     => '',
+                                'children' => array()       
+                            ),
+                        ),
+                    ),
+                    array(
+                        'title'    => 'Conteúdos',
+                        'url'      => '',
+                        'selected' => '',
+                        'icon'     => '',
+                        'children' => array(
+                            array(
+                                'title'    => 'Tipos de Conteúdos',
+                                'url'      => 'content_types',
+                                'selected' => '',
+                                'icon'     => '',
+                                'children' => array()       
+                            ),
+                        ),
+                    ),
+                    array(
+                        'title'    => 'i18N',
+                        'url'      => '',
+                        'selected' => '',
+                        'icon'     => '',
+                        'children' => array(
+                            array(
+                                'title'    => 'Línguas',
+                                'url'      => 'i18n/languages',
+                                'selected' => '',
+                                'icon'     => '',
+                                'children' => array()       
+                            ),
+                        ),
+                    ),
+                    array(
+                        'title'    => 'Definições',
+                        'url'      => '',
+                        'selected' => '',
+                        'icon'     => '',
+                        'children' => array(
+                            array(
+                                'title'    => 'Websites',
+                                'url'      => 'settings/website',
+                                'selected' => '',
+                                'icon'     => '',
+                                'children' => array()       
+                            )
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        if ( $this->authentication->is_admin() ) {
+            $data = array_merge_recursive($data,$admin_data); 
+        }
+
+        return $data;
+    }
 }
 
 /* End of file HTML_Controller.php */

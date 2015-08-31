@@ -195,22 +195,33 @@
 
                 var that = this;
                 this.root.queue.push(function() {
-                    that.$.find(">:first-child").daterangepicker({
+                    that.elem().daterangepicker({
                         format   : that.format,
                         separator: ' ' + that.separator + ' ',
-                        locale   : {
-                            cancelLabel: 'Limpar',
-                            applyLabel : 'Aplicar',
-                            fromLabel  : 'De',
-                            toLabel    : 'até'
-                        }
+                        locale: {
+                            applyLabel      : 'Aplicar',
+                            fromLabel       : 'De',
+                            toLabel         : 'Até',
+                            cancelLabel     : 'Limpar',
+                            customRangeLabel: 'Custom Range',
+                            daysOfWeek      : ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                            monthNames      : ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Otubro', 'Novembro', 'Dezembro'],
+                            firstDay        : 1
+                        } 
                     },
                     function(start, end) {
-                        that.$field.$.val(start.format( that.format ) + ' ' + that.separator + ' ' + end.format( that.format ));
+                        that.start(start,end);
                     });
                 });
             }
-
+            , 'elem' : function() {
+                console.log("1");
+                return this.$.find('>:first-child');
+            }
+            , 'start': function(start, end) {
+                console.log("2");
+                this.$field.$.val(start.format( this.format ) + ' ' + this.separator + ' ' + end.format( this.format ));
+            }
         })
     ;
 

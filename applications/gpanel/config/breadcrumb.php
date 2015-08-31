@@ -2,6 +2,20 @@
 
 /**
  * ------------------------
+ * Config: home_icon
+ * ------------------------
+ * Default value:
+ * $config['home_icon'] = "";
+ *
+ * Change initial home icon.
+ * If set to empty e.g: $config['home_icon'] = "";
+ * then initial/home icon breadcrumb will disappear
+ *
+ */
+ $config['home_icon'] = '<i class="fa fa-home"></i> ';
+
+/**
+ * ------------------------
  * Config: home_text
  * ------------------------
  * Default value:
@@ -12,7 +26,7 @@
  * then initial/home breadcrumb will disappear
  *
  */
- $config['home_text'] = '<i class="fa fa-home"></i>In&iacute;cio';
+ $config['home_text'] = 'In&iacute;cio';
 
 /**
  * ------------------------
@@ -46,7 +60,7 @@
  * Default value:
  * $config['delimiter'] = ' >> ';
  */
- $config['divider'] = '';
+ $config['divider'] = '<i class="fa fa-angle-right"></i>';
 
 /**
  * --------------------------

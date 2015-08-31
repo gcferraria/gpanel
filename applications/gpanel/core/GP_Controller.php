@@ -22,10 +22,11 @@ class GP_Controller extends CI_Controller {
         if ( $access == 'restrict' ) {
 
             // Redirects to the login area.
-            if ( ! $this->authentication->logged_in() )
+            if ( ! $this->authentication->logged_in() ) {
                 redirect();
-            else
+            } else {
                 $this->administrator = $this->authentication->administrator();
+            }
         }
     }
 

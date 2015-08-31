@@ -18,7 +18,8 @@ class Dashboard extends HTML_Controller {
 
         // Add Dashboard Title.
         $this->add_data( array(
-                'title' => $this->lang->line('dashboard_title')
+                'title'      => $this->lang->line('dashboard_title'),
+                'date_range' => TRUE,
             )
         );
     }
@@ -34,14 +35,14 @@ class Dashboard extends HTML_Controller {
         $notifications = new Notification();
         $counters      = new Content_Counter();
         $contents      = new Content();
-        $users         = new User();
+        $users         = new Newsletter_Contact();
 
         $data = (object) array(
             'statistics' => (object) array(
-                'notifications' => number_format( $notifications->count() ),
-                'counters'      => number_format( $counters->count() ),
-                'contents'      => number_format( $contents->count() ),
-                'users'         => number_format( $users->count() ),
+                'notifications'       => number_format( $notifications->count() ),
+                'counters'            => number_format( $counters->count() ),
+                'contents'            => number_format( $contents->count() ),
+                'newsletter_contacts' => number_format( $users->count() ),
             ),
             'activity' => (object) array(
                 'contents' => $this->_get_last_contents(),

@@ -4,11 +4,10 @@
 			<i class="fa fa-bell-o"></i> <?=$this->lang->line('dashboard_box_last_activity_title')?>
 		</div>
 		<div class="tools">
-			<a href="javascript:;" class="collapse" data-jsb-name="collapse" data-jsb-class="App.Portlet.Collapse"></a>
 		</div>
 	</div>
 	<div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
-		<div class="tabbable tabbable-custom">
+		<div class="tabbable-line">
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a href="#tab_1_1" data-toggle="tab"><?=$this->lang->line('dashboard_box_last_activity_contents')?></a>

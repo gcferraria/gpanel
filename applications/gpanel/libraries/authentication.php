@@ -7,8 +7,8 @@
  * @subpackage Libraries
  * @category   Authentication
  * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2012 - 2013 Gonçalo Ferraria
- * @version    1.1 Authentication.php 2013-12-23 gferraria $
+ * @copyright  2012 - 2015 Gonçalo Ferraria
+ * @version    1.2 Authentication.php 2014-07-06 gferraria $
  */
 
 class Authentication {
@@ -160,7 +160,7 @@ class Authentication {
     **/
     public function is_admin() {
 
-        if ( $administrator = $this->administrator )
+        if ( $administrator = $this->administrator() )
             return $administrator->super_admin_flag == 1 ? TRUE : FALSE;
 
         return FALSE;

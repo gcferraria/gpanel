@@ -22,7 +22,7 @@ class Dashboard extends JSON_Controller {
         $this->ga = new Ga_api();
 
         // Login in Google Analytics.
-        if ( !$this->ga->login() ) {
+        /*if ( !$this->ga->login() ) {
             log_message(
                 'error',
                 'Controller: ' . __CLASS__ . '; Method: ' . __METHOD__ . '; '.
@@ -31,7 +31,7 @@ class Dashboard extends JSON_Controller {
 
             // Show 500 error page.
             show_error('Cannot Login in Google Analytics', 500);
-        }
+        }*/
     }
 
     /**
@@ -46,13 +46,13 @@ class Dashboard extends JSON_Controller {
 
         switch ( $this->input->post('metric') ) {
             case 'unique_pageviews':
-                parent::index( array( $this->_unique_page_views() ) );
+                parent::index( $this->_unique_page_views() );
                 break;
             case 'pageviews':
-                parent::index( array( $this->_page_views() ) );
+                parent::index( $this->_page_views() );
                 break;
             case 'visits':
-                parent::index( array( $this->_sessions() ) );
+                parent::index( $this->_sessions() );
                 break;
             default:
                 parent::index( array('error' => 1, 'message' => 'Não foi possível obter as estatísticas') );
@@ -68,15 +68,21 @@ class Dashboard extends JSON_Controller {
     **/
     private function _unique_page_views() {
         $data = array(
-            'label' => 'Visualizações de Página Únicas',
-            'color' => '#f89133',
-            'data'  => array(),
-            'lines' => array(
-                'fill' =>  0.6,
-                'lineWidth' => 0,
-            ),
+            array('01/2014', 2289),
+            array('02/2014', 5000),
+            array('03/2014', 2),
+            array('04/2014', 10),
+            array('05/2014', 70),
+            array('06/2014', 22),
+            array('07/2014', 22),
+            array('08/2014', 228),
+            array('09/2014', 228),
+            array('10/2014', 10000),
+            array('11/2014', 500),
+            array('12/2014', 1000)
         );
-
+        
+        /*
         // Get Visitors by month for current year
         $ga_data = $this->ga
             ->dimension('month')
@@ -91,7 +97,7 @@ class Dashboard extends JSON_Controller {
         for ( $i=1; $i<=12; $i++ ) {
             $month = str_pad($i, 2, "0", STR_PAD_LEFT);
             $data['data'][] = array($i, $ga_data[ $month ]['uniquepageviews']);
-        }
+        }*/
 
         return $data;
     }
@@ -104,17 +110,22 @@ class Dashboard extends JSON_Controller {
     **/
     private function _page_views() {
         $data = array(
-            'label' => 'Visualizações de Página',
-            'color' => '#f89453',
-            'data'  => array(),
-            'lines' => array(
-                'fill' =>  0.6,
-                'lineWidth' => 0,
-            ),
+            array('01/2014', 2289),
+            array('02/2014', 5000),
+            array('03/2014', 2),
+            array('04/2014', 10),
+            array('05/2014', 70),
+            array('06/2014', 22),
+            array('07/2014', 22),
+            array('08/2014', 228),
+            array('09/2014', 228),
+            array('10/2014', 10000),
+            array('11/2014', 500),
+            array('12/2014', 1000)
         );
-
+        
         // Get Visitors by month for current year
-        $ga_data = $this->ga
+        /*$ga_data = $this->ga
             ->dimension('month')
             ->metric( 'pageviews' )
             ->sort_by('month')
@@ -127,7 +138,7 @@ class Dashboard extends JSON_Controller {
         for ( $i=1; $i<=12; $i++ ) {
             $month = str_pad($i, 2, "0", STR_PAD_LEFT);
             $data['data'][] = array($i, $ga_data[ $month ]['pageviews']); 
-        }
+        }*/
 
         return $data;
     }
@@ -140,17 +151,22 @@ class Dashboard extends JSON_Controller {
     **/
     private function _sessions() {
         $data = array(
-            'label' => 'Visitas',
-            'color' => '#f89f9f',
-            'data'  => array(),
-            'lines' => array(
-                'fill' =>  0.6,
-                'lineWidth' => 0,
-            ),
+            array('01/2014', 2289),
+            array('02/2014', 5000),
+            array('03/2014', 2),
+            array('04/2014', 10),
+            array('05/2014', 70),
+            array('06/2014', 22),
+            array('07/2014', 22),
+            array('08/2014', 228),
+            array('09/2014', 228),
+            array('10/2014', 10000),
+            array('11/2014', 500),
+            array('12/2014', 1000)
         );
 
         // Get Visitors by month for current year
-        $ga_data = $this->ga
+        /*$ga_data = $this->ga
             ->dimension('month')
             ->metric( 'sessions' )
             ->sort_by('month')
@@ -163,8 +179,9 @@ class Dashboard extends JSON_Controller {
         for ( $i=1; $i<=12; $i++ ) {
             $month = str_pad($i, 2, "0", STR_PAD_LEFT);
             $data['data'][] = array($i, $ga_data[ $month ]['sessions']);
-        }
-
+        }*/
+        
+        
         return $data;
     }
 
