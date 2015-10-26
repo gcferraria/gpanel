@@ -6,7 +6,7 @@
 		<div class="actions">
 	        <div class="btn-group pull-right">
 				<a href="" class="btn grey-steel btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<?=$this->lang->line('dashboard_box_visits_site_choise')?>
+					<?=$this->lang->line('dashboard_site_choise')?>
 					<span class="fa fa-angle-down"></span>
 				</a>
 				<ul class="dropdown-menu pull-right">

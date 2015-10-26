@@ -202,7 +202,7 @@ Page Header
 .page-header.navbar .hor-menu .navbar-nav > li.active > a > i,
 .page-header.navbar .hor-menu .navbar-nav > li.active > a > i, .page-header.navbar .hor-menu .navbar-nav > li.current > a > i,
 .page-header.navbar .hor-menu .navbar-nav > li.current > a > i {
-  color: #788ea8;
+  color: #fff;
 }
 .page-header.navbar .hor-menu .navbar-nav > li.active .selected, .page-header.navbar .hor-menu .navbar-nav > li.current .selected {
   border-top: 6px solid #1caf9a;

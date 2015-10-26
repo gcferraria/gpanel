@@ -79,7 +79,7 @@ class Contents extends Categories {
         }
 
         // Always add category options.
-        $actions[ $this->lang->line('category_option_title') ] = 'categories/options/index/' . $this->category->id;
+        $actions[ sprintf( $this->lang->line('category_option_title'), $this->category->name ) ] = 'categories/options/index/' . $this->category->id;
 
         // Gets available Content Types.
         $content_types = $this->category->content_types->where('active_flag', 1);

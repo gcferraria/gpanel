@@ -110,10 +110,73 @@
                 this.context.$body.$chart.reload();
             }
         })
+        , PieChart = my.Class( JsB, {
+	   		constructor: function( elem, caller ) {
+                PieChart.Super.call( this, elem, caller );
+                
+                var that = this;
+                this.url = this.$.attr('data-url');
+                this.profile = this.$.attr('data-profile');
+
+                this.root.queue.push(function(){
+                    that.reload();
+                });
+            }
+            , reload: function() {
+                var that = this,
+                    data = { 'profile': this.profile };
+                $.ajax({
+                    'type'      : 'POST',
+                    'url'       : this.url,
+                    'data'      : data,
+                    'dataType'  : 'json',
+                    'beforeSend': function() {
+                        that.root.blockUI(that.context)
+                    },
+                    'error'     : function( XHR, textStatus ) {
+                        that.root.unblockUI(that.context)
+                    },
+                    'complete'  : function() {
+                        that.root.unblockUI(that.context)
+                    },
+                    'success'   : function( data ) {
+                        var children = that.toArray();
+                        for ( var idx in children ) {
+                            var child = children[ idx ];
+                            if ( child != undefined ) {
+                                child.update(data[idx]['value'], data[idx]['text'] )
+                            }
+                        }
+                    }   
+                });
+            }
+        })
+        , PieObject = my.Class( JsB, {
+	   		constructor: function( elem, caller ) {
+                PieObject.Super.call( this, elem, caller );
+ 
+                var that = this;
+                this.root.queue.push(function(){
+                    that.$.easyPieChart({
+                        animate  : 1000,
+                        size     : 75,
+                        lineWidth: 3,
+                        barColor : that.$.attr('data-color')
+                    });
+                });
+            }
+            , update: function( value, text ) {
+                this.$.data('easyPieChart').update(value);
+                $('span', this.$).text(value);
+                this.$.parent().find('a.title').text(text);
+            }
+        })
 	;
 
-    JsB.object( 'App.Chart'        , Chart   );
-    JsB.object( 'App.Chart.Metric' , Metric  );
-    JsB.object( 'App.Chart.Profile', Profile );
+    JsB.object( 'App.Chart'           , Chart    );
+    JsB.object( 'App.Chart.Metric'    , Metric   );
+    JsB.object( 'App.Chart.Profile'   , Profile  );
+    JsB.object( 'App.PieChart'        , PieChart );
+    JsB.object( 'App.PieChart.Object' , PieObject);
 
 })(JsB);

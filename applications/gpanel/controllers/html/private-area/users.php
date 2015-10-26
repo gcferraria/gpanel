@@ -299,4 +299,4 @@ class Users extends HTML_Controller {
 }
 
 /* End of file users.php */
-/* Location: ../applications/gpanel/controllers/users.php */
+/* Location: ../applications/gpanel/controllers/private-area/users.php */

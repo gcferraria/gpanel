@@ -158,4 +158,4 @@ class Roles extends HTML_Controller {
 }
 
 /* End of file roles.php */
-/* Location: ../applications/gpanel/controllers/roles.php */
+/* Location: ../applications/gpanel/controllers/private-area/roles.php */

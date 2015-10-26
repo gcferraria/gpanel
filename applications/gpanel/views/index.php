@@ -6,7 +6,12 @@
 
         <div class="page-content">
 
-            <h3 class="page-title"><?=$title?></h3>
+            <h3 class="page-title">
+                <?=$title?>
+                <?php if ( isset ($description) ) : ?>
+                <small><?=$description?></small>
+                <?php endif ?>
+            </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <?=$breadcrumbs?>

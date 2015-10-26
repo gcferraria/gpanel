@@ -20,6 +20,9 @@ class Categories extends HTML_Controller {
         // Initialize Category Object.
         $this->category = new Category();
 
+        // Load Language Category
+        $this->lang->load('categories');
+        
         // Get Category id based on action.
         $id = is_numeric( $this->uri->segment(3) )
             ? (int) $this->uri->segment(3)
@@ -37,6 +40,7 @@ class Categories extends HTML_Controller {
         // Add Category selected.
         $this->add_data( array(
                 'title'             => $this->category->name,
+                'description'       => $this->category->description,
                 'category_title'    => $this->lang->line('category_title'),
                 'category_selected' => $this->category->id,
             )

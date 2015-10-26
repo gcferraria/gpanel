@@ -4743,19 +4743,19 @@ Portlets
   padding: 11px 0 9px 0;
 }
 .portlet.box > .portlet-title > .tools > a.remove {
-  background-image: url(../img/portlet-remove-icon-white.png);
+  background-image: url(../images/portlet-remove-icon-white.png);
 }
 .portlet.box > .portlet-title > .tools > a.config {
-  background-image: url(../img/portlet-config-icon-white.png);
+  background-image: url(../images/portlet-config-icon-white.png);
 }
 .portlet.box > .portlet-title > .tools > a.reload {
-  background-image: url(../img/portlet-reload-icon-white.png);
+  background-image: url(../images/portlet-reload-icon-white.png);
 }
 .portlet.box > .portlet-title > .tools > a.expand {
-  background-image: url(../img/portlet-expand-icon-white.png);
+  background-image: url(../images/portlet-expand-icon-white.png);
 }
 .portlet.box > .portlet-title > .tools > a.collapse {
-  background-image: url(../img/portlet-collapse-icon-white.png);
+  background-image: url(../images/portlet-collapse-icon-white.png);
 }
 .portlet.box > .portlet-title > .tools > a.fullscreen {
   color: #fdfdfd;

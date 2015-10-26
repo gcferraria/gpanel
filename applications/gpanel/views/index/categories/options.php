@@ -3,6 +3,10 @@
         <div class="caption">
             <i class="fa fa-globe"></i><?=$title?>
         </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-jsb-name="collapse" title="<?=$this->lang->line('collapse')?>" data-jsb-class="App.Portlet.Collapse"></a>
+            <a href="javascript:;" class="reload" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload"></a>
+        </div>
     </div>
     <div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
         <div class="portlet-tabs">

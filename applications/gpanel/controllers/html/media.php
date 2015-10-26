@@ -9,9 +9,10 @@ class Media extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
+        parent::__construct();
 
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        // Load language file.
+        $this->load->language('media');
 
         // Add Media Breadcrumb.
         $this->breadcrumb->add( array(

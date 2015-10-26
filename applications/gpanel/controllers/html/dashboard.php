@@ -9,17 +9,16 @@ class Dashboard extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
-
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        parent::__construct();
 
         // Load Language File.
         $this->load->language('dashboard');
 
         // Add Dashboard Title.
         $this->add_data( array(
-                'title'      => $this->lang->line('dashboard_title'),
-                'date_range' => TRUE,
+                'title'       => $this->lang->line('dashboard_title'),
+                'description' => $this->lang->line('dashboard_description'),
+                'date_range'  => TRUE,
             )
         );
     }
@@ -31,7 +30,6 @@ class Dashboard extends HTML_Controller {
      * @return void
     **/
     public function index() {
-
         $notifications = new Notification();
         $counters      = new Content_Counter();
         $contents      = new Content();
@@ -50,6 +48,12 @@ class Dashboard extends HTML_Controller {
             ),
             'visits' => (object)array(
                 'url' => '/dashboard/ga_visits.json',
+            ),
+            'browsers' => (object)array(
+                'url' => '/dashboard/browsers.json', 
+            ),
+            'stats' => (object)array(
+                'url' => '/dashboard/general_stats.json', 
             ),
             'domains' => $this->config->item('ga_profiles'),
         );
@@ -77,6 +81,13 @@ class Dashboard extends HTML_Controller {
         $data = array();
         foreach ( $contents->get() as $content ) {
             $categories = array();
+            foreach ( $content->categories->get() as $category ) {
+                array_push( $categories, (object) array(
+                        'name' => $category->name,
+                        'link' => site_url('categories/contents/edit/' . $category->id . '/' . $content->id)
+                    )
+                );
+            }
 
             $time = new DateTime( date( 'Y-m-d H:i:s', strtotime( $content->creation_date ) ) );
             $now  = new DateTime( date( 'Y-m-d H:i:s') );

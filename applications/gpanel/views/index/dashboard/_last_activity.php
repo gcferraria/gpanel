@@ -4,7 +4,8 @@
 			<i class="fa fa-bell-o"></i> <?=$this->lang->line('dashboard_box_last_activity_title')?>
 		</div>
 		<div class="tools">
-		</div>
+		    <a href="" class="collapse" data-jsb-name="collapse" title="<?=$this->lang->line('collapse')?>" data-jsb-class="App.Portlet.Collapse"></a>
+        </div>
 	</div>
 	<div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
 		<div class="tabbable-line">
@@ -17,30 +18,29 @@
 				</li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane active" id="tab_1_1">
-					<div class="scroller" data-height="270" data-jsb-class="App.Scroll">
-						<ul class="feeds">
+				<div class="tab-pane active tasks-widget" id="tab_1_1">
+					<div class="scroller" data-height="280" data-jsb-class="App.Scroll">
+						<ul class="task-list">
 							<?php foreach ( $dashboard->activity->contents as $content ) : ?>
 							<li>
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-info">
-												<i class="fa fa-plus"></i>
-											</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												<span class="task-title-sp"><?=$content->name?></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<?=$content->publish?>
-									</div>
-								</div>
+                                <div class="task-checkbox"></div>
+                                <div class="task-title"><span class="task-title-sp"><?=$content->name?></span> <span class="label label-sm label-info"><?=$content->publish?></span></div>
+                                <div class="task-config">
+                                    <div class="task-config-btn btn-group">
+                                        <a class="btn btn-xs default" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="fa fa-cog"></i><i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <?php foreach ( $content->categories as $category ) : ?>
+                                            <li>
+                                                <a href="<?=$category->link?>" title="<?=$category->name?>">
+                                                    <i class="fa fa-pencil"></i> <?=$category->name?> 
+                                                </a>
+                                            </li>
+                                            <?php endforeach ?>
+                                        </ul>
+                                    </div> 
+                                </div>
 							</li>
 							<?php endforeach?>
 						</ul>
@@ -54,7 +54,7 @@
 						<div class="row">
 						<?php endif ?>
 							<div class="col-md-6 user-info">
-								<img alt="" src="<?=base_url('images/'.$session->avatar)?>" class="img-responsive">
+								<img alt="<?=$session->name?>" src="<?=base_url('images/'.$session->avatar)?>" class="img-responsive">
 								<div class="details">
 									<div>
 										<a href="#"><?=$session->name?></a>

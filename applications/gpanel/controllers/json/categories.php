@@ -11,6 +11,9 @@ class Categories extends JSON_Controller {
     **/
     public function index( $id ) {
         parent::index( $this->_category_data( $id ) );
+        
+        // Load language categories.
+        $this->load->language('categories');
     }
 
     /**
@@ -43,7 +46,8 @@ class Categories extends JSON_Controller {
             'id'    => $category->id,
             'text'  => $category->name,
             'state' => array(
-                'selected' => ( $category->id == $this->input->get('selected') ) ? TRUE : FALSE
+                'selected' => ( $category->id == $this->input->get('selected') ) ? TRUE : FALSE,
+                'disabled' => ( $category->publish_flag == 1 ) ? FALSE : TRUE 
             ),
             'a_attr' => array(
                 'href' => site_url( 'categories/contents/index/' . $category->id ),

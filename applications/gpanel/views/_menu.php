@@ -1,7 +1,7 @@
 <div class="hor-menu hidden-sm hidden-xs">
     <ul class="nav navbar-nav">
         <?php foreach ( $data as $l1 ) : ?>
-        <li class="classic-menu-dropdown <?=$l1['selected']?>">
+        <li class="classic-menu-dropdown<?=(isset($l1['selected']) && $l1['selected']) ? ' active' : ''?>">
 
             <?php if ( empty( $l1['children'] ) ) : ?>
 

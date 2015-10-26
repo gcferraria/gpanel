@@ -1,12 +1,12 @@
-<div class="portlet box grey-cascade" data-jsb-name="datatable" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet box yellow" data-jsb-name="datatable" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-globe"></i><?=$title?>
         </div>
         <div class="tools">
-            <a href="javascript:;" class="collapse" data-jsb-name="collapse" data-jsb-class="App.Portlet.Collapse"></a>
+            <a href="javascript:;" class="collapse" data-jsb-name="collapse" title="<?=$this->lang->line('collapse')?>" data-jsb-class="App.Portlet.Collapse"></a>
             <?php if( count( $views ) == 0 ) : ?>
-            <a href="javascript:;" class="reload" data-jsb-name="reload" data-jsb-class="App.Portlet.Reload"></a>
+            <a href="javascript:;" class="reload" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload"></a>
             <?php endif ?>
         </div>
     </div>

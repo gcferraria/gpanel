@@ -33,7 +33,34 @@ class Dashboard extends JSON_Controller {
             show_error('Cannot Login in Google Analytics', 500);
         }*/
     }
+    
+    /**
+     * browsers: Get Google Analitycs Browser Statistics
+     *
+     * @access public
+     * @return json
+    **/
+    public function browsers() {
+        parent::index(array(
+            array('value' => 60, 'text' => 'Google Chrome'),
+            array('value' => 30, 'text' => 'Internet Explorer'),
+            array('value' => 10, 'text' => 'Safari'),
+        ));
+    }
 
+    /**
+     * general_stats: Get Google Analitycs General Statistics
+     *
+     * @access public
+     * @return json
+    **/
+    public function general_stats() {
+        parent::index(array(
+            array('value' => 60 , 'text' => 'Sessões'),
+            array('value' => 30 , 'text' => 'Novas Visitas'),
+            array('value' => 43, 'text'  => 'Regressos'),
+        ));
+    }
     /**
      * ga_stats: Get Google Analitycs Statistics
      *

@@ -106,43 +106,43 @@ class HTML_Controller extends GP_Controller {
             array(
                 'title'    => 'Dashboard',
                 'url'      => 'dashboard',
-                'selected' => 'active', 
+                'path'     => 'dashboard',
                 'children' => array(),
             ),
             array(
                 'title'    => 'Gestão de Conteúdos',
                 'url'      => 'categories/contents/index/1',
-                'selected' => '', 
+                'path'     => 'categories/contents/index',
                 'children' => array(),
             ),
             array(
                 'title'    => 'Multimédia',
                 'url'      => 'media',
-                'selected' => '', 
+                'path'     => 'media',
                 'children' => array(),
             ),
             array(
                 'title'    => 'Notificações',
                 'url'      => 'notifications',
-                'selected' => '', 
+                'path'     => 'notifications',
                 'children' => array(),
             ),
             array(
                 'title'    => 'Área Privada',
                 'url'      => '',
-                'selected' => '', 
+                'path'     => 'private-area', 
                 'children' => array(
                     array(
                         'title'    => 'Utilizadores',
-                        'url'      => 'users',
-                        'selected' => '',
+                        'url'      => 'private-area/users',
+                        'path'     => 'private-area/users', 
                         'icon'     => 'user',
                         'children' => array()
                     ),
                     array(
                         'title'    => 'Funções',
-                        'url'      => 'roles',
-                        'selected' => '',
+                        'url'      => 'private-area/roles',
+                        'path'     => 'private-area/roles', 
                         'icon'     => 'puzzle-piece',
                         'children' => array()
                     ),
@@ -151,19 +151,19 @@ class HTML_Controller extends GP_Controller {
             array(
                 'title'    => 'Newsletters',
                 'url'      => '',
-                'selected' => '', 
+                'path'     => 'newsletters',
                 'children' => array(
                     array(
                         'title'    => 'Contatos',
-                        'url'      => 'newsletter_contacts',
-                        'selected' => '',
+                        'url'      => 'newsletters/contacts',
+                        'path'     => 'newsletters/contacts',  
                         'icon'     => 'male',
                         'children' => array()
                     ),
                     array(
                         'title'    => 'Newsletters',
-                        'url'      => 'newsletters',
-                        'selected' => '',
+                        'url'      => 'newsletters/newsletter',
+                        'path'     => 'newsletters/newsletter',  
                         'icon'     => 'envelope',
                         'children' => array()
                     ),
@@ -175,18 +175,18 @@ class HTML_Controller extends GP_Controller {
             array(
                 'title'    => 'Administração',
                 'url'      => '',
-                'selected' => '', 
+                'path'     => 'administration',
                 'children' => array(
-                    array(
+                    /*array(
                         'title'    => 'Acesso',
                         'url'      => '',
-                        'selected' => '',
+                        'path'     => 'administration/access',
                         'icon'     => '',
                         'children' => array(
                             array(
                                 'title'    => 'Administradores',
                                 'url'      => 'administrators',
-                                'selected' => '',
+                                'path'     => 'administration/access/administrators'
                                 'icon'     => '',
                                 'children' => array()       
                             ),
@@ -195,7 +195,6 @@ class HTML_Controller extends GP_Controller {
                     array(
                         'title'    => 'Conteúdos',
                         'url'      => '',
-                        'selected' => '',
                         'icon'     => '',
                         'children' => array(
                             array(
@@ -210,13 +209,11 @@ class HTML_Controller extends GP_Controller {
                     array(
                         'title'    => 'i18N',
                         'url'      => '',
-                        'selected' => '',
                         'icon'     => '',
                         'children' => array(
                             array(
                                 'title'    => 'Línguas',
                                 'url'      => 'i18n/languages',
-                                'selected' => '',
                                 'icon'     => '',
                                 'children' => array()       
                             ),
@@ -225,24 +222,33 @@ class HTML_Controller extends GP_Controller {
                     array(
                         'title'    => 'Definições',
                         'url'      => '',
-                        'selected' => '',
                         'icon'     => '',
                         'children' => array(
                             array(
                                 'title'    => 'Websites',
-                                'url'      => 'settings/website',
-                                'selected' => '',
+                                'url'      => 'settings/websites',
                                 'icon'     => '',
                                 'children' => array()       
                             )
                         ),
-                    ),
+                    ),*/
                 ),
             ),
         );
 
         if ( $this->authentication->is_admin() ) {
             $data = array_merge_recursive($data,$admin_data); 
+        }
+        
+        // TODO: Replace this by recursive function
+        // Add selected attribute for menu entry
+        foreach ( $data as &$entry ) {
+            $entry['selected'] = ( preg_match( '/^(\/)?' . preg_quote( $entry['path'], '/i' ) . '/',  $this->uri->uri_string() ) );
+            if ( !empty( $entry['children'] ) ) {
+                foreach ( $entry['children'] as &$entry2 ) {
+                    $entry2['selected'] = ( preg_match( '/^(\/)?' . preg_quote( $entry2['path'], '/i' ) . '/',  $this->uri->uri_string() ) );
+                }
+            }
         }
 
         return $data;

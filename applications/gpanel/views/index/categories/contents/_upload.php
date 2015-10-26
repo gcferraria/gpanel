@@ -8,8 +8,8 @@
                 <?=$this->load->view('tables/datatable.php')?>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">Fechar</button>
-                <button type="button" class="btn blue" data-jsb-class="App.Modal.Upload.Save">Gravar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-default"><?=$this->lang->line('close')?></button>
+                <button type="button" class="btn blue" data-jsb-class="App.Modal.Upload.Save"><?=$this->lang->line('save')?></button>
             </div>
         </div>
     </div>

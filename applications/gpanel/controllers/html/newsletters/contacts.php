@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Newsletter_Contacts extends HTML_Controller {
+class Contacts extends HTML_Controller {
 
     /**
      * __construct: Newsletter Contacts Class constructor.
@@ -138,5 +138,5 @@ class Newsletter_Contacts extends HTML_Controller {
 
 }
 
-/* End of file newsletter_contacts.php */
-/* Location: ../applications/gpanel/controllers/newsletter_contacts.php */
+/* End of file contacts.php */
+/* Location: ../applications/gpanel/controllers/newsletters/contacts.php */

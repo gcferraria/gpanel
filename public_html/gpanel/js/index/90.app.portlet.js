@@ -11,8 +11,10 @@
                 Collapse.Super.call( this, elem, caller );
 
                 this.bind('click');
+                this.$.tooltip({container: 'body',title: this.$.attr('title')});
             }
-            , 'click': function() {
+            , 'click': function(ev) {
+                ev.preventDefault();
                 this.selected() ? this.deselect() : this.select();
                 return false;
             }
@@ -32,8 +34,10 @@
                 Reload.Super.call( this, elem, caller );
 
                 this.bind('click');
+                this.$.tooltip({container: 'body',title: this.$.attr('title')});
             }
-            , 'click': function() {
+            , 'click': function(ev) {
+                ev.preventDefault();
                 if( this.context.$body['$table'] !== undefined )
                     this.context.$body.$table.reload();
                 else if( this.context.$body['$chart'] !== undefined )
@@ -48,8 +52,10 @@
                 Remove.Super.call( this, elem, caller );
 
                 this.bind('click');
+                this.$.tooltip({container: 'body',title: this.$.attr('title')});
             }
-            , 'click': function() {
+            , 'click': function(ev) {
+                ev.preventDefault();
                 this.root.dettach( this.context );
                 return false;
             }

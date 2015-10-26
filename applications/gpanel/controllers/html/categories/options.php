@@ -28,7 +28,7 @@ class Options extends Categories {
 
         // Add Default Breadcrumb.
         $this->breadcrumb->add( array(
-                'text' => $this->lang->line('category_option_breadcrumb'),
+                'text' => sprintf( $this->lang->line('category_option_breadcrumb'), $this->category->name ),
                 'href' => 'categories/options/index/' . $this->category->id,
             )
         );
@@ -61,7 +61,7 @@ class Options extends Categories {
         );
 
         $this->add_data( array(
-                'title'   => $this->lang->line('category_option_title'),
+                'title'   => sprintf( $this->lang->line('category_option_breadcrumb'), $this->category->name ),
                 'actions' => array(
                     'Adicionar' => 'categories/options/add/' . $this->category->id,
                 ),
