@@ -9,16 +9,14 @@ class Roles extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
-
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        parent::__construct();
 
         // Add Roles Breadcrumb.
         $this->breadcrumb->add( array(
-                    'text' => $this->lang->line('role_breadcrumb'),
-                    'href' => 'roles',
-                )
-            );
+                'text' => $this->lang->line('role_breadcrumb'),
+                'href' => 'private-area/roles',
+            )
+        );
     }
 
     /**
@@ -30,22 +28,22 @@ class Roles extends HTML_Controller {
     public function index() {
 
         $data = (object) array(
-                'source' => 'roles.json',
-                'header' => array(
-                    $this->lang->line('role_name'),
-                    $this->lang->line('role_creation_date'),
-                    $this->lang->line('role_status'),
-                ),
-            );
+            'source' => 'private-area/roles.json',
+            'header' => array(
+                $this->lang->line('role_name'),
+                $this->lang->line('role_creation_date'),
+                $this->lang->line('role_status'),
+            ),
+        );
 
         $this->add_data( array(
-                    'title'   => $this->lang->line('role_title'),
-                    'table'   => $data,
-                    'actions' => array(
-                        'Adicionar' => 'roles/add',
-                    )
+                'title'   => $this->lang->line('role_title'),
+                'table'   => $data,
+                'actions' => array(
+                    $this->lang->line('add') => 'private-area/roles/add',
                 )
-            );
+            )
+        );
 
         parent::index();
     }
@@ -60,10 +58,10 @@ class Roles extends HTML_Controller {
 
         // Add Breadcumbs to Add Role.
         $this->breadcrumb->add( array(
-                    'text' => $this->lang->line('role_breadcrumb_add'),
-                    'href' => uri_string()
-                )
-            );
+                'text' => $this->lang->line('role_breadcrumb_add'),
+                'href' => uri_string()
+            )
+        );
 
         // Inicialize Role Object and Form Object.
         $role_form = new Form();
@@ -71,16 +69,16 @@ class Roles extends HTML_Controller {
 
         // Build Role Form.
         $role_form
-            ->builder( 'post', '/roles/add.json' )
-            ->add_fields( $this->_fields( $role ) );
+        ->builder( 'post', '/private-area/roles/add.json' )
+        ->add_fields( $this->_fields( $role ) );
 
         $this->add_data( array(
-                    'title' => $this->lang->line('role_title_add'),
-                    'role' => (object) array(
-                        'form' => $role_form->render_form(),
-                    ),
-                )
-            );
+                'title' => $this->lang->line('role_title_add'),
+                'role' => (object) array(
+                    'form' => $role_form->render_form(),
+                ),
+            )
+        );
 
         parent::index();
     }
@@ -89,42 +87,43 @@ class Roles extends HTML_Controller {
      * edit: Find Role to edit, and build Role Form.
      *
      * @access public
+     * @param  string $id, Role Identifier
      * @return void
     **/
-    public function edit() {
+    public function edit( $id ) {
 
         // Find Role to Edit.
         $role = new Role();
-        $role->get_by_id( $this->uri->segment(3) );
+        $role->get_by_id( $id );
 
         if ( ! $role->exists() )
             return;
 
         // Add Breadcrumb to edit Role.
         $this->breadcrumb->add( array(
-                    'text' => sprintf(
-                        $this->lang->line('role_breadcrumb_edit'),
-                        $role->name
-                    ),
-                    'href' => uri_string(),
-                )
-            );
+                'text' => sprintf(
+                    $this->lang->line('role_breadcrumb_edit'),
+                    $role->name
+                ),
+                'href' => uri_string(),
+            )
+        );
 
         // Inicialize Role Form Object.
         $role_form = new Form();
 
         // Build Role Form.
         $role_form
-            ->builder('post', '/roles/edit/' . $role->id . '.json')
-            ->add_fields( $this->_fields( $role ), $role );
+        ->builder('post', '/private-area/roles/edit/' . $role->id . '.json')
+        ->add_fields( $this->_fields( $role ), $role );
 
         $this->add_data( array(
-                    'title' => $this->lang->line('role_title_edit'),
-                    'role'  => (object) array(
-                        'form' => $role_form->render_form()
-                    ),
-                )
-            );
+                'title' => $this->lang->line('role_title_edit'),
+                'role'  => (object) array(
+                    'form' => $role_form->render_form()
+                ),
+            )
+        );
 
         parent::index();
     }
@@ -158,4 +157,4 @@ class Roles extends HTML_Controller {
 }
 
 /* End of file roles.php */
-/* Location: ../applications/gpanel/controllers/private-area/roles.php */
+/* Location: ../applications/gpanel/controllers/html/private-area/roles.php */

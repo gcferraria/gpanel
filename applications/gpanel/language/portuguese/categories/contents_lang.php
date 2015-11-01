@@ -21,11 +21,6 @@ $lang = array (
     'content_content_type_help'            => 'Seleccione o Tipo de Conte&uacute;do que pretende inserir.',
     'content_content_type_success_message' => 'A Redireccionar ...',
     'content_categories_placeholder'       => 'Introduza o nome da Categoria',
-    'content_insert_success_message'       => 'O Conte&uacute;do foi inserido com sucesso.',
-    'content_insert_error_message'         => 'N&atilde;o foi poss&iacute;vel inserir o Conte&uacute;do.',
-    'content_update_success_message'       => 'O Conte&uacute;do foi alterado com sucesso.',
-    'content_update_error_message'         => 'N&atilde;o foi poss&iacute;vel alterar o Conte&uacute;do.',
-    'content_delete_error_message'         => 'N&atilde;o foi poss&iacute;vel apagar o Conte&uacute;do.',
 
 );
 

@@ -26,8 +26,6 @@ class Contents extends Categories {
     public function __construct() {
         parent::__construct();
 
-        // Load Language File.
-        $this->lang->load('categories/contents');
         $this->config->load('i18n');
 
         if (
@@ -346,4 +344,4 @@ class Contents extends Categories {
 }
 
 /* End of file contents.php */
-/* Location: ../applications/gpanel/controllers/categories/contents.php */
+/* Location: ../applications/gpanel/controllers/html/categories/contents.php */

@@ -16,7 +16,7 @@ $lang = array (
     'dashboard_box_visits_visits'            => 'Visitas',
     'dashboard_box_visits_unique_page_views' => 'Visualizações de Página Únicas',
     'dashboard_box_visits_page_views' 	     => 'Visualizações de Página',
-    'dashboard_box_general_stats_title'      => 'Estatísticas Gerais',
+    'dashboard_box_general_stats_title'      => 'Estatísticas',
     'dashboard_box_browsers_title'           => 'Browsers',
 );
 

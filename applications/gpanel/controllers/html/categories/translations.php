@@ -191,4 +191,4 @@ class Translations extends Categories {
 }
 
 /* End of file  translations.php */
-/* Location: ../applications/gpanel/controllers/categories/translations.php */
+/* Location: ../applications/gpanel/controllers/html/categories/translations.php */

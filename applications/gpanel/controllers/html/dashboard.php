@@ -11,9 +11,6 @@ class Dashboard extends HTML_Controller {
     public function __construct() {
         parent::__construct();
 
-        // Load Language File.
-        $this->load->language('dashboard');
-
         // Add Dashboard Title.
         $this->add_data( array(
                 'title'       => $this->lang->line('dashboard_title'),
@@ -125,8 +122,6 @@ class Dashboard extends HTML_Controller {
      */
     private function _get_last_sessions() {
         $sessions = new Administrator_Session();
-
-        // Get the Last 10 Administrator Sessions.
         $sessions
             ->order_by( 'creation_date DESC' )
             ->limit(10);
@@ -148,4 +143,4 @@ class Dashboard extends HTML_Controller {
 }
 
 /* End of file dashboard.php */
-/* Location: ../applications/gpanel/controllers/dashboard.php */
+/* Location: ../applications/gpanel/controllers/html/dashboard.php */

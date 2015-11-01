@@ -60,8 +60,7 @@ class Options extends JSON_Controller {
                 "DT_RowId" => $option->id,
                 0 => $option->name,
                 1 => $option->value,
-                2 => '<a href="'.site_url('categories/options/edit/'. $category->id . '/' . $option->id ).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="#" class="btn btn-xs red-sunglo" data-text="Tem a certeza que pretende apagar o registo?" data-url="'.base_url('/categories/options/delete/' . $option->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> Apagar</a>',
+                2 => '<a href="'.site_url('categories/options/edit/'. $category->id . '/' . $option->id ).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' . $this->lang->line('edit') . '</a> <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('/categories/options/delete/' . $option->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') . '</a>',
             );
         }
 
@@ -103,14 +102,14 @@ class Options extends JSON_Controller {
 
             $data = array(
                 'reset'        => 1,
-                'notification' => array('success', $this->lang->line('category_option_insert_success_message') ),
+                'notification' => array('success', $this->lang->line('save_success_message') ),
             );
         }
         else {
 
             $data = array(
                 'show_errors'  => $option->errors->all,
-                'notification' => array('error', $this->lang->line('category_option_insert_error_message') ),
+                'notification' => array('error', $this->lang->line('save_error_message') ),
             );
         }
 
@@ -142,14 +141,14 @@ class Options extends JSON_Controller {
 
             $data = array(
                 'show_errors'  => array(),
-                'notification' => array('success', $this->lang->line('category_option_update_success_message') ),
+                'notification' => array('success', $this->lang->line('save_success_message') ),
             );
         }
         else {
 
             $data = array(
                 'show_errors'  => $option->errors->all,
-                'notification' => array('error', $this->lang->line('category_option_update_error_message') ),
+                'notification' => array('error', $this->lang->line('save_error_message') ),
             );
         }
 
@@ -182,7 +181,7 @@ class Options extends JSON_Controller {
             return parent::index(
                 array(
                     'result'  => 1,
-                    'message' => 'A Opção de Categoria foi apagada com sucesso.',
+                    'message' => $this->lang->line('delete_success_message'),
                 )
             );
         }
@@ -190,7 +189,7 @@ class Options extends JSON_Controller {
             return parent::index(
                 array(
                     'result'  => 0,
-                    'message' => $this->lang->line('category_option_delete_error_message'),
+                    'message' => $this->lang->line('delete_error_message'),
                 )
             );
         }

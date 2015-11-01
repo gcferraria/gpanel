@@ -20,9 +20,6 @@ class Categories extends HTML_Controller {
         // Initialize Category Object.
         $this->category = new Category();
 
-        // Load Language Category
-        $this->lang->load('categories');
-        
         // Get Category id based on action.
         $id = is_numeric( $this->uri->segment(3) )
             ? (int) $this->uri->segment(3)
@@ -84,7 +81,7 @@ class Categories extends HTML_Controller {
 
         $this->add_data( array(
                 'title' => $this->lang->line('category_title_add'),
-                'form' => $form->render_form()
+                'form'  => $form->render_form()
             )
         );
 
@@ -234,7 +231,7 @@ class Categories extends HTML_Controller {
             ->order_by('name asc');
 
         // Load available content types.
-        $content_types = array( 'Seleccione as opções...' => '' );
+        $content_types = array( $this->lang->line('select_options') => '' );
         foreach ( $content_type->get() as $object )
             $content_types[ $object->name ] = $object->id;
 
@@ -263,4 +260,4 @@ class Categories extends HTML_Controller {
 }
 
 /* End of file categories.php */
-/* Location: ../applications/gpanel/controllers/categories.php */
+/* Location: ../applications/gpanel/controllers/html/categories.php */

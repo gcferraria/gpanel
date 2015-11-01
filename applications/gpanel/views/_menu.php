@@ -15,17 +15,18 @@
 
             <ul class="dropdown-menu pull-left">
                 <?php foreach ( $l1['children'] as $l2 ) : ?>
-                <li class="<?=( !empty( $l2['children'] ) ? 'dropdown-submenu' : '' )?><?=$l2['selected']?>">
+                <li class="<?=( !empty( $l2['children'] ) ? 'dropdown-submenu' : '' )?>">
                     
                     <?php if ( empty( $l2['children'] ) ) : ?>
 
                     <a href="<?=site_url($l2['url'])?>" title="<?=$l2['title']?>">
                         <?php if ( isset( $l2['icon'] ) && !empty( $l2['icon'] ) ) : ?>
                             <i class="fa fa-<?=$l2['icon']?>"></i>
-                        <?php else: ?>
-                            <i class="fa fa-angle-right"></i>
                         <?php endif ?>
                         <?=$l2['title']?>
+                        <?php if ( !isset( $l2['icon'] ) or empty( $l2['icon'] ) ) : ?>
+                            <i class="fa fa-link pull-right"></i>
+                        <?php endif ?>
                     </a>
 
                     <?php else : ?>
@@ -33,8 +34,6 @@
                     <a href="javascript:;">
                         <?php if ( isset( $l2['icon'] ) && !empty( $l2['icon'] ) ) : ?>
                             <i class="fa fa-<?=$l2['icon']?>"></i>
-                        <?php else: ?>
-                            <i class="fa fa-angle-right"></i>
                         <?php endif ?>
                         <?=$l2['title']?>
                     </a>

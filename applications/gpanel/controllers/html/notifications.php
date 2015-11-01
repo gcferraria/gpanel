@@ -9,16 +9,14 @@ class Notifications extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
-
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        parent::__construct();
 
         // Add Breadcrumb for Notifications.
         $this->breadcrumb->add( array(
-                    'text' => $this->lang->line('notification_title'),
-                    'href' => 'notifications',
-                )
-            );
+                'text' => $this->lang->line('notification_title'),
+                'href' => 'notifications',
+            )
+        );
     }
 
     /**
@@ -30,21 +28,21 @@ class Notifications extends HTML_Controller {
     public function index() {
 
         $data = (object) array(
-                'source' => 'notifications.json',
-                'header' => array(
-                    $this->lang->line('notification_name'),
-                    $this->lang->line('notification_source'),
-                    $this->lang->line('notification_subject'),
-                    $this->lang->line('notification_creation_date'),
-                    $this->lang->line('notification_status'),
-                ),
-            );
+            'source' => 'notifications.json',
+            'header' => array(
+                $this->lang->line('notification_name'),
+                $this->lang->line('notification_source'),
+                $this->lang->line('notification_subject'),
+                $this->lang->line('notification_creation_date'),
+                $this->lang->line('notification_status'),
+            ),
+        );
 
         $this->add_data( array(
-                    'title' => $this->lang->line('notification_title'),
-                    'table' => $data,
-                )
-            );
+                'title' => $this->lang->line('notification_title'),
+                'table' => $data,
+            )
+        );
 
         parent::index();
     }
@@ -67,10 +65,10 @@ class Notifications extends HTML_Controller {
 
         // Add Breadcrumb to open Notification.
         $this->breadcrumb->add( array(
-                    'text' => $notification->subject,
-                    'href' => uri_string(),
-                )
-            );
+                'text' => $notification->subject,
+                'href' => uri_string(),
+            )
+        );
 
         // Mark Notification as read;
         $notification->status = 1;
@@ -93,4 +91,4 @@ class Notifications extends HTML_Controller {
 }
 
 /* End of file notifications.php */
-/* Location: ../applications/gpanel/controllers/notifications.php */
+/* Location: ../applications/gpanel/controllers/html/notifications.php */

@@ -3,16 +3,6 @@
 class Notifications extends JSON_Controller {
 
     /**
-     * __construct: Ajax Notifications Class constructor.
-     *
-     * @access public
-     * @return void
-    **/
-    public function __construct() {
-        parent::__construct( 'restrict' );
-    }
-
-    /**
      * index: Get Notifications.
      *
      * @access public
@@ -60,7 +50,8 @@ class Notifications extends JSON_Controller {
         foreach ( $notifications as $notification ) {
             $attach = '';
             if ( $notification->attach ) {
-                $attach = '<a href="' . $this->config->item('static_url') . 'docs/'. $notification->attach . '" target="_blank" class="btn default btn-xs black"><i class="fa fa fa-file-pdf-o"></i></a> '; 
+                $file   = explode( '/', $notification->attach);
+                $attach = '<a href="' . $this->config->item('download_url') . end( $file ) . '" title="'.$this->lang->line('download').'" target="_blank" class="btn default btn-xs black"><i class="fa fa fa-file-pdf-o"></i></a> '; 
             }
 
             $data[] = array(
@@ -70,10 +61,10 @@ class Notifications extends JSON_Controller {
                 2 => word_limiter( $notification->subject, 10 ),
                 3 => $notification->creation_date,
                 4 => ( $notification->status == 1 )
-                        ? '<span class="label label-success">Lido</span>'
-                        : '<span class="label label-warning">Pendente</span>',
-                5 => $attach . '<a href="'.site_url('notifications/open/'. $notification->id).'" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> Abrir</a>
-                      <a href="#" class="btn btn-xs red-sunglo" data-text="Tem a certeza que pretende apagar o registo?" data-url="'.base_url('notifications/delete/' . $notification->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> Apagar</a>',
+                        ? '<span class="label label-sm label-success">' . $this->lang->line('read')   . '</span>'
+                        : '<span class="label label-sm label-warning">' . $this->lang->line('pendent'). '</span>',
+                5 => $attach . '<a href="' . site_url('notifications/open/'. $notification->id) . '" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' . $this->lang->line('open') . '</a>
+                      <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('notifications/delete/' . $notification->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') . '</a>',
             );
         }
 
@@ -109,7 +100,7 @@ class Notifications extends JSON_Controller {
             return parent::index(
                 array(
                     'result'  => 1,
-                    'message' => 'A notificação foi apagada com sucesso.',
+                    'message' => $this->lang->line('delete_success_message')
                 )
             );
         }
@@ -117,7 +108,7 @@ class Notifications extends JSON_Controller {
             return parent::index(
                 array(
                     'result'  => 0,
-                    'message' => 'Não foi possível apagar a notificação. Contacte o Administrador do Sistema.',
+                    'message' => $this->lang->line('delete_error_message'),
                 )
             );
         }

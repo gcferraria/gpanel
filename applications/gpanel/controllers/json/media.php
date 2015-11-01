@@ -3,16 +3,6 @@
 class Media extends GP_Controller {
 
     /**
-     * __construct: Ajax Media Class constructor.
-     *
-     * @access public
-     * @return void
-    **/
-    public function __construct() {
-        parent::__construct( 'restrict' );
-    }
-
-    /**
      * index: Get Media Files.
      *
      * @access public
@@ -92,8 +82,8 @@ class Media extends GP_Controller {
                 4 => $file->extension,
                 5 => byte_format( $file->filesize * 1000 ),
                 6 => $file->creation_date,
-                7 => '<a href="'.$static_url . $file->filename.'" '.$target.' data-jsb-class="App.Fancybox" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> Abrir</a>
-                      <a href="#" class="btn btn-xs red-sunglo" data-text="Tem a certeza que pretende apagar o registo?" data-url="'.base_url('media/delete/' . $file->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> Apagar</a>',
+                7 => '<a href="'.$static_url . $file->filename.'" '.$target.' data-jsb-class="App.Fancybox" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' . $this->lang->line('open') . '</a>
+                      <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('media/delete/' . $file->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') . '</a>',
             );
         }
 
@@ -303,13 +293,13 @@ class Media extends GP_Controller {
 
             $data =  array(
                 'result'  => 1,
-                'message' => $this->lang->line('file_delete_success_message'),
+                'message' => $this->lang->line('delete_success_message'),
             );
         }
         else {
             $data = array(
                 'result'  => 0,
-                'message' => $this->lang->line('file_delete_error_message'),
+                'message' => $this->lang->line('delete_error_message'),
             );
         }
 

@@ -63,7 +63,7 @@ class Options extends Categories {
         $this->add_data( array(
                 'title'   => sprintf( $this->lang->line('category_option_breadcrumb'), $this->category->name ),
                 'actions' => array(
-                    'Adicionar' => 'categories/options/add/' . $this->category->id,
+                    $this->lang->line('add') => 'categories/options/add/' . $this->category->id,
                 ),
                 'options' => (object) array(
                     'own_options'       => $this->lang->line('own_options'),
@@ -215,4 +215,4 @@ class Options extends Categories {
 }
 
 /* End of file options.php */
-/* Location: ../applications/gpanel/controllers/categories/options.php */
+/* Location: ../applications/gpanel/controllers/html/categories/options.php */

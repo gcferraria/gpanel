@@ -11,9 +11,6 @@ class Media extends HTML_Controller {
     public function __construct() {
         parent::__construct();
 
-        // Load language file.
-        $this->load->language('media');
-
         // Add Media Breadcrumb.
         $this->breadcrumb->add( array(
                     'text' => $this->lang->line('media_breadcrumb'),
@@ -57,4 +54,4 @@ class Media extends HTML_Controller {
 }
 
 /* End of file media.php */
-/* Location: ../applications/gpanel/controllers/media.php */
+/* Location: ../applications/gpanel/controllers/html/media.php */

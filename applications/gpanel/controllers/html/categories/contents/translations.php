@@ -32,9 +32,6 @@ class Translations extends Categories {
     public function __construct() {
         parent::__construct();
 
-        // Load Language File.
-        $this->lang->load('categories/contents/translations');
-        $this->lang->load('categories/contents');
         $this->config->load('i18n');
 
         // Get Content Object.
@@ -145,4 +142,4 @@ class Translations extends Categories {
 }
 
 /* End of file  translations.php */
-/* Location: ../applications/gpanel/controllers/categories/translations.php */
+/* Location: ../applications/gpanel/controllers/html/categories/contents/translations.php */

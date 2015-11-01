@@ -51,9 +51,19 @@ $autoload['packages'] = array(HOMEPATH . 'applications/common');
 |   $autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session','database','datamapper','authentication',
-        'breadcrumb','form','form_validation','upload','ga_api', 'user_agent', 'email',
-        'form/multistep'
+$autoload['libraries'] = array(
+            'session'
+        ,   'database'
+        ,   'datamapper'
+        ,   'authentication'
+        ,   'breadcrumb'
+        ,   'form'
+        ,   'form_validation'
+        ,   'upload'
+        ,   'ga_api'
+        ,   'user_agent'
+        ,   'email'
+        ,   'form/multistep'
     );
 
 
@@ -98,7 +108,24 @@ $autoload['config'] = array('gpanel');
 |
 */
 
-$autoload['language'] = array('general', 'form_validation');
+$autoload['language'] = array(
+        'general'        
+    ,   'dashboard'      
+    ,   'categories'     
+    ,   'categories/contents'     
+    ,   'categories/contents/translations'
+    ,   'categories/translations'
+    ,   'categories/options'
+    ,   'media'
+    ,   'newsletters/contacts'
+    ,   'newsletters/newsletters'
+    ,   'notifications'
+    ,   'private-area/roles'
+    ,   'private-area/users'
+    ,   'form_validation'
+    ,   'administration/administrators'
+    ,   'administration/content_types'
+);
 
 
 /*

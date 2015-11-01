@@ -9,14 +9,12 @@ class Contacts extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
-
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        parent::__construct();
 
         // Add Breadcrumb for Newsletter Contacts.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('newsletter_contact_title'),
-                'href' => 'newsletter_contacts',
+                'href' => 'newsletters/contacts',
             )
         );
     }
@@ -30,7 +28,7 @@ class Contacts extends HTML_Controller {
     public function index() {
 
         $data = (object) array(
-            'source' => 'newsletter_contacts.json',
+            'source' => 'newsletters/contacts.json',
             'header' => array(
                 $this->lang->line('newsletter_contact_email'),
                 $this->lang->line('newsletter_contact_name'),
@@ -80,14 +78,15 @@ class Contacts extends HTML_Controller {
 
         // Build Newsletter Contact Form.
         $newsletter_contact_form
-            ->builder('post', '/newsletter_contacts/edit/' . $newsletter_contact->id . '.json')
-            ->add_fields(
-                $this->_fields( $newsletter_contact ),
-                $newsletter_contact
-            );
+        ->builder('post', '/newsletters/contacts/edit/' . $newsletter_contact->id . '.json')
+        ->add_fields(
+            $this->_fields( $newsletter_contact ),
+            $newsletter_contact
+        );
 
-            $this->add_data( array(
-                'title' => sprintf(
+        $this->add_data( array(
+                'title' => 
+                sprintf(
                     $this->lang->line('newsletter_contact_title_edit'),
                     $newsletter_contact->email
                 ),
@@ -139,4 +138,4 @@ class Contacts extends HTML_Controller {
 }
 
 /* End of file contacts.php */
-/* Location: ../applications/gpanel/controllers/newsletters/contacts.php */
+/* Location: ../applications/gpanel/controllers/html/newsletters/contacts.php */

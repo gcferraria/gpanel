@@ -16,12 +16,12 @@
         <?php else: ?>
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Vistas de Categoria</h3>
+                    <h3 class="panel-title"><?=$this->lang->line('category_views')?></h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
                     <?php foreach ( $views as $view ) : ?>
-                    <?php $url = site_url( 'categories/contents/' . $view->id ); ?>
+                    <?php $url = site_url( 'categories/contents/index/' . $view->id ); ?>
                         <li class="list-group-item">
                             <a href="<?=$url?>">
                                 <?=$view->name?>

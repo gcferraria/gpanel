@@ -11,9 +11,6 @@ class Categories extends JSON_Controller {
     **/
     public function index( $id ) {
         parent::index( $this->_category_data( $id ) );
-        
-        // Load language categories.
-        $this->load->language('categories');
     }
 
     /**
@@ -125,7 +122,7 @@ class Categories extends JSON_Controller {
                 $data = array(
                     'reset'         => 1,
                     '$notification' => array(
-                        'value' => $this->lang->line('category_insert_success_message'),
+                        'value' => $this->lang->line('save_success_message'),
                         'show'  => 'success',
                     ),
                     'root.$categories.$body.reload' => 1
@@ -137,7 +134,7 @@ class Categories extends JSON_Controller {
             $data = array(
                 'show_errors' => $category->errors->all,
                 '$notification' => array(
-                    'value' => $this->lang->line('category_insert_error_message'),
+                    'value' => $this->lang->line('save_error_message'),
                     'show'  => 'error'
                 ),
             );
@@ -214,7 +211,7 @@ class Categories extends JSON_Controller {
 
                 $data = array(
                     'show_errors'  => array(),
-                    'notification' => array('success', $this->lang->line('category_update_success_message') ),
+                    'notification' => array('success', $this->lang->line('save_success_message') ),
                     'root.$categories.$body.reload' => 1
                 );
             }
@@ -222,7 +219,7 @@ class Categories extends JSON_Controller {
         else {
             $data = array(
                     'show_errors'  => $category->errors->all,
-                    'notification' => array('error',$this->lang->line('category_update_error_message') ),
+                    'notification' => array('error',$this->lang->line('save_error_message') ),
                 );
         }
 
@@ -267,7 +264,7 @@ class Categories extends JSON_Controller {
 
                 $data = array(
                     'reset'        => 1,
-                    'notification' => array('success', $this->lang->line('category_delete_success_message') ),
+                    'notification' => array('success', $this->lang->line('delete_success_message') ),
                     'redirect'     => array(
                         'url'      => site_url("/categories/contents/index/$parent_id"),
                         'duration' => 1000,
@@ -278,7 +275,7 @@ class Categories extends JSON_Controller {
         else {
             $data = array(
                 'show_errors'  => $category->errors->all,
-                'notification' => array('error', $this->lang->line('category_delete_error_message') ),
+                'notification' => array('error', $this->lang->line('delete_error_message') ),
             );
         }
 

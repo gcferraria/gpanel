@@ -3,20 +3,6 @@
 class Contents extends JSON_Controller {
 
     /**
-     * __construct: Class contruct.
-     *              Load Language File.
-     *
-     * @access public
-     * @return void
-    **/
-    public function __construct() {
-        parent::__construct();
-
-        // Load Language File.
-        $this->lang->load('categories/contents');
-    }
-
-    /**
      * index: Get Contents.
      *
      * @access public
@@ -73,13 +59,13 @@ class Contents extends JSON_Controller {
 
             switch( $content->status() ) {
                 case -1:
-                    $status = '<span class="label label-danger">'.$this->lang->line('inactive').'</span>';
+                    $status = '<span class="label label-sm label-danger">'.$this->lang->line('inactive').'</span>';
                     break;
                 case 0:
-                    $status = '<span class="label label-warning">'.$this->lang->line('hold').'</span>';
+                    $status = '<span class="label label-sm label-warning">'.$this->lang->line('hold').'</span>';
                     break;
                 case 1:
-                    $status = '<span class="label label-success">'.$this->lang->line('active').'</span>';
+                    $status = '<span class="label label-sm label-success">'.$this->lang->line('active').'</span>';
                     break;
             }
 
@@ -90,7 +76,7 @@ class Contents extends JSON_Controller {
                 2 => $content->publish_date,
                 3 => $content->weight,
                 4 => $status,
-                5 => '<a href="'.site_url('categories/contents/edit/' . $id . '/' . $content->id).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> Editar</a>
+                5 => '<a href="'.site_url('categories/contents/edit/' . $id . '/' . $content->id).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' . $this->lang->line('edit') . ' </a>
                       <a href="#" class="btn btn-xs red-sunglo" data-text="'. $this->lang->line('delete_record') .'" data-url="'.base_url('categories/contents/delete/' . $content->id . ".json?category_id=$id" ).'" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> '.$this->lang->line('delete').'</a>',
             );
 
@@ -234,11 +220,11 @@ class Contents extends JSON_Controller {
             ) {
                 $data = array(
                     'reset'        => 1,
-                    'notification' => array('success', $this->lang->line('content_insert_success_message') ),
+                    'notification' => array('success', $this->lang->line('save_success_message') ),
                 );
             }
             else
-                $data = array( 'notification' => array('error', $this->lang->line('content_insert_error_message') ) );
+                $data = array( 'notification' => array('error', $this->lang->line('save_error_message') ) );
         }
         else {
 
@@ -251,7 +237,7 @@ class Contents extends JSON_Controller {
 
             $data = array(
                 'show_errors'  => $content->errors->all + $errors,
-                'notification' => array('error', $this->lang->line('content_insert_error_message') ),
+                'notification' => array('error', $this->lang->line('save_error_message') ),
             );
         }
 
@@ -259,7 +245,7 @@ class Contents extends JSON_Controller {
     }
 
     /**
-     * edit: Validate and Update an Content.
+     * edit: Validate and Update a Content.
      *
      * @access public
      * @param  int $id, [Required] Content Identifier.
@@ -343,7 +329,7 @@ class Contents extends JSON_Controller {
             ) {
                 $data = array(
                     'show_errors'  => array(),
-                    'notification' => array('success',$this->lang->line('content_update_success_message') ),
+                    'notification' => array('success',$this->lang->line('save_success_message') ),
                 );
             }
         }
@@ -357,7 +343,7 @@ class Contents extends JSON_Controller {
 
             $data = array(
                 'show_errors'  => $content->errors->all + $errors,
-                'notification' => array('error',$this->lang->line('content_type_update_error_message') ),
+                'notification' => array('error',$this->lang->line('save_error_message') ),
             );
         }
 
@@ -365,10 +351,10 @@ class Contents extends JSON_Controller {
     }
 
     /**
-     * delete: Delete Content Type Field.
+     * delete: Delete a Content
      *
      * @access public
-     * @param  int $id, Content Type Field id
+     * @param  int $id, Content id
      * @return json
     **/
     public function delete( $id ) {
@@ -383,14 +369,14 @@ class Contents extends JSON_Controller {
         $content->get_by_id( $id );
 
         /*
-          If Content Type Field has been deleted successfully updates the list,
+          If Content has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
         if ( $content->delete( array( 'category' => $category_id ) ) ) {
             return parent::index(
                 array(
                     'result'  => 1,
-                    'message' => 'O Conteúdo foi apagado com sucesso.',
+                    'message' => $this->lang->line('delete_success_message'),
                 )
             );
         }
@@ -398,7 +384,7 @@ class Contents extends JSON_Controller {
             return parent::index(
                 array(
                     'result'  => 0,
-                    'message' => $this->lang->line('content_delete_error_message'),
+                    'message' => $this->lang->line('delete_error_message'),
                 )
             );
         }

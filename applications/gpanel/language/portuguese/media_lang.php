@@ -15,10 +15,6 @@ $lang = array (
     'file_extension'              => 'Extensão',
     'file_filesize'               => 'Tamanho',
     'file_creation_date'          => 'Criado em',
-    'file_insert_success_message' => 'Ficheiro inserido com sucesso.',
-    'file_insert_error_message'   => 'N&atilde;o foi poss&iacute;vel inserir o Ficheiro.',
-    'file_delete_success_message' => 'O ficheiro foi apagado com sucesso.',
-    'file_delete_error_message'   => 'N&atilde;o foi poss&iacute;vel apagar o Ficheiro. Tente novamente.',
 );
 
 /* End of file media_lang.php */

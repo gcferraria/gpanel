@@ -9,24 +9,10 @@
  * @category   Categories
  * @author     Gonçalo Ferraria <gferraria@gmail.com>
  * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 translations.php 2014-12-25 gferraria $
+ * @version    1.1 translations.php 2015-11-01 gferraria $
  */
 
 class Translations extends JSON_Controller {
-
-    /**
-     * __construct: Class contruct.
-     *              Load Language File.
-     *
-     * @access public
-     * @return void
-    **/
-    public function __construct() {
-        parent::__construct();
-
-        // Load Language File.
-        $this->lang->load('categories/translations');
-    }
 
     /**
      * index: Get Category Translations data.
@@ -90,8 +76,8 @@ class Translations extends JSON_Controller {
                 0 => $translation->value,
                 1 => $language->name,
                 2 => $translation->creation_date,
-                3 => '<a href="'.site_url('categories/translations/edit/'. $category->id  . '/' . $language->id ).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="#" class="btn btn-xs red-sunglo" data-text="Tem a certeza que pretende apagar o registo?" data-url="'.base_url('categories/translations/delete/' . $language->id ).'.json?category_id=' . $category->id . '" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> Apagar</a>',
+                3 => '<a href="'.site_url('categories/translations/edit/'. $category->id  . '/' . $language->id ).'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' . $this->lang->line('edit') . '</a>
+                      <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('categories/translations/delete/' . $language->id ).'.json?category_id=' . $category->id . '" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') .'</a>',
             );
         }
 

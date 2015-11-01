@@ -9,16 +9,14 @@ class Users extends HTML_Controller {
      * @return void
     **/
     public function __construct() {
-
-        // Call parent constructor.
-        parent::__construct( 'restrict' );
+        parent::__construct();
 
         // Add Users Breadcrumb.
         $this->breadcrumb->add( array(
-                    'text' => $this->lang->line('user_breadcrumb'),
-                    'href' => 'users',
-                )
-            );
+                'text' => $this->lang->line('user_breadcrumb'),
+                'href' => 'private-area/users',
+            )
+        );
     }
 
     /**
@@ -30,23 +28,23 @@ class Users extends HTML_Controller {
     public function index() {
 
         $data = (object) array(
-                'source' => 'users.json',
-                'header' => array(
-                    $this->lang->line('user_name'),
-                    $this->lang->line('user_email'),
-                    $this->lang->line('user_creation_date'),
-                    $this->lang->line('user_status'),
-                ),
-            );
+            'source' => 'private-area/users.json',
+            'header' => array(
+                $this->lang->line('user_name'),
+                $this->lang->line('user_email'),
+                $this->lang->line('user_creation_date'),
+                $this->lang->line('user_status'),
+            ),
+        );
 
         $this->add_data( array(
-                    'title'   => $this->lang->line('user_title'),
-                    'table'   => $data,
-                    'actions' => array(
-                        'Adicionar' => 'users/add',
-                    )
+                'title'   => $this->lang->line('user_title'),
+                'table'   => $data,
+                'actions' => array(
+                    $this->lang->line('add') => 'private-area/users/add',
                 )
-            );
+            )
+        );
 
         parent::index();
     }
@@ -61,10 +59,10 @@ class Users extends HTML_Controller {
 
         // Add Breadcumbs to Add User.
         $this->breadcrumb->add( array(
-                    'text' => $this->lang->line('user_breadcrumb_add'),
-                    'href' => uri_string()
-                )
-            );
+                'text' => $this->lang->line('user_breadcrumb_add'),
+                'href' => uri_string()
+            )
+        );
 
         // Inicialize User Object and Form Object.
         $user_form = new Form();
@@ -72,16 +70,16 @@ class Users extends HTML_Controller {
 
         // Build User Form.
         $user_form
-            ->builder( 'post', '/users/add.json' )
-            ->add_fields( $this->_fields( $user ) );
+        ->builder( 'post', '/private-area/users/add.json' )
+        ->add_fields( $this->_fields( $user ) );
 
         $this->add_data( array(
-                    'title' => $this->lang->line('user_title_add'),
-                    'user' => (object) array(
-                        'form' => $user_form->render_form(),
-                    ),
-                )
-            );
+                'title' => $this->lang->line('user_title_add'),
+                'user' => (object) array(
+                    'form' => $user_form->render_form(),
+                ),
+            )
+        );
 
         parent::index();
     }
@@ -90,26 +88,27 @@ class Users extends HTML_Controller {
      * edit: Find User to edit, build User form and display User Summary.
      *
      * @access public
+     * @param  string $id, User identifier
      * @return void
     **/
-    public function edit() {
-
+    public function edit( $id ) {
+ 
         // Find User to Edit.
         $user = new User();
-        $user->get_by_id( $this->uri->segment(3) );
+        $user->get_by_id( $id );
 
         if ( ! $user->exists() )
             return;
 
         // Add Breadcrumb to edit User.
         $this->breadcrumb->add( array(
-                    'text' => sprintf(
-                        $this->lang->line('user_breadcrumb_edit'),
-                        $user->name
-                    ),
-                    'href' => uri_string(),
-                )
-            );
+                'text' => sprintf(
+                    $this->lang->line('user_breadcrumb_edit'),
+                    $user->name
+                ),
+                'href' => uri_string(),
+            )
+        );
 
         // Inicialize Form Objects.
         $personal_form    = new Form();
@@ -126,18 +125,18 @@ class Users extends HTML_Controller {
 
         // Build User Data Form.
         $personal_form
-            ->builder('post','/users/edit/' . $user->id . '.json', array('data-jsb-name' => 'userdata'))
-            ->add_fields(
-                $this->_user_data_fields( $user ),
-                $user
-            );
+        ->builder('post','/private-area/users/edit/' . $user->id . '.json', array('data-jsb-name' => 'userdata'))
+        ->add_fields(
+            $this->_user_data_fields( $user ),
+            $user
+        );
 
         // Build Change Password Form.
         $change_pass_form
-            ->builder('post','/users/change_password/' . $user->id . '.json', array('data-jsb-name' => 'password'))
-            ->add_fields(
-                $this->_change_password_fields( $user )
-            );
+        ->builder('post','/private-area/users/change_password/' . $user->id . '.json', array('data-jsb-name' => 'password'))
+        ->add_fields(
+            $this->_change_password_fields( $user )
+        );
 
         $data = (object) array(
             'object'               => $user,
@@ -148,6 +147,7 @@ class Users extends HTML_Controller {
         );
 
         $this->add_data( array( 'user' => $data ) );
+        
 
         parent::index();
     }
@@ -224,15 +224,14 @@ class Users extends HTML_Controller {
             $data[ $field ] = $fields[ $field ];
         }
 
-        // Initialize Rolee Object.
+        // Initialize Role Object.
         $role = new Role();
 
         // Get Active Roles.
         $role->where( 'active_flag', 1 )
              ->order_by('name asc');
 
-        // Load available content types.
-        $roles = array( 'Seleccione as opções...' => '' );
+        $roles = array( $this->lang->line('select_options') => '' );
         foreach ( $role->get() as $object )
             $roles[ $object->name ] = $object->id;
 
@@ -281,13 +280,13 @@ class Users extends HTML_Controller {
         $attrs = array(
             'password' => array(
                 'attrs' => array(
-                    'placeholder' => 'Nova Password',
+                    'placeholder' => $this->lang->line('new_password'),
                 ),
                 'help' => $this->lang->line('form_field_no_spaces')
             ),
             'confirm_password' => array(
                 'attrs' => array(
-                    'placeholder' => 'Confirmação de Password',
+                    'placeholder' => $this->lang->line('password_confirm'),
                 ),
                 'help' => $this->lang->line('form_field_no_spaces')
             ),
@@ -299,4 +298,4 @@ class Users extends HTML_Controller {
 }
 
 /* End of file users.php */
-/* Location: ../applications/gpanel/controllers/private-area/users.php */
+/* Location: ../applications/gpanel/controllers/html/private-area/users.php */

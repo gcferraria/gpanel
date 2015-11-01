@@ -104,68 +104,58 @@ class HTML_Controller extends GP_Controller {
     private function _menu_data() {
         $data = array(
             array(
-                'title'    => 'Dashboard',
+                'title'    => $this->lang->line('menu_dashboard'),
                 'url'      => 'dashboard',
                 'path'     => 'dashboard',
-                'children' => array(),
             ),
             array(
-                'title'    => 'Gestão de Conteúdos',
+                'title'    => $this->lang->line('menu_contents'),
                 'url'      => 'categories/contents/index/1',
-                'path'     => 'categories/contents/index',
-                'children' => array(),
+                'path'     => 'categories/',
             ),
             array(
-                'title'    => 'Multimédia',
+                'title'    => $this->lang->line('menu_media'),
                 'url'      => 'media',
                 'path'     => 'media',
-                'children' => array(),
             ),
             array(
-                'title'    => 'Notificações',
+                'title'    => $this->lang->line('menu_notifications'),
                 'url'      => 'notifications',
                 'path'     => 'notifications',
-                'children' => array(),
             ),
             array(
-                'title'    => 'Área Privada',
-                'url'      => '',
+                'title'    => $this->lang->line('menu_private_area'),
                 'path'     => 'private-area', 
                 'children' => array(
                     array(
-                        'title'    => 'Utilizadores',
+                        'title'    => $this->lang->line('menu_users'),
                         'url'      => 'private-area/users',
                         'path'     => 'private-area/users', 
                         'icon'     => 'user',
-                        'children' => array()
                     ),
                     array(
-                        'title'    => 'Funções',
+                        'title'    => $this->lang->line('menu_roles'),
                         'url'      => 'private-area/roles',
                         'path'     => 'private-area/roles', 
                         'icon'     => 'puzzle-piece',
-                        'children' => array()
                     ),
                 ),
             ),
             array(
-                'title'    => 'Newsletters',
-                'url'      => '',
+                'title'    => $this->lang->line('menu_newsletters'),
                 'path'     => 'newsletters',
                 'children' => array(
                     array(
-                        'title'    => 'Contatos',
+                        'title'    => $this->lang->line('menu_contacts'),
                         'url'      => 'newsletters/contacts',
                         'path'     => 'newsletters/contacts',  
                         'icon'     => 'male',
-                        'children' => array()
                     ),
                     array(
-                        'title'    => 'Newsletters',
+                        'title'    => $this->lang->line('menu_newsletters'),
                         'url'      => 'newsletters/newsletter',
                         'path'     => 'newsletters/newsletter',  
                         'icon'     => 'envelope',
-                        'children' => array()
                     ),
                 ),
             ),
@@ -173,65 +163,48 @@ class HTML_Controller extends GP_Controller {
 
         $admin_data = array(
             array(
-                'title'    => 'Administração',
-                'url'      => '',
+                'title'    => $this->lang->line('menu_administration'),
                 'path'     => 'administration',
                 'children' => array(
-                    /*array(
-                        'title'    => 'Acesso',
-                        'url'      => '',
+                    array(
+                        'title'    => $this->lang->line('menu_access'),
                         'path'     => 'administration/access',
-                        'icon'     => '',
                         'children' => array(
                             array(
-                                'title'    => 'Administradores',
-                                'url'      => 'administrators',
-                                'path'     => 'administration/access/administrators'
-                                'icon'     => '',
+                                'title'    => $this->lang->line('menu_administrators'),
+                                'url'      => 'administration/administrators',
+                                'path'     => 'administration/access/administrators',
+                            ),
+                        ),
+                    ),
+                    array(
+                        'title'    => $this->lang->line('menu_content_types'),
+                        'url'      => 'administration/content_types',
+                        'path'     => 'administration/content_types',
+                    ),
+                    array(
+                        'title'    => $this->lang->line('menu_i18N'),
+                        'path'     => 'administration/i18N',
+                        'children' => array(
+                            array(
+                                'title'    => $this->lang->line('menu_languages'),
+                                'url'      => 'administration/i18n/languages',
+                                'path'     => 'administration/i18N/languages',
                                 'children' => array()       
                             ),
                         ),
                     ),
                     array(
-                        'title'    => 'Conteúdos',
-                        'url'      => '',
-                        'icon'     => '',
+                        'title'    => $this->lang->line('menu_settings'),
+                        'path'     => 'administration/settings',
                         'children' => array(
                             array(
-                                'title'    => 'Tipos de Conteúdos',
-                                'url'      => 'content_types',
-                                'selected' => '',
-                                'icon'     => '',
-                                'children' => array()       
-                            ),
-                        ),
-                    ),
-                    array(
-                        'title'    => 'i18N',
-                        'url'      => '',
-                        'icon'     => '',
-                        'children' => array(
-                            array(
-                                'title'    => 'Línguas',
-                                'url'      => 'i18n/languages',
-                                'icon'     => '',
-                                'children' => array()       
-                            ),
-                        ),
-                    ),
-                    array(
-                        'title'    => 'Definições',
-                        'url'      => '',
-                        'icon'     => '',
-                        'children' => array(
-                            array(
-                                'title'    => 'Websites',
-                                'url'      => 'settings/websites',
-                                'icon'     => '',
-                                'children' => array()       
+                                'title'    => $this->lang->line('menu_websites'),
+                                'url'      => 'administration/settings/websites',
+                                'path'     => 'administration/settings/websites',
                             )
                         ),
-                    ),*/
+                    ),
                 ),
             ),
         );
@@ -240,15 +213,9 @@ class HTML_Controller extends GP_Controller {
             $data = array_merge_recursive($data,$admin_data); 
         }
         
-        // TODO: Replace this by recursive function
         // Add selected attribute for menu entry
         foreach ( $data as &$entry ) {
             $entry['selected'] = ( preg_match( '/^(\/)?' . preg_quote( $entry['path'], '/i' ) . '/',  $this->uri->uri_string() ) );
-            if ( !empty( $entry['children'] ) ) {
-                foreach ( $entry['children'] as &$entry2 ) {
-                    $entry2['selected'] = ( preg_match( '/^(\/)?' . preg_quote( $entry2['path'], '/i' ) . '/',  $this->uri->uri_string() ) );
-                }
-            }
         }
 
         return $data;

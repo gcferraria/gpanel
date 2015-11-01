@@ -64,4 +64,4 @@ class Login extends HTML_Controller {
 }
 
 /* End of file login.php */
-/* Location: ../applications/gpanel/controllers/login.php */
+/* Location: ../applications/gpanel/controllers/html/login.php */
