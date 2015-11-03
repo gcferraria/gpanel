@@ -65,7 +65,7 @@
 				<?=$this->lang->line('dashboard_newsletter_contacts_count')?>
 			</div>
 		</div>
-        <a class="more" href="<?=site_url('newsletter_contacts')?>">
+        <a class="more" href="<?=site_url('newsletters/contacts')?>">
             <?=$this->lang->line('view_more')?><i class="m-icon-swapright m-icon-white"></i>
         </a>
 	</div>

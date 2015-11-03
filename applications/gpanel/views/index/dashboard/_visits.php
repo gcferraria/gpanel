@@ -26,7 +26,7 @@
 					<input type="radio" name="options" class="toggle" id="metric" value="visits"><?=$this->lang->line('dashboard_box_visits_visits')?>
 				</label>
 				<label class="btn grey-steel btn-sm" data-jsb-class="App.Chart.Metric">
-					<input type="radio" name="options" class="toggle" id="metric" value="unique_pageviews"><?=$this->lang->line('dashboard_box_visits_unique_page_views')?> 
+					<input type="radio" name="options" class="toggle" id="metric" value="uniquepageviews"><?=$this->lang->line('dashboard_box_visits_unique_page_views')?> 
 				</label>
 				<label class="btn grey-steel btn-sm" data-jsb-class="App.Chart.Metric">
 					<input type="radio" name="options" class="toggle" id="metric" value="pageviews"><?=$this->lang->line('dashboard_box_visits_page_views')?>

@@ -52,7 +52,7 @@ class Dashboard extends HTML_Controller {
             'stats' => (object)array(
                 'url' => '/dashboard/general_stats.json', 
             ),
-            'domains' => $this->config->item('ga_profiles'),
+            'domains' => $this->ga_api->profiles,
         );
 
         $this->add_data( array( 'dashboard' => $data ) );

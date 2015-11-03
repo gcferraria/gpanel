@@ -2,60 +2,30 @@
 
 /**
  * ------------------------
- * Config: profile_id
+ * Config: application_name
  * ------------------------
  *
- * Google Analytics Profile ID.
+ * Google Analytics Application Name.
  */
- $config['profile_id'] = '';
+ $config['application_name'] = 'jf-castelo';
 
 /**
  * ------------------------
- * Config: email
+ * Config: client_id
  * ------------------------
  *
- * Google Analytics Account Email.
+ * Google Analytics Cliente Email.
  */
- $config['email'] = 'freguesia.castelo@gmail.com';
+ $config['account_email'] = '725859142435-jm9krm1qdhe3d5ba47bce889b6jscl2e@developer.gserviceaccount.com';
 
 /**
  * ------------------------
- * Config: password
+ * Config: client_secret
  * ------------------------
  *
- * Google Analytics Account Password.
+ * Google Analytics Cliente Authentication.
  */
- $config['password'] = 'e23ppb3t';
-
-/**
- * ------------------------
- * Config: cache_data
- * ------------------------
- *
- * Default: false
- * Indicate if request will be cached.
- */
- $config['cache_data'] = false; // request will be cached
-
-/**
- * ------------------------
- * Config: cache_folder
- * ------------------------
- *
- * Default: '/cache'
- * Cache destination folder with permissons read/write.
- */
- $config['cache_folder'] = '';
-
-/**
- * ------------------------
- * Config: clear_cache
- * ------------------------
- *
- * Default: array('date', '1 day ago')
- * Cache expiration time.
- */
- $config['clear_cache'] = array('date', '1 day ago');
+ $config['file_location'] = APPPATH . 'config/' . ENVIRONMENT . '/jf-castelo.p12';
 
 /**
  * ------------------------
@@ -65,7 +35,7 @@
  * Default: false
  * Enable debug.
  */
- $config['debug'] = false;
+ $config['debug'] = FALSE;
 
 /**
  * ------------------------

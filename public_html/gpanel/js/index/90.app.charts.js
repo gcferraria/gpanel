@@ -84,8 +84,39 @@
                             color: '#fff',
                             shadowSize: 0
                         }], that.options); 
+
+                        var previousPoint = null;
+                        that.$.bind("plothover", function (event, pos, item) {
+                            $("#x").text(pos.x.toFixed(2));
+                            $("#y").text(pos.y.toFixed(2));
+                            if (item) {
+                                if (previousPoint != item.dataIndex) {
+                                    previousPoint = item.dataIndex;
+
+                                    $("#tooltip").remove();
+                                    var x = item.datapoint[0].toFixed(2),
+                                        y = item.datapoint[1].toFixed(2);
+
+                                    that.show_tooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1]);
+                                }
+                            } else {
+                                $("#tooltip").remove();
+                                previousPoint = null;
+                            }
+                        });                        
                     }
                 });
+            },
+            show_tooltip: function (x, y, xValue, yValue) {
+                $('<div id="tooltip" class="chart-tooltip">' + yValue + '<\/div>').css({
+                    position: 'absolute',
+                    display: 'none',
+                    top: y - 40,
+                    left: x - 40,
+                    border: '0px solid #ccc',
+                    padding: '2px 6px',
+                    'background-color': '#fff'
+                }).appendTo("body").fadeIn(200);
             }
 	   	})
         , Metric = my.Class( JsB, {
