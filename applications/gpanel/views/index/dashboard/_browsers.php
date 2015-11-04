@@ -20,8 +20,9 @@
             </div>
         </div>
     </div>
-	<div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
-        <div class="row" data-jsb-name="chart" data-url="<?=$dashboard->browsers->url?>" data-jsb-class="App.PieChart">
+	<?php reset( $dashboard->domains ) ?>
+    <div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
+        <div class="row" data-jsb-name="chart" data-metric="sessions" data-profile="<?=$dashboard->domains[key($dashboard->domains)]?>" data-url="<?=$dashboard->browsers->url?>" data-profile="" data-jsb-class="App.PieChart">
             <div class="col-md-4">
                 <div class="easy-pie-chart">
                     <div class="number" data-color="green" data-jsb-class="App.PieChart.Object" data-percent="0">

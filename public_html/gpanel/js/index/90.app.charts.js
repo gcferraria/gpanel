@@ -145,8 +145,9 @@
 	   		constructor: function( elem, caller ) {
                 PieChart.Super.call( this, elem, caller );
                 
-                var that = this;
-                this.url = this.$.attr('data-url');
+                var that     = this;
+                this.url     = this.$.attr('data-url');
+                this.metric  = this.$.attr('data-metric');
                 this.profile = this.$.attr('data-profile');
 
                 this.root.queue.push(function(){
@@ -155,7 +156,7 @@
             }
             , reload: function() {
                 var that = this,
-                    data = { 'profile': this.profile };
+                    data = { 'profile': this.profile, 'metric': this.metric };
                 $.ajax({
                     'type'      : 'POST',
                     'url'       : this.url,

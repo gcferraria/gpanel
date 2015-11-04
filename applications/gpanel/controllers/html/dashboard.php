@@ -49,7 +49,7 @@ class Dashboard extends HTML_Controller {
             'browsers' => (object)array(
                 'url' => '/dashboard/browsers.json', 
             ),
-            'stats' => (object)array(
+            'devices' => (object)array(
                 'url' => '/dashboard/general_stats.json', 
             ),
             'domains' => $this->ga_api->profiles,

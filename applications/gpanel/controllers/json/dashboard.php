@@ -32,11 +32,18 @@ class Dashboard extends JSON_Controller {
      * @return json
     **/
     public function browsers() {
-        parent::index(array(
-            array('value' => 60, 'text' => 'Google Chrome'),
-            array('value' => 30, 'text' => 'Internet Explorer'),
-            array('value' => 10, 'text' => 'Safari'),
-        ));
+        $rows = $this->_get_data('browser','sessions', '-', 3);
+        $total = 0;
+        foreach ( $rows as $row ) {
+            $total = $total + (int)$row[1]; 
+        }
+    
+        $data = array();
+        foreach ( $rows as $row ) {
+            $data[] = array('value' => round((($row[1]*100)/$total),0), 'text' => $row[0] );
+        }
+
+        parent::index( $data );
     }
 
     /**
@@ -46,11 +53,18 @@ class Dashboard extends JSON_Controller {
      * @return json
     **/
     public function general_stats() {
-        parent::index(array(
-            array('value' => 60 , 'text' => 'Sessões'),
-            array('value' => 30 , 'text' => 'Novas Visitas'),
-            array('value' => 43 , 'text'  => 'Regressos'),
-        ));
+        $rows = $this->_get_data('deviceCategory','sessions', '-', 3);
+        $total = 0;
+        foreach ( $rows as $row ) {
+            $total = $total + (int)$row[1]; 
+        }
+    
+        $data = array();
+        foreach ( $rows as $row ) {
+            $data[] = array('value' => round((($row[1]*100)/$total),0), 'text' => $this->lang->line( 'dashboard_box_device_' . $row[0]) );
+        }
+
+        parent::index( $data );
     }
     /**
      * ga_visits: Get Google Analitycs Visits Statistics
@@ -60,8 +74,13 @@ class Dashboard extends JSON_Controller {
     **/
     public function ga_visits() {
         if ( !empty($this->input->post('profile'))  ){
+            $data = array();
+            foreach ( $this->_get_data() as $row ) {
+                $data[] = array($row[0] . '/' . date('Y'), $row[1]);
+            }
+
             return parent::index( $this->_get_data() );
-        } 
+        }
         else {
             parent::index( array('error' => 1, 'message' => $this->lang->line('unespected_message') ) );
         }
@@ -73,24 +92,21 @@ class Dashboard extends JSON_Controller {
      * @access private
      * @return array
     **/
-    private function _get_data( $dimension = 'month', $sort = 'month' ) {
+    private function _get_data( $dimension = 'month', $sort = 'month', $direction = NULL, $max_results = 99999 ) {
         $ga_data = $this->ga_api->analytics->data_ga->get(
             'ga:' . $this->input->post('profile'),
             date('Y') . '-01-01', 
             date('Y') . '-12-31',
             'ga:' . $this->input->post('metric'),
             array(
-                'sort'       => 'ga:' . $sort,
-                'dimensions' => 'ga:' . $dimension,
+                'sort'        => $direction .'ga:' . $sort,
+                'dimensions'  => 'ga:' . $dimension,
+                'max-results' => $max_results
             )  
         );
          
-        $data = array();
-        foreach ( $ga_data->getRows() as $row ) {
-            $data[] = array($row[0] . '/' . date('Y'), $row[1]);
-        }
-
-        return $data;
+        
+        return $ga_data->getRows();;
     }
 }
 

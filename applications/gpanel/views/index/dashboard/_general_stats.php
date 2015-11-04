@@ -1,7 +1,7 @@
-<div class="portlet box red-sunglo" data-jsb-name="general_stats" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet box red-sunglo" data-jsb-name="devices" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-bar-chart-o"></i> <?=$this->lang->line("dashboard_box_general_stats_title")?>
+            <i class="fa fa-bar-chart-o"></i> <?=$this->lang->line("dashboard_box_devices_title")?>
         </div>
         <div class="actions">
             <a href="javascript:;" class="btn btn-sm btn-default" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload">
@@ -20,8 +20,9 @@
             </div>
         </div>
     </div>
+	<?php reset( $dashboard->domains ) ?>
 	<div class="portlet-body" data-jsb-name="body" data-jsb-class="JsB">
-        <div class="row" data-jsb-name="chart" data-url="<?=$dashboard->stats->url?>" data-jsb-class="App.PieChart">
+        <div class="row" data-jsb-name="chart" data-metric="sessions" data-profile="<?=$dashboard->domains[key($dashboard->domains)]?>" data-url="<?=$dashboard->devices->url?>" data-jsb-class="App.PieChart">
             <div class="col-md-4">
                 <div class="easy-pie-chart">
                     <div class="number" data-color="green" data-jsb-class="App.PieChart.Object" data-percent="0">
