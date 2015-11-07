@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                     <?php elseif( isset( $date_range ) ) : ?>
-                    <div class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-original-title="Change dashboard date range" data-jsb-name="date-range" data-jsb-class="App.DateRange">
+                    <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height grey-salt" data-placement="top" data-jsb-name="daterange" data-jsb-class="DateRange">
                         <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
                     </div>
                     <?php endif ?>

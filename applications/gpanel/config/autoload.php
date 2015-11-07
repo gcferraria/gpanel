@@ -60,7 +60,6 @@ $autoload['libraries'] = array(
         ,   'form'
         ,   'form_validation'
         ,   'upload'
-        ,   'ga_api'
         ,   'user_agent'
         ,   'email'
         ,   'form/multistep'

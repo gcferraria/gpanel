@@ -10,6 +10,9 @@ class Dashboard extends HTML_Controller {
     **/
     public function __construct() {
         parent::__construct();
+        
+        // Load library
+        $this->load->library('ga_api');
 
         // Add Dashboard Title.
         $this->add_data( array(

@@ -48,7 +48,7 @@
             }
             , reload: function( options ) {
                 var that = this,
-                    data = { 'metric' : this.metric, 'profile': this.profile };
+                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$daterange.value() };
 
                 $.ajax({
                     'type'      : 'POST',
@@ -156,7 +156,8 @@
             }
             , reload: function() {
                 var that = this,
-                    data = { 'profile': this.profile, 'metric': this.metric };
+                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$daterange.value() };
+
                 $.ajax({
                     'type'      : 'POST',
                     'url'       : this.url,

@@ -190,38 +190,62 @@
             'constructor': function( elem, caller ) {
                 DateRange.Super.call( this, elem, caller );
 
-                this.format    = this.$.attr('data-date-format');
-                this.separator = this.$.attr('data-separator') || '/';
+                this.format    = this.$.attr('data-date-format') || 'YYYY-MM-DD';
+                this.startDate = this.$.attr('data-start-date') || new Date(new Date().getFullYear(), 0, 1);
+                this.endDate   = this.$.attr('data-end-date') || new Date();
 
                 var that = this;
                 this.root.queue.push(function() {
-                    that.elem().daterangepicker({
-                        format   : that.format,
-                        separator: ' ' + that.separator + ' ',
+                    that.$.daterangepicker({
+                        startDate: that.startDate,
+                        endDate  : that.endDate,
+                        maxDate  : that.endDate,
+                        showDropdowns: true,
+                        timePicker: false,
+                        timePickerIncrement: 1,
+                        buttonClasses: ['btn green-haze'],
+                        cancelClass: 'default',
+                        separator: '  ',
                         locale: {
-                            applyLabel      : 'Aplicar',
-                            fromLabel       : 'De',
-                            toLabel         : 'Até',
-                            cancelLabel     : 'Limpar',
-                            customRangeLabel: 'Custom Range',
-                            daysOfWeek      : ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-                            monthNames      : ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Otubro', 'Novembro', 'Dezembro'],
-                            firstDay        : 1
-                        } 
+                            applyLabel: 'Aplicar',
+                            format    : that.format,
+                            fromLabel : 'De',
+                            toLabel   : 'Até',
+                            daysOfWeek: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                            firstDay  : 1
+                        }
                     },
-                    function(start, end) {
-                        that.start(start,end);
+                    function (start, end) {
+                        $('#dashboard-report-range span').html( start.format( that.format ) + ' / ' + end.format( that.format ));
+                        
+                        var widgets = caller.toArray();
+                        while ( widget = widgets.shift() ) {
+                            if ( (widget.$reload !== undefined ) ) { 
+                                widget.$reload.click();
+                            }
+                        }
+                        caller.$visits.$body.$chart.reload()
                     });
+
+                    $('#dashboard-report-range span').html( that.formatDate( that.startDate )  + ' / ' + that.formatDate( that.endDate) );
+                    $('#dashboard-report-range').show(); 
                 });
             }
-            , 'elem' : function() {
-                console.log("1");
-                return this.$.find('>:first-child');
+            , formatDate : function(date) {
+                var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-');
             }
-            , 'start': function(start, end) {
-                console.log("2");
-                this.$field.$.val(start.format( this.format ) + ' ' + this.separator + ' ' + end.format( this.format ));
-            }
+            , value: function() {
+                return this.$.find('span').text();
+            }  
         })
     ;
 

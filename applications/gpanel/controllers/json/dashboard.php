@@ -11,6 +11,9 @@ class Dashboard extends JSON_Controller {
     **/
     public function __construct() {
         parent::__construct();
+        
+        // Load library
+        $this->load->library('ga_api');
 
         // Check Login in Google Analytics.
         if ( !$this->ga_api->is_logged() ) {
@@ -93,10 +96,13 @@ class Dashboard extends JSON_Controller {
      * @return array
     **/
     private function _get_data( $dimension = 'month', $sort = 'month', $direction = NULL, $max_results = 99999 ) {
+        $range = $this->input->post('date');
+        $range = explode( '/', $range );
+
         $ga_data = $this->ga_api->analytics->data_ga->get(
             'ga:' . $this->input->post('profile'),
-            date('Y') . '-01-01', 
-            date('Y') . '-12-31',
+            trim($range[0]), 
+            trim($range[1]),
             'ga:' . $this->input->post('metric'),
             array(
                 'sort'        => $direction .'ga:' . $sort,

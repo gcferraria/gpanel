@@ -36,8 +36,7 @@
                 this.bind('click');
                 this.$.tooltip({container: 'body',title: this.$.attr('title')});
             }
-            , 'click': function(ev) {
-                ev.preventDefault();
+            , 'click': function() {
                 if( this.context.$body['$table'] !== undefined )
                     this.context.$body.$table.reload();
                 else if( this.context.$body['$chart'] !== undefined )
