@@ -35,6 +35,8 @@ $lang = array (
     'read'             => 'Lido',
     'pendent'          => 'Pendente',
     'fields'           => 'Campos',
+    'previous'         => 'Anterior',
+    'next'             => 'Seguinte',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',

@@ -7,7 +7,7 @@
  *
  * Google Analytics Application Name.
  */
- $config['application_name'] = 'jf-castelo';
+ $config['application_name'] = 'ga-project';
 
 /**
  * ------------------------
@@ -25,7 +25,7 @@
  *
  * Google Analytics Cliente Authentication.
  */
- $config['file_location'] = APPPATH . 'config/' . ENVIRONMENT . '/jf-castelo.p12';
+ $config['file_location'] = APPPATH . 'config/' . ENVIRONMENT . '/ga-config.p12';
 
 /**
  * ------------------------
@@ -48,6 +48,7 @@
  $config['ga_profiles'] = array(
     'jf-castelo.pt'   => '58947967',
     'sesimbracup.com' => '81432989',
+    'casagraciano.pt' => '70067660',
  );
 
 

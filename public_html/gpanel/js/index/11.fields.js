@@ -154,20 +154,42 @@
                 this.$.append( $('<option></option>').attr('value',option.value).text(option.text).prop('selected', true) );
             }
         })
-        , Select2 = my.Class( Field, {
+        , SelectBase = my.Class( Field, {
             'constructor': function( elem, caller ) {
-                Select2.Super.call( this, elem, caller );
+                SelectBase.Super.call( this, elem, caller );
 
                 var that = this;
-                this.$.select2({
-                    'placeholder'    : that.$.attr('placeholder'),
-                    'allowClear'     : true,
-                    'multiple'       : that.isMultiple,
-                    'formatResult'   : that.format,
-                    'formatSelection': that.format
+                this.root.queue.push(function(){
+                    that.$.select2({
+                        'placeholder'    : that.$.attr('placeholder'),
+                        'allowClear'     : true,
+                        'multiple'       : that.isMultiple,
+                        'formatResult'   : that.format,
+                        'formatSelection': that.format
+                    });
                 });
             }
             , format: function(state) {}
+        })
+        , Select2 = my.Class( SelectBase, {
+            'constructor': function( elem, caller ) {
+                Select2.Super.call( this, elem, caller );
+            }
+            , format: function(state) {
+                return state.text;
+            }
+        })
+        , Country = my.Class( SelectBase, {
+            'constructor': function( elem, caller ) {
+                JsB.FLAGS_PATH = jQuery(elem).attr('data-flags-path');
+                Country.Super.call( this, elem, caller );
+            }
+            , format: function(state) {
+                if ( !state.id )
+                    return state.text;
+
+                return "<img class='flag' src='" + JsB.FLAGS_PATH + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+            }
         })
         , DateTime = my.Class( Input, {
             'constructor': function( elem, caller ) {
@@ -261,5 +283,6 @@
     JsB.object( 'DateRange', DateRange );
     JsB.object( 'Tag'      , Tag       );
     JsB.object( 'Upload'   , Upload    );
+    JsB.object( 'Country'  , Country   );
 
 })( JsB );

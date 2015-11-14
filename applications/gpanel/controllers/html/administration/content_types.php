@@ -70,7 +70,7 @@ class Content_Types extends HTML_Controller {
 
         // Build Content Type Form.
         $content_type_form
-        ->builder('post','/content_types/add.json')
+        ->builder('post','/administration/content_types/add.json')
         ->add_fields( $this->_fields( $content_type ) );
 
         $this->add_data( array(

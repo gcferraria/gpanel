@@ -153,8 +153,8 @@ class HTML_Controller extends GP_Controller {
                     ),
                     array(
                         'title'    => $this->lang->line('menu_newsletters'),
-                        'url'      => 'newsletters/newsletter',
-                        'path'     => 'newsletters/newsletter',  
+                        'url'      => 'newsletters/newsletters',
+                        'path'     => 'newsletters/newsletters',  
                         'icon'     => 'envelope',
                     ),
                 ),

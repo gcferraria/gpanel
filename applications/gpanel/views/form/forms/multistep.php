@@ -31,14 +31,14 @@
             </div>
 
         </div>
-        <div class="form-actions fluid">
+        <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-9">
                     <a href="javascript:;" data-loading-text="Loading..." class="btn default button-previous hide" data-jsb-name="previous" data-jsb-class="App.Form.Multistep.Navigation">
-                        <i class="m-icon-swapleft"></i> Anterior
+                        <i class="m-icon-swapleft"></i> <?=$this->lang->line('previous')?>
                     </a>
                     <a href="javascript:;" data-loading-text="Loading..." class="btn blue-madison button-next" data-jsb-name="next" data-jsb-class="App.Form.Multistep.Navigation">
-                        Próximo <i class="m-icon-swapright m-icon-white"></i>
+                        <?=$this->lang->line('next')?> <i class="m-icon-swapright m-icon-white"></i>
                     </a>
                     <button type="submit" data-loading-text="Loading..." class="btn green-haze hide" data-jsb-class="App.Form.Multistep.Submit">
                         <?=$lang->line('form_btn_submit')?>

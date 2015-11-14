@@ -20,7 +20,7 @@ class Fields extends HTML_Controller {
 
         // Get Content Type id based on action.
         if ( $this->uri->segment(4) == 'add' )
-            $id = (int) $this->uri->segment(4);
+            $id = (int) $this->uri->segment(5);
         elseif ( $this->uri->segment(4) == 'edit' ) {
 
             $this->content_type_field = new Content_Type_Field();

@@ -2,11 +2,13 @@
     <div class="form-body" data-jsb-name="fields" data-jsb-class="JsB">
         <?=$fields?>
     </div>
-    <div class="form-actions fluid">
-        <div class="col-md-offset-3 col-md-9">
-            <button type="submit" data-loading-text="Loading..." class="btn green-haze" data-jsb-class="App.Form.Ajax.Submit">
-                <?=$lang->line('form_btn_submit')?>
-            </button>
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="submit" data-loading-text="Loading..." class="btn green-haze" data-jsb-class="App.Form.Ajax.Submit">
+                    <i class="fa fa-check"></i> <?=$lang->line('form_btn_submit')?>
+                </button>
+            </div>
         </div>
     </div>
 </form>
