@@ -16,7 +16,7 @@
  *
  * Google Analytics Cliente Email.
  */
- $config['account_email'] = '725859142435-jm9krm1qdhe3d5ba47bce889b6jscl2e@developer.gserviceaccount.com';
+ $config['account_email'] = 'account-5@api-project-725859142435.iam.gserviceaccount.com';
 
 /**
  * ------------------------
