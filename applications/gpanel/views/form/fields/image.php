@@ -1,3 +1,37 @@
+<?php
+    if ( $value ) {
+        $data = json_decode( $value );
+
+        if ( isset( $data ) && is_array( $data ) ) {
+            $temp = array();
+            foreach ( $data as $item ) {
+                $item = str_replace( $this->config->item('static_url'), '', $item );
+                array_push( $temp, array( 
+                        '$filename' => $item,
+                        '$open'     => array(
+                            'href' => $this->config->item('static_url') . $item,
+                        )
+                    )
+                );
+            }
+
+            $value = htmlentities( json_encode( $temp ) );
+        }
+        else {
+            $value = str_replace( $this->config->item('static_url'), '', $value );
+            $value = htmlentities(
+                json_encode( array( 
+                        '$filename' => $value,
+                        '$open'     => array(
+                            'href' => $this->config->item('static_url') . $value,
+                        )
+                    )
+                )
+            );
+        }
+    }
+?>
+
 <div class="form-group">
     <label for="<?=$field?>" class="control-label col-md-3">
         <?=$label?>
