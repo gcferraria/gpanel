@@ -76,7 +76,8 @@ class Dashboard extends JSON_Controller {
      * @return json
     **/
     public function ga_visits() {
-        if ( !empty($this->input->post('profile'))  ){
+        $profile = $this->input->post('profile');
+        if ( !empty($profile) ){
             $data = array();
             foreach ( $this->_get_data() as $row ) {
                 $data[] = array($row[0] . '/' . date('Y'), $row[1]);
