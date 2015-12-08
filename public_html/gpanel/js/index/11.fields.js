@@ -209,12 +209,12 @@
             }
         })
         , DateRange = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 DateRange.Super.call( this, elem, caller );
 
                 this.format    = this.$.attr('data-date-format') || 'YYYY-MM-DD';
-                this.startDate = this.$.attr('data-start-date') || new Date(new Date().getFullYear(), 0, 1);
-                this.endDate   = this.$.attr('data-end-date') || new Date();
+                this.startDate = this.$.attr('data-start-date')  || new Date(new Date().getFullYear(), 0, 1);
+                this.endDate   = this.$.attr('data-end-date')    || new Date();
 
                 var that = this;
                 this.root.queue.push(function() {
@@ -255,10 +255,10 @@
                 });
             }
             , formatDate : function(date) {
-                var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+                var d     = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day   = '' + d.getDate(),
+                    year  = d.getFullYear();
 
                 if (month.length < 2) month = '0' + month;
                 if (day.length < 2) day = '0' + day;
@@ -269,20 +269,48 @@
                 return this.$.find('span').text();
             }  
         })
+        , DateRangeInput = my.Class(Input, {
+            constructor: function( elem, caller ) {
+                DateRangeInput.Super.call( this, elem, caller );
+            
+                this.format    = this.$.attr("data-date-format");
+                this.separator = this.$.attr("data-separator") || "/";
+                
+                var that = this;
+                this.root.queue.push(function() {
+                    that.$.find(">:first-child").daterangepicker({
+                        format: that.format,
+                        separator: " " + that.separator + " ",
+                        locale: {
+                            applyLabel: 'Aplicar',
+                            format    : that.format,
+                            fromLabel : 'De',
+                            toLabel   : 'Até',
+                            daysOfWeek: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                            firstDay  : 1
+                        }
+                    }, function(s, r) {
+                        that.$field.$.val(s.format(that.format) + " " + that.separator + " " + r.format(that.format))
+                    });
+                });
+            }
+        })
     ;
 
-    JsB.object( 'Input'    , Input     );
-    JsB.object( 'Password' , Password  );
-    JsB.object( 'CheckBox' , CheckBox  );
-    JsB.object( 'Radio'    , Radio     );
-    JsB.object( 'Select'   , Select    );
-    JsB.object( 'Select2'  , Select2   );
-    JsB.object( 'Textarea' , Textarea  );
-    JsB.object( 'Spinner'  , Spinner   );
-    JsB.object( 'DateTime' , DateTime  );
-    JsB.object( 'DateRange', DateRange );
-    JsB.object( 'Tag'      , Tag       );
-    JsB.object( 'Upload'   , Upload    );
-    JsB.object( 'Country'  , Country   );
+    JsB.object( 'Input'         , Input          );
+    JsB.object( 'Password'      , Password       );
+    JsB.object( 'CheckBox'      , CheckBox       );
+    JsB.object( 'Radio'         , Radio          );
+    JsB.object( 'Select'        , Select         );
+    JsB.object( 'Select2'       , Select2        );
+    JsB.object( 'Textarea'      , Textarea       );
+    JsB.object( 'Spinner'       , Spinner        );
+    JsB.object( 'DateTime'      , DateTime       );
+    JsB.object( 'DateRange'     , DateRange      );
+    JsB.object( 'DateRangeInput', DateRangeInput );
+    JsB.object( 'Tag'           , Tag            );
+    JsB.object( 'Upload'        , Upload         );
+    JsB.object( 'Country'       , Country        );
 
 })( JsB );

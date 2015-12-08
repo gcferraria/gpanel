@@ -3,7 +3,7 @@
         <?=$label?>
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>
     </label>
-    <div class="col-md-4" data-date-format="YYYY-MM-DD" data-jsb-name="<?=$field?>" data-jsb-class="DateRange">
+    <div class="col-md-4" data-date-format="YYYY-MM-DD" data-jsb-name="<?=$field?>" data-jsb-class="DateRangeInput">
 		<div class="input-group date form_datetime">
 			<input type="text" readonly="" name="<?=$field?>" id="<?=$field?>" value="<?=$value?>" <?=$attrs?> class="form-control" data-jsb-name="field" data-jsb-class="Input" />
 			<span class="input-group-btn">
