@@ -110,6 +110,13 @@
                 this.bind( 'click' );
             }
             , 'click': function( ev ) {
+                // Change modal results based on selection type
+                var table = app.$upload.$table;
+                if ( table !== undefined && this.isImage ) {
+                    var src = table.$.attr('data-source'); 
+                    table.$.attr('data-source', src + '?image=1');
+                }
+
                 app.$upload.show( this );
                 return false;
             }
@@ -125,7 +132,8 @@
                 var that = this;
                 this.$.modal({'show': false})
                 .on('shown.bs.modal', function (e) {
-                    that.vales = [];
+                    that.values = [];
+                    that.$table.table.fnReloadAjax(that.$table.$.attr('data-source'));
                 })
                 .on('hide.bs.modal', function (e) {
                     if( that.values instanceof Array ) {
@@ -139,8 +147,7 @@
                             }
                         }
                     }
-                })
-                ;
+                });
             }
             , show: function( caller ) {
                 this.button = caller;

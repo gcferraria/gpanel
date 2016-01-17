@@ -2,7 +2,7 @@
 
     var
         DataTable = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 DataTable.Super.call( this, elem, caller );
 
                 this.table  = null;
@@ -25,18 +25,17 @@
                         'bAutoWidth'    : false,
                         'bDeferRender'  : true,
                         "iDisplayLength": 10,
-                        "oLanguage"     : {
-                            "sUrl": "/datatables.json"
-                        },
+                        "oLanguage"     : { "sUrl": "/datatables.json" },
                         "aoColumnDefs" : [{  // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                             'bSortable' : false,
                             'aTargets'  : sorting
                         }],
                         fnDrawCallback: function( oSettings ) {
-                            caller.$.find('.dataTables_filter input').addClass("form-control input-medium input-inline");
+                            caller.$.find('.dataTables_filter input').addClass("form-control input-small input-inline");
                             caller.$.find('.dataTables_length select').addClass("form-control input-xsmall");
+                            caller.$.find('.dataTables_length select').select2();
                         },
-                        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+                        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
                             var id = $( nRow ).attr('id');
                             if( that['$' + id ] !== undefined )
                                 that.dettach( that['$' + id ] )
@@ -46,7 +45,7 @@
                     });
                 });
             }
-            , 'reload': function() {
+            , reload: function() {
                 var elem = this.parent;
                 app.blockUI(elem);
                 this.table._fnAjaxUpdate({'sEcho': this.table.sEcho});
@@ -54,10 +53,10 @@
                     app.unblockUI(elem);
                 }, 1000);
             }
-            , 'get_columns_number': function() {
+            , get_columns_number: function() {
                 return this.$.find('thead>tr:first th').size() - 1;
             }
-            , 'delete_row': function( url ) {
+            , delete_row: function( url ) {
                 var that = this,
                     elem = this.context.parent;
 
@@ -88,11 +87,11 @@
         })
 
         , Delete = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Delete.Super.call( this, elem, caller );
                 this.bind('click');
             },
-            'click': function() {
+            click: function() {
                 var that = this;
                 bootbox.confirm( this.$.attr('data-text'), function(result) {
                     if( result ) {

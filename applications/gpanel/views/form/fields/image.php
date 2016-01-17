@@ -46,7 +46,7 @@
             <input type="file" name="<?=$field?>_file" id="<?=$field?>_file" value="<?=$value?>" <?=$attrs?> data-jsb-class="Upload" />
         </span>
 
-        <a href="#" class="btn yellow" data-jsb-name="btnModal" data-jsb-class="App.Upload.OpenModal"><i class="fa fa-plus"></i> Seleccionar Ficheiro</a>
+        <a href="#" class="btn yellow" data-jsb-name="btnModal" data-jsb-type="image" data-jsb-class="App.Upload.OpenModal"><i class="fa fa-plus"></i> <?=$this->lang->line('select_image')?></a>
 
         <div id="progress" class="progress progress-striped active display-hide" data-jsb-class="App.Upload.Progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" data-jsb-name="bar" data-jsb-class="JsB"></div>

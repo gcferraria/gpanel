@@ -1,6 +1,6 @@
 <table class="table table-striped table-bordered table-hover" data-source="/<?=$table->source?>" data-jsb-name="table" data-jsb-type="context" data-jsb-class="App.DataTable">
     <thead>
-        <tr role="row" class="heading">
+        <tr role="row">
 
             <?php if( isset( $table->showAll ) ) : ?>
             <th width="5%" data-jsb-name="selectAll" data-jsb-class="JsB"></th>
