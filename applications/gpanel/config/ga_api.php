@@ -49,6 +49,7 @@
     'jf-castelo.pt'   => '58947967',
     'sesimbracup.com' => '81432989',
     'casagraciano.pt' => '111723763',
+    'fascinioclub.com' => '56065546',
  );
 
 
