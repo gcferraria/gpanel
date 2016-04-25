@@ -11,7 +11,7 @@
  * The folder must be writable and the path can be absolute or relative.
  *
  */
- $config['upload_path'] = '/var/www/jf-castelo/public_html/static/';
+ $config['upload_path'] = HOMEPATH . '/public_html/static';
 
 /**
  * ------------------------
@@ -132,4 +132,4 @@
  $config['remove_spaces'] = 'TRUE';
 
 /* End of file upload.php */
-/* Location: ../applications/gpanel/config/development/upload.php */
+/* Location: ../applications/gpanel/config/upload.php */
