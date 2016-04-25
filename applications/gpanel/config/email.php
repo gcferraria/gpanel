@@ -7,4 +7,4 @@ $config['mailtype'] = 'html';
 $config['send_multipart'] = 'false';
 
 /* End of file email.php */
-/* Location: ../applications/gpanel/config/development/email.php */
+/* Location: ../applications/gpanel/config/email.php */
