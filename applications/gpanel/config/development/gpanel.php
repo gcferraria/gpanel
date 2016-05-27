@@ -9,7 +9,7 @@
  *
  * Email for send Notifications in Online Services.
  */
- $config['noreply_email'] = 'noreply@jf-castelo.pt';
+ $config['noreply_email'] = '';
 
 /**
  * --------------------------------
@@ -20,7 +20,7 @@
  *
  * Name for send Notifications in Online Services.
  */
- $config['noreply_name'] = 'Serviços Online';
+ $config['noreply_name'] = '';
 
 /* End of file gpanel.php */
 /* Location: ../applications/gpanel/config/development/gpanel.php */
