@@ -1,0 +1,7 @@
+{
+    "config": {
+        "vendor-dir": "libs/vendor"
+    },
+    "require": {
+    }
+}
