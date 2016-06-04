@@ -25,7 +25,7 @@
  *
  * Google Analytics Cliente Authentication.
  */
- $config['file_location'] = APPPATH . 'config/' . ENVIRONMENT . '/ga-config.p12';
+ $config['file_location'] = APPPATH . 'config//ga-config.p12';
 
 /**
  * ------------------------
