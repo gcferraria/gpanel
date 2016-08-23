@@ -19,7 +19,7 @@ class Login extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index() {
+    public function index( $template = 'index' ) {
 
         /*
           If administrator is already logged, redirects to the restricted area,
