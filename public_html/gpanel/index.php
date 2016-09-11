@@ -107,7 +107,7 @@ if ( ini_get('date.timezone') == '' )
  * as this file.
  *
  */
-    $system_path = $home_folder . 'libs/CI_2.2.3/system';
+    $system_path = $home_folder . 'libs/CI_2.2.6';
 
 /*
  *---------------------------------------------------------------
