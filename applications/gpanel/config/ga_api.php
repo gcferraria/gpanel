@@ -46,10 +46,11 @@
  * Map Multiple Domains and your profile id.
  */
  $config['ga_profiles'] = array(
-    'jf-castelo.pt'   => '58947967',
-    'sesimbracup.com' => '81432989',
-    'casagraciano.pt' => '111723763',
+    'jf-castelo.pt'    => '58947967',
+    'sesimbracup.com'  => '81432989',
+    'casagraciano.pt'  => '111723763',
     'fascinioclub.com' => '56065546',
+    'nautibras.pt'     => '128365160',
  );
 
 
