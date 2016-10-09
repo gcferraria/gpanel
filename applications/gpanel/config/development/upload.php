@@ -11,7 +11,7 @@
  * The folder must be writable and the path can be absolute or relative.
  *
  */
- $config['upload_path'] = '/var/www/nautibras/public_html/static';
+ $config['upload_path'] = '';
 
 /**
  * ------------------------
@@ -131,5 +131,3 @@
  */
  $config['remove_spaces'] = 'TRUE';
 
-/* End of file upload.php */
-/* Location: ../applications/gpanel/config/upload.php */
