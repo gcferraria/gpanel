@@ -47,20 +47,18 @@
  *
  */
  $config['allowed_fields'] = array(
-        'text',
-        'password',
-        'select',
-        'textarea',
-        'datetime',
-        'category',
-        'wysiwyg',
-        'file',
-        'image',
-        'email',
-        'spinner',
-        'tag',
-        'file',
-    );
-
-/* End of file form.php */
-/* Location: ../applications/gpanel/config/form.php */
+        'text'
+    ,   'password'
+    ,   'select'
+    ,   'textarea'
+    ,   'datetime'
+    ,   'category'
+    ,   'wysiwyg'
+    ,   'file'
+    ,   'image'
+    ,   'email'
+    ,   'spinner'
+    ,   'tag'
+    ,   'file'
+    ,   'iconpicker'
+);

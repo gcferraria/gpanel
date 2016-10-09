@@ -296,6 +296,18 @@
                 });
             }
         })
+        , IconPicker = my.Class(Input, {
+            constructor: function( elem, caller ) {
+                IconPicker.Super.call( this, elem, caller );
+            
+                var that = this;
+                this.root.queue.push(function() {
+                    that.$.iconpicker({
+                        hideOnSelect: true
+                    });
+                });
+            }
+        })
     ;
 
     JsB.object( 'Input'         , Input          );
@@ -312,5 +324,6 @@
     JsB.object( 'Tag'           , Tag            );
     JsB.object( 'Upload'        , Upload         );
     JsB.object( 'Country'       , Country        );
+    JsB.object( 'IconPicker'    , IconPicker     );
 
 })( JsB );
