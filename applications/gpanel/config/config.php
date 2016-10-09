@@ -24,7 +24,7 @@ function __autoload ($class)
 | path to your installation.
 |
 */
-$config['base_url'] = 'http://www.gpanel.jf-castelo.pt/';
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ $config['base_url'] = 'http://www.gpanel.jf-castelo.pt/';
 | URL to static files.
 |
 */
-$config['static_url'] = 'http://www.static.jf-castelo.pt/';
+$config['static_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $config['static_url'] = 'http://www.static.jf-castelo.pt/';
 | Base URL to download files.
 |
 */
-$config['download_url'] = 'http://www.jf-castelo.pt/docs';
+$config['download_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
