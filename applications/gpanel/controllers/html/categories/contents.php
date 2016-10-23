@@ -304,22 +304,24 @@ class Contents extends Categories {
         // Populate values for content type fields category.
         foreach ($content_type_fields as $content_type_field) {
             if ( $content_type_field['type'] == 'category' ) {
-                $ids = json_decode($values[$content_type_field['field'] ]);
+                if ( isset( $values[$content_type_field['field'] ] ) ) {
+                    $ids = json_decode($values[$content_type_field['field'] ]);
 
-                $categories = array();
-                foreach ($ids as $id) {
-                    $category = new Category();
-                    $category->get_by_id( $id );
+                    $categories = array();
+                    foreach ($ids as $id) {
+                        $category = new Category();
+                        $category->get_by_id( $id );
 
-                    array_push( $categories, array(
-                            'name'  => $id,
-                            '$name' => $category->name,
-                            '$path' => implode( ' » ', $category->path_name_array() ),
-                        )
-                    ); 
+                        array_push( $categories, array(
+                                'name'  => $id,
+                                '$name' => $category->name,
+                                '$path' => implode( ' » ', $category->path_name_array() ),
+                            )
+                        ); 
+                    }
+
+                    $values[$content_type_field['field'] ] = htmlentities( json_encode( $categories ) );
                 }
-
-                $values[$content_type_field['field'] ] = htmlentities( json_encode( $categories ) );
             }
         }
 
