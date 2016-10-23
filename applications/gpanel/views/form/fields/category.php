@@ -4,7 +4,11 @@
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>
     </label>
     <div class="col-md-9 multicategory" data-jsb-name="<?=$field?>" data-jsb-type="context" data-jsb-class="JsB">
-        <input type="text" <?=$attrs?> class="form-control input-xlarge" data-jsb-class="App.Category.Selector" />
+        <input type="text" 
+            <?=((isset($placeholder) and isset($attrs) and ( strpos($attrs, 'placeholder')  === false )) ? 'placeholder="' . $placeholder[0].'"' : '')?> 
+            <?=((isset($url)         and isset($attrs) and ( strpos($attrs, 'data-jsb-url') === false )) ? 'data-jsb-url="'. $url[0]        .'"' : '')?>
+            <?=$attrs?> 
+            class="form-control input-xlarge" data-jsb-class="App.Category.Selector" />
         <input type="hidden" name="<?=$field?>" id="<?=$field?>" value="<?=$value?>" data-jsb-class="App.Category.Field" />
         <ul data-jsb-type="reseter" data-jsb-class="App.Category.Results" class="results">
             <li class="template results" data-jsb-class="App.Category.Results.Item">

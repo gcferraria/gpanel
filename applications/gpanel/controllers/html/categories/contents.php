@@ -299,9 +299,32 @@ class Contents extends Categories {
         );
 
         $fields = array_replace_recursive( $fields, $attrs );
+        $content_type_fields = $content_type->fields();
+
+        // Populate values for content type fields category.
+        foreach ($content_type_fields as $content_type_field) {
+            if ( $content_type_field['type'] == 'category' ) {
+                $ids = json_decode($values[$content_type_field['field'] ]);
+
+                $categories = array();
+                foreach ($ids as $id) {
+                    $category = new Category();
+                    $category->get_by_id( $id );
+
+                    array_push( $categories, array(
+                            'name'  => $id,
+                            '$name' => $category->name,
+                            '$path' => implode( ' » ', $category->path_name_array() ),
+                        )
+                    ); 
+                }
+
+                $values[$content_type_field['field'] ] = htmlentities( json_encode( $categories ) );
+            }
+        }
 
         // Add Content Type Fields to Base Fields.
-        $fields = $fields + $content_type->fields();
+        $fields = $fields + $content_type_fields;
 
         // Sort Firlds Array by Position.
         array_sort( $fields, 'position' );
