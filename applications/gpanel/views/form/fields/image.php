@@ -31,7 +31,6 @@
         }
     }
 ?>
-
 <div class="form-group">
     <label for="<?=$field?>" class="control-label col-md-3">
         <?=$label?>
@@ -42,8 +41,7 @@
         <span class="btn btn-success fileinput-button">
             <i class="fa fa-upload"></i>
             <span>Upload</span>
-            <input type="hidden" name="<?=$field?>" id="<?=$field?>" value="<?=$value?>" data-jsb-name="field" data-jsb-class="App.Upload.Field">
-            <input type="file" name="<?=$field?>_file" id="<?=$field?>_file" value="<?=$value?>" <?=$attrs?> data-jsb-class="Upload" />
+            <input type="hidden" name="<?=$field?>" id="<?=$field?>" value="<?=$value?>" data-jsb-name="field" data-jsb-type="<?=isset( $multiple ) ? 'multiple' : ''?>" data-jsb-class="App.Upload.Field"><input type="file" name="<?=$field?>_file" id="<?=$field?>_file" value="<?=$value?>" <?=$attrs?> data-jsb-class="Upload" />
         </span>
 
         <a href="#" class="btn yellow" data-jsb-name="btnModal" data-jsb-type="image" data-jsb-class="App.Upload.OpenModal"><i class="fa fa-plus"></i> <?=$this->lang->line('select_image')?></a>
