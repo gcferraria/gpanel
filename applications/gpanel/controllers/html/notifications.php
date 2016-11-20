@@ -28,8 +28,9 @@ class Notifications extends HTML_Controller {
     public function index() {
 
         $data = (object) array(
-            'source' => 'notifications.json',
-            'header' => array(
+            'showAll' => true,
+            'source'  => 'notifications.json',
+            'header'  => array(
                 $this->lang->line('notification_name'),
                 $this->lang->line('notification_source'),
                 $this->lang->line('notification_subject'),

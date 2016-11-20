@@ -3,7 +3,9 @@
         <tr role="row">
 
             <?php if( isset( $table->showAll ) ) : ?>
-            <th width="5%" data-jsb-name="selectAll" data-jsb-class="JsB"></th>
+            <th class="table-checkbox" data-jsb-name="selectAll" data-jsb-class="JsB">
+                <input type="checkbox" class="group-checkable" data-jsb-class="CheckBox"/>
+            </th>
             <?php endif ?>
 
             <?php foreach ( $table->header as $name ) : ?>

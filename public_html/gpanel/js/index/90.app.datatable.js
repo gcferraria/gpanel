@@ -43,6 +43,19 @@
                             that.attach( nRow );
                         }
                     });
+
+                    that.table.find('.group-checkable').change(function () {
+                        var set = $('tbody > tr > td:nth-child(1) input[type="checkbox"]', this.$ );
+                        var checked = jQuery(this).is(":checked");
+                        jQuery(set).each(function () {
+                            if (checked) {
+                                $(this).prop("checked", true);
+                            } else {
+                                $(this).prop("checked", false);
+                            }
+                        });
+                        jQuery.uniform.update(set);
+                    });
                 });
             }
             , reload: function() {

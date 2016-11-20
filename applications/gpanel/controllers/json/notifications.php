@@ -56,14 +56,15 @@ class Notifications extends JSON_Controller {
 
             $data[] = array(
                 "DT_RowId" => $notification->id,
-                0 => '<a href="mailto:'.strtolower($notification->email).'">'.word_limiter( $notification->name, 10 ).'</a>',
-                1 => $notification->source,
-                2 => word_limiter( $notification->subject, 10 ),
-                3 => $notification->creation_date,
-                4 => ( $notification->status == 1 )
+                0 => '<input type="checkbox" class="checkboxes" id="'.$notification->id.'" data-jsb-class="CheckBox" />',
+                1 => '<a href="mailto:'.strtolower($notification->email).'">'.word_limiter( $notification->name, 10 ).'</a>',
+                2 => $notification->source,
+                3 => word_limiter( $notification->subject, 10 ),
+                4 => $notification->creation_date,
+                5 => ( $notification->status == 1 )
                         ? '<span class="label label-sm label-success">' . $this->lang->line('read')   . '</span>'
                         : '<span class="label label-sm label-warning">' . $this->lang->line('pendent'). '</span>',
-                5 => $attach . '<a href="' . site_url('notifications/open/'. $notification->id) . '" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' . $this->lang->line('open') . '</a>
+                6 => $attach . '<a href="' . site_url('notifications/open/'. $notification->id) . '" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' . $this->lang->line('open') . '</a>
                       <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('notifications/delete/' . $notification->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') . '</a>',
             );
         }
