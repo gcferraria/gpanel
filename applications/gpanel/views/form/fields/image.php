@@ -59,6 +59,12 @@
                 <a href="javascript:;" class="open pull-right btn btn-sm blue" data-jsb-name="open" data-jsb-class="App.Fancybox">
                     <i class="fa fa-search"></i> abrir
                 </a>
+                <a href="javascript:;" class="open pull-right btn btn-sm yellow" data-jsb-name="down" data-jsb-class="App.Category.Down">
+                    <i class="fa fa-arrow-circle-down"></i>
+                </a>
+                <a href="javascript:;" class="open pull-right btn btn-sm yellow" data-jsb-name="up" data-jsb-class="App.Category.Up">
+                    <i class="fa fa-arrow-circle-up"></i>
+                </a>
             </div>
         </div>
 
