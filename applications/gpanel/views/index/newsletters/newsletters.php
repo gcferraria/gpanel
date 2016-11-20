@@ -12,7 +12,7 @@
         <?=$this->load->view('tables/datatable.php')?>
     </div>
 </div>
-<div class="modal fade" id="newsletterModal" tabindex="-1" role="dialog" aria-labelledby="NewsletterModal" aria-hidden="true">
+<div class="modal fade" id="newsletterModal" role="dialog" data-jsb-class="App.Modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         </div>
