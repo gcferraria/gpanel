@@ -10,7 +10,7 @@ class Notifications extends JSON_Controller {
     **/
     public function index() {
         $notifications = new Notification();
-        $columns = array( 'name','source','subject','creation_date','status');
+        $columns = array( 'id', 'name','source','subject','creation_date','status');
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
@@ -94,8 +94,8 @@ class Notifications extends JSON_Controller {
         $notification->get_by_id( $id );
 
         /*
-          If Notification has been deleted successfully updates the list,
-          otherwise shows an unexpected error.
+            If the Notification has been deleted successfully, updates the list,
+            otherwise shows an unexpected error.
         */
         if ( $notification->delete() ) {
             return parent::index(
@@ -115,7 +115,67 @@ class Notifications extends JSON_Controller {
         }
     }
 
-}
+    /**
+     * read: Mark a notification as read
+     *
+     * @access public
+     * @return json 
+     */
+    public function read() {
 
-/* End of file notifications.php */
-/* Location: ./applications/gpanel/controllers/json/notifications.php */
+        $rows = $this->input->post('rows');
+        if ( isset($rows) && !empty($rows)) {
+
+            $ids = array();
+            foreach ($rows as $row) {
+                foreach ($row as $key => $value) {
+                    $ids[] = $value;
+                }
+            }
+
+            // Find Notification to be Mark as Read.
+            $notifications = new Notification();
+            $notifications->where_in( 'id', $ids )->get();
+
+            /* Save all Notifications */
+            $result = TRUE;
+            foreach ($notifications as $notification) {
+                $notification->status = 1;
+                if ( !$notification->save() ) {
+                    $result = FALSE;
+                }
+            }
+
+            /*
+                If the Notification(s) has been marked as read with successfully, updates the list,
+                otherwise shows an unexpected error.
+            */
+            if ( $result ) {
+                return parent::index(
+                    array(
+                        'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
+                        'root.$notifications.$reload.click' => 1,
+                        'notification'                      => array('success', $this->lang->line('read_success_message') ),
+                    )
+                );
+
+                $notifications->refresh_all();
+            }
+            else {
+                return parent::index(
+                    array(
+                        'notification' => array('error', $this->lang->line('unespected_error') ),
+                    )
+                );
+            }
+        }
+        else {
+            return parent::index(
+                array(
+                    'notification' => array('error', $this->lang->line('please_select_record') ),
+                )
+            );
+        }
+    }
+
+}

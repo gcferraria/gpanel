@@ -61,7 +61,16 @@
             , reload: function() {
                 var elem = this.parent;
                 app.blockUI(elem);
+
                 this.table._fnAjaxUpdate({'sEcho': this.table.sEcho});
+                
+                // If CheckBox for SelectAll records exists, remove the checked value.
+                var selectAll = $('thead > tr > th:nth-child(1) input[type="checkbox"]');
+                if ( selectAll !== undefined ) {
+                    $(selectAll).prop("checked", false);
+                    jQuery.uniform.update(selectAll);
+                }
+
                 window.setTimeout(function () {
                     app.unblockUI(elem);
                 }, 1000);
@@ -92,7 +101,7 @@
             , getRowsSelected: function() {
                 var rows = [];
                 $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', this.$ ).each(function(){
-                    rows.push({name: $(this).attr("name"), value: $(this).val(), url: $(this).attr("data-url") });
+                    rows.push({name: $(this).attr("name"), value: $(this).attr("id"), url: $(this).attr("data-url") });
                 });
 
                 return rows;

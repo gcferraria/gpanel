@@ -1,11 +1,9 @@
 (function(JsB) {
 	
 	var
-	   	PlupUpload = my.Class( JsB, {
-	   		 'constructor': function( elem, caller ) {
+        PlupUpload = my.Class( JsB, {
+	   	   constructor: function( elem, caller ) {
                 PlupUpload.Super.call( this, elem, caller );
-            	
-                this.uploader;
 
             	var that = this;
             	this.root.queue.push(function(){
@@ -28,13 +26,13 @@
                                     $(this).parent('.added-files').remove();                     
                                 });
                             },
-                     
+
                             FilesAdded: function(up, files) {
                                 plupload.each(files, function(file) {
                                     $('#tab_images_uploader_filelist').append('<div class="alert alert-warning added-files" id="uploaded_file_' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <span class="status label label-info"></span>&nbsp;<a href="javascript:;" style="margin-top:-5px" class="remove pull-right btn btn-sm red"><i class="fa fa-times"></i> remover</a></div>');
                                 });
                             },
-                     
+
                             UploadProgress: function(up, file) {
                                 $('#uploaded_file_' + file.id + ' > .status').html(file.percent + '%');
                             },
@@ -48,18 +46,17 @@
                                 } 
                                 else {
                                     $('#uploaded_file_' + file.id + ' > .status').removeClass("label-info").addClass("label-danger").html('<i class="fa fa-warning"></i> Falhou'); // set failed upload
-                                    that.parent.$notification.update({show: 'error', value: response.error });
+                                    app.notification( response[0], response[1] );
                                 }
                             },
-                     
+
                             Error: function(up, err) {
-                                that.parent.$notification.update({show: 'error', value: err.message });
+                                app.notification(up, err );
                             },
 
                             UploadComplete: function() {
                                 $('#tab_images_uploader_filelist').html("");
                                 that.context.$reload.click();
-                                that.parent.$notification.hide();
                             }
                         }
                     });

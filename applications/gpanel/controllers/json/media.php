@@ -191,7 +191,8 @@ class Media extends GP_Controller {
      * @return json
     **/
     public function upload() {
-
+        $error = null;
+        
         // Inicialize Media File Object.
         $file = new File();
 
@@ -207,7 +208,7 @@ class Media extends GP_Controller {
 
             // Get Upload Data.
             $upload = $this->upload->data();
-
+            
             $name = sizeof( $this->input->post('name') == 0 )
                 ? $upload['raw_name']
                 : $this->input->post('name');
@@ -228,22 +229,43 @@ class Media extends GP_Controller {
             $file->image_height  = $upload['image_height'];
             $file->image_type    = $upload['image_type'];
 
+            // Sets the image quality
+            /*if ( $file->is_image ) {
+                $this->load->library('image_lib');
+                $this->image_lib->initialize(array(
+                    'source_image'  => $file->filepath . $file->filename,
+                    'new_image'     => $file->filepath . $file->filename,
+                    'quality'       => 50,
+                ));
+
+                if ( ! $this->image_lib->resize() ) {
+                    $error = $this->image_lib->display_errors();
+                    $data = array( 'notification' => array('error' => $error ));
+                }
+                else {
+                    $file->filesize = filesize($file->filepath . $file->filename) / 1000;
+                }
+            }*/
+
             // Save File.
-            if ( $file->save() ) {
+            if ( is_null( $error ) && $file->save() ) {
                 $data = array(
                     'result'   => 1,
                     'filename' => $file->filename,
                     'url'      => $this->config->item('static_url') . $file->filename,
                 );
             }
-            else
-                $data = array( 'result' => 0, 'error' => $this->lang->line('unespected_error') );
+            else {
+                if ( is_null( $error ) ) {
+                    $data = array( 'error', $this->lang->line('unespected_error'));
+                }
+            }
         }
         else {
             if ( sizeof ( $this->upload->error_msg ) > 0 )
                 $error = $this->upload->error_msg[0];
 
-            $data = array( 'result' => 0, 'error' => $error );
+            $data = array( 'error', $error );
         }
 
         $this->output->set_output( json_encode( $data ) );
@@ -309,6 +331,3 @@ class Media extends GP_Controller {
     }
 
 }
-
-/* End of file media.php */
-/* Location: ./applications/gpanel/controllers/json/media.php */

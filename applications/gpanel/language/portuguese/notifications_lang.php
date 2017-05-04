@@ -9,7 +9,6 @@ $lang = array (
     'notification_status'               => 'Estado',
     'notification_creation_date'        => 'Data de Criação',
 
-);
+    'notifications_mark_as_read' 		=> 'Marcar como lido',
 
-/* End of file notifications_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/notifications_lang.php */
+);

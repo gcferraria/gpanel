@@ -120,11 +120,8 @@ class Categories extends JSON_Controller {
                 )
             ) {
                 $data = array(
-                    'reset'         => 1,
-                    '$notification' => array(
-                        'value' => $this->lang->line('save_success_message'),
-                        'show'  => 'success',
-                    ),
+                    'reset'        => 1,
+                    'notification' => array('success', $this->lang->line('save_success_message') ),
                     'root.$categories.$body.reload' => 1
                 );
             }
@@ -133,10 +130,7 @@ class Categories extends JSON_Controller {
 
             $data = array(
                 'show_errors' => $category->errors->all,
-                '$notification' => array(
-                    'value' => $this->lang->line('save_error_message'),
-                    'show'  => 'error'
-                ),
+                'notification' => array('error', $this->lang->line('save_error_message')),
             );
         }
 

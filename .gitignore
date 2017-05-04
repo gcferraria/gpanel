@@ -1,0 +1,10 @@
+
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+*/cache/!.htaccess
+
+applications/common
+applications/gpanel/cache/*
+public_html/static

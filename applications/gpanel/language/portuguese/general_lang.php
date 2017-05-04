@@ -43,6 +43,10 @@ $lang = array (
     'save_error_message'     => 'Não foi possível gravar o registo.',
     'delete_success_message' => 'O registo foi apagado com sucesso.',
     'delete_error_message'   => 'Não foi possível apagar o registo.',
+    'unespected_error'       => 'Erro inesperado, contacte o administrador de sistema!',
+    'confirm_record'         => 'Deseja prosseguir com a operação?',
+    'please_select_record'   => 'Deve selecionar pelo menos um registo',
+    'read_success_message'   => 'O(s) registos foram lidos com sucesso',
 
     /* General Menu */
     'menu_dashboard'      => 'Dashboard',

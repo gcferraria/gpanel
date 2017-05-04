@@ -42,10 +42,10 @@
                 <ul class="nav navbar-nav pull-right">
 
                     <?php if( $notifications['number'] > 0  ) : ?>
-                    <li class="dropdown dropdown-extended dropdown-notification" data-jsb-class="App.Notification.Pulsate">
+                    <li class="dropdown dropdown-extended dropdown-notification" data-jsb-name="notification" data-jsb-class="App.Notification.Pulsate">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-bell"></i>
-                            <span class="badge badge-default"><?=$notifications['number']?></span>
+                            <span class="badge badge-default" data-jsb-name="value" data-jsb-class="JsB"><?=$notifications['number']?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="external">
