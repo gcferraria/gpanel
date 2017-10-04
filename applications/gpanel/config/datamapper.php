@@ -33,6 +33,3 @@ $config['db_params'] = '';
 //$config['production_cache'] = 'datamapper/cache';
 $config['extensions_path']  = 'datamapper';
 $config['extensions']       = array();
-
-/* End of file datamapper.php */
-/* Location: ../applications/gpanel/config/datamapper.php */

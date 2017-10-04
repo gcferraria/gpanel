@@ -124,6 +124,7 @@ $autoload['language'] = array(
     ,   'form_validation'
     ,   'administration/administrators'
     ,   'administration/content_types'
+    ,   'profile'
 );
 
 
@@ -138,6 +139,3 @@ $autoload['language'] = array(
 */
 
 $autoload['model'] = array();
-
-/* End of file autoload.php */
-/* Location: ../applications/gpanel/config/autoload.php */

@@ -21,7 +21,5 @@ $lang = array (
     'dashboard_box_device_tablet'            => 'Tablet',
     'dashboard_box_device_mobile'            => 'Telemóvel',
     'dashboard_box_browsers_title'           => 'Browsers',
+    'dashboard_box_visits_subtitle'          => 'Estatísticas Mensais',
 );
-
-/* End of file dashboard_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/dashboard_lang.php */

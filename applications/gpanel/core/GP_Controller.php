@@ -42,6 +42,3 @@ class GP_Controller extends CI_Controller {
     }
 
 }
-
-/* End of file GP_Controller.php */
-/* Location: ../applications/gpanel/core/GP_Controller.php */

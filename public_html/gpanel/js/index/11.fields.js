@@ -2,7 +2,7 @@
 
     var
         Field = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Field.Super.call( this, elem, caller );
 
                 this.maxlength = this.$.attr('maxlength');
@@ -14,67 +14,72 @@
                     });
                 }
             }
-            , 'enable': function() {
+            , enable: function() {
                 this.$.prop('disabled', false);
             }
-            , 'disable': function() {
+            , disable: function() {
                 this.$.prop('disabled', true);
             }
         })
         , Input = my.Class( Field, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Input.Super.call( this, elem, caller );
 
                 this.placeholder = this.$.attr('placeholder');
             }
-            , 'value': function ( value ) {
+            , value: function ( value ) {
                 if ( value )
                     this.$.val( value );
 
                 return this.$.val();
             }
-            , 'reset': function() {
+            , reset: function() {
                 this.$.val('');
             }
         })
+        , Email = my.Class( Input, {
+            constructor: function( elem, caller ) {
+                Email.Super.call( this, elem, caller );
+            }
+        })
         , Password = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Password.Super.call( this, elem, caller );
             }
         })
         , CheckBox = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 CheckBox.Super.call( this, elem, caller );
 
                 // Save the initial status.
                 this.enabled = ( this.value() != undefined );
                 this.$.uniform();
             }
-            , 'reset': function() {
+            , reset: function() {
                 this.$.attr("checked", this.enabled);
             }
-            , 'value': function() {
+            , value: function() {
                 return this.$.attr('checked');
             }
         })
         , Radio = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Radio.Super.call( this, elem, caller );
                 this.$.uniform();
             }
         })
         , Spinner = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Spinner.Super.call( this, elem, caller );
 
                 this.$.spinner( { value:0, min: 0, max: 200 } );
             }
-            , 'reset': function() {
+            , reset: function() {
                 this.$.val(0);
             }
         })
         , Tag = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Tag.Super.call( this, elem, caller );
 
                 this.$.tagsInput({
@@ -82,12 +87,12 @@
                     defaultText : this.$.attr('data-text'),
                 });
             }
-            , 'reset': function() {
+            , reset: function() {
                 this.$.importTags('');
             }
         })
         , Upload = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Upload.Super.call( this, elem, caller );
 
                 var that = this;
@@ -121,31 +126,31 @@
             }
         })
         , Textarea = my.Class( Field, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Textarea.Super.call( this, elem, caller );
             }
         })
         , Select = my.Class( Field, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Select.Super.call( this, elem, caller );
 
                 this.bind('change');
             }
-            , 'change': function() {
+            , change: function() {
                 return false;
             }
-            , 'value': function( value ) {
+            , value: function( value ) {
                 return ( value )
                     ? this.$.val( value )
                     : this.$.val();
             }
-            , 'reset': function() {
+            , reset: function() {
                 this.$.val('');
             }
-            , 'text': function() {
+            , text: function() {
                 return $("option:selected", this.$).text();
             }
-            , 'addOption': function( option ) {
+            , addOption: function( option ) {
                 if ( this.$.find('option[value="'+option.value+'"]').length > 0 ) {
                     this.$.find('option[value="'+option.value+'"]').prop('selected',true);
                     return;
@@ -155,7 +160,7 @@
             }
         })
         , SelectBase = my.Class( Field, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 SelectBase.Super.call( this, elem, caller );
 
                 var that = this;
@@ -172,7 +177,7 @@
             , format: function(state) {}
         })
         , Select2 = my.Class( SelectBase, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Select2.Super.call( this, elem, caller );
             }
             , format: function(state) {
@@ -180,7 +185,7 @@
             }
         })
         , Country = my.Class( SelectBase, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 JsB.FLAGS_PATH = jQuery(elem).attr('data-flags-path');
                 Country.Super.call( this, elem, caller );
             }
@@ -192,7 +197,7 @@
             }
         })
         , DateTime = my.Class( Input, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 DateTime.Super.call( this, elem, caller );
 
                 var that = this;
@@ -247,7 +252,8 @@
                                 widget.$reload.click();
                             }
                         }
-                        caller.$visits.$body.$chart.reload()
+                        caller.$visits.$body.$chart.reload();
+                        caller.$statistics.reload();
                     });
 
                     $('#dashboard-report-range span').html( that.formatDate( that.startDate )  + ' / ' + that.formatDate( that.endDate) );
@@ -325,5 +331,6 @@
     JsB.object( 'Upload'        , Upload         );
     JsB.object( 'Country'       , Country        );
     JsB.object( 'IconPicker'    , IconPicker     );
+    JsB.object( 'Email'         , Email          );
 
 })( JsB );

@@ -21,7 +21,14 @@ class Profile extends HTML_Controller {
 
         // Add Profile Title.
         $this->add_data( array(
-                    'title' => $this->lang->line('profile_title'),
+                    'administrator'     => $this->administrator,
+                    'total_contents'    => $this->administrator->get_created_contents_number(),
+                    'total_categories'  => $this->administrator->get_created_categories_number(),
+                    'total_media'       => $this->administrator->get_created_media_number(),
+                    'class'             => 'page-container-bg-solid',
+                    'sidebarClass'      => 'col-md-2',
+                    'contentClass'      => 'col-md-10',
+                    'title'             => $this->lang->line('profile_title') . ' | ' . $this->administrator->name,
                 )
             );
 
@@ -34,12 +41,38 @@ class Profile extends HTML_Controller {
     }
 
     /**
-     * index: Add Profile data and render Profile page.
+     * index: Add Profile data and render Profile dashboard page.
      *
      * @access public
      * @return void
     **/
     public function index() {
+
+        $data = (object) array(
+            'contents' => $this->_get_last_contents(),
+            'sessions' => $this->_get_last_sessions(),
+        );
+
+        $this->add_data( array( 'profile' => $data ) );
+
+        parent::index();
+    }
+
+    /**
+     * index: Add Profile data and render Profile settings page.
+     *
+     * @access public
+     * @return void
+    **/
+    public function settings() {
+
+        $this->breadcrumb->add( array(
+                array(
+                    'text'  => $this->lang->line('profile_breadcrumb_settings'),
+                    'href'  => uri_string(),
+                ),
+            )
+        );
 
         // Inicialize Form Objects.
         $personal_form    = new Form;
@@ -60,12 +93,8 @@ class Profile extends HTML_Controller {
                 $this->_change_password_fields()
             );
 
+
         $data = (object) array(
-            'administrator'        => $this->administrator,
-            'total_contents'       => $this->administrator->get_created_contents_number(),
-            'total_categories'     => $this->administrator->get_created_categories_number(),
-            'contents'             => $this->_get_last_contents(),
-            'sessions'             => $this->_get_last_sessions(),
             'personal_form'        => $personal_form->render_form(),
             'change_password_form' => $change_pass_form->render_form(),
         );
@@ -213,6 +242,3 @@ class Profile extends HTML_Controller {
         return $data;
     }
 }
-
-/* End of file profile.php */
-/* Location: ../applications/gpanel/controllers/profile.php */

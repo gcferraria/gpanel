@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table class="table table-striped table-bordered table-advance table-hover">
+<div class="table-scrollable">
+    <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
                 <?php foreach ( $table->header as $name ) : ?>

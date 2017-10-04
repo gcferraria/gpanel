@@ -37,6 +37,9 @@ $lang = array (
     'fields'           => 'Campos',
     'previous'         => 'Anterior',
     'next'             => 'Seguinte',
+    'male'             => 'Masculino',
+    'female'           => 'Feminino',
+    'cancel'           => 'Cancelar',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',
@@ -68,24 +71,19 @@ $lang = array (
     'menu_websites'       => 'Websites',
 
     /* Login */
-    'login_title' => 'Autenticação',
-    'login_btn'   => 'Login',
-    'login_error' => 'Autentica&ccedil;&atilde;o Inv&aacute;lida.',
+    'login_title'     => 'Autenticação',
+    'login_btn'       => 'Login',
+    'login_user'      => 'Utilizador',
+    'login_password'  => 'Password',
+    'login_remember'  => 'Relembrar?', 
+    'login_recoverr'  => 'Recuperar Password',
+    'login_other_opt' => 'Ou faça login com',
 
-    /* Profile */
-    'profile_title'                   => 'Perfil',
-    'profile_breadcrumb'              => 'Perfil de %s',
-    'profile_statistic_title'         => '&Uacute;ltimas Entradas',
-    'profile_statistic_creation_date' => 'Data',
-    'profile_statistic_ip_address'    => 'Endereço IP',
-    'personal_data'                   => 'Dados Pessoais',
-    'change_password'                 => 'Altera&ccedil;&atilde;o de Password',
-    'personal_update_success'         => 'Os Dados Pessoais foram actualizados com sucesso.',
-    'personal_update_error'           => 'Ocorreram erros durante a actualiza&ccedil;&atilde;o dos Dados Pessoais.',
-    'change_password_success'         => 'A Password foi alterada com sucesso.',
-    'change_password_error'           => 'N&atilde;o foi poss&iacute;vel proceder &agrave; actualiza&ccedil;&atilde;o da Password.',
+    /* Forget */
+    'forget_title'        => 'Recuperar Password?',
+    'forget_instructions' => 'Introduza o seu endereço de email para fazer reset à sua password.',
+    'forget_email'        => 'Email',
+    'forget_btn_submit'   => 'Recuperar',
+    'forget_btn_back'     => 'Voltar',
 
 );
-
-/* End of file general_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/general_lang.php */

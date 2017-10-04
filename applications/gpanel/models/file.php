@@ -41,6 +41,3 @@ class File extends DataMapper {
         );
     }
 }
-
-/* End of file file.php */
-/* Location: ../applications/gpanel/models/file.php */

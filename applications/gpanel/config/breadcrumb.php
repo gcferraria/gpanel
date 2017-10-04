@@ -12,7 +12,7 @@
  * then initial/home icon breadcrumb will disappear
  *
  */
- $config['home_icon'] = '<i class="fa fa-home"></i> ';
+ $config['home_icon'] = '';
 
 /**
  * ------------------------
@@ -60,7 +60,7 @@
  * Default value:
  * $config['delimiter'] = ' >> ';
  */
- $config['divider'] = '<i class="fa fa-angle-right"></i>';
+ $config['divider'] = '<i class="fa fa-circle"></i>';
 
 /**
  * --------------------------
@@ -78,6 +78,3 @@
  $config['use_wrapper']    = FALSE;
  $config['wrapper']        = '<ul class="breadcrumbs">|</ul>';
  $config['wrapper_inline'] = '<li>|</li>';
-
-/* End of file breadcrumb.php */
-/* Location: ../applications/gpanel/config/breadcrumb.php */

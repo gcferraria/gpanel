@@ -173,6 +173,3 @@ $robots = array(
 					'infoseek'			=> 'InfoSeek Robot 1.0',
 					'lycos'				=> 'Lycos'
 				);
-
-/* End of file user_agents.php */
-/* Location: ../applications/gpanel/config/user_agents.php */

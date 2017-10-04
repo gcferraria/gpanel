@@ -47,7 +47,7 @@ class Administrator extends DataMapper {
         ),
         'email' => array(
             'type'  => 'email',
-            'rules' => array('required','trim','valid_email'),
+            'rules' => array('required','unique','trim','valid_email'),
         ),
         'sex' => array(
             'type'  => 'radiogroup',
@@ -164,7 +164,14 @@ class Administrator extends DataMapper {
         return $this->categories->count();
     }
 
-}
+    /**
+     * get_created_media_number: Get the number of created Media Files by this administrator
+     *
+     * @access public
+     * @return number
+     */
+    public function get_created_media_number() {
+        return 0;
+    }
 
-/* End of file administrator.php */
-/* Location: ../applications/gpanel/models/administrator.php */
+}

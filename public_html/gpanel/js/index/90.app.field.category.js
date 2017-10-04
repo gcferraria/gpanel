@@ -2,7 +2,7 @@
     
     var
         Selector = my.Class( JsB.object('Input'), {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Selector.Super.call( this, elem, caller );
                 
                 this.name    = 'category';
@@ -18,11 +18,11 @@
                 this.bind('focus');
                 this.bind('keydown');
             }
-            , 'focus': function() {
+            , focus: function() {
                 if ( this.value() != '' )
                     this.context.$results.show();
             }
-            , 'keydown': function( ev ) {
+            , keydown: function( ev ) {
                 var that     = this,
                     keypress = ev.keyCode,
                     value    = this.value();
@@ -46,7 +46,7 @@
                     break;
                 }
             }
-            , 'search': function() {
+            , search: function() {
                 var value  = this.value().replace(/[\\]+|[\/]+/g,""),
                     length = value.length,
                     min    = this.min;
@@ -58,7 +58,7 @@
                 
                 return;
             }
-            , '_load': function() {
+            , _load: function() {
                 var that = this;
                 
                 $.ajax({
@@ -77,7 +77,7 @@
             }
         })
         , Results = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Results.Super.call( this, elem, caller );
                 
                 this.name = 'results';
@@ -86,7 +86,7 @@
                 var width = this.context.$category.$.outerWidth();
                 this.$.width( width );
             }
-            , 'next': function () {
+            , next: function () {
                 var selected = this.selected(true)[0],
                     next     = selected
                              ? selected.next()
@@ -97,7 +97,7 @@
                     
                 this.select( next );
             }
-            , 'previous': function () {
+            , previous: function () {
                 var selected = this.selected(true)[0],
                     previous = selected
                              ? selected.previous()
@@ -110,12 +110,12 @@
             }
         })
         , Field = my.Class( JsB.object('Input'), {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Field.Super.call( this, elem, caller );
                 
                 this.name = 'field';
             }
-            , 'update': function() {
+            , update: function() {
                 var data     = [],
                     children = this.context.$container.toArray();
                 
@@ -132,7 +132,7 @@
                 else
                     this.value( data );
             }
-            , 'value': function( data ) {
+            , value: function( data ) {
                 if ( data && data.length > 0 )
                     Field.Super.prototype.value.call( this, JSON.stringify( data ) );
                 else {
@@ -143,7 +143,7 @@
                 
                 return 1;
             }
-            , 'reset': function( empty ) {
+            , reset: function( empty ) {
                 Field.Super.prototype.reset.call( this );
                 
                 // Clear Category Selector.
@@ -158,19 +158,19 @@
             }
         })
         , Result = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Result.Super.call( this, elem, caller );
                 
                 this.bind('mouseover');
                 this.bind('click');
             }
-            , 'mouseover': function( ev ) {
+            , mouseover: function( ev ) {
                 ev.preventDefault;
                 
                 // Tell to my parent to selected me.
                 this.parent.select( this );
             }
-            , 'click': function( ev ) {
+            , click: function( ev ) {
                 ev.preventDefault();
                 
                 this.context.$container.update({
@@ -189,7 +189,7 @@
             }
         })
         , Container = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Container.Super.call( this, elem, caller );
                 
                 var that  = this;
@@ -200,7 +200,7 @@
                     that.update( that.context.$field.value() );
                 });
             }
-            , 'update': function( data ) {
+            , update: function( data ) {
                 var items = [];
                 
                 if ( data instanceof Array )
@@ -222,7 +222,7 @@
                 // Show Container.
                 this.show();
             }
-            , 'dettach': function( item ) {
+            , dettach: function( item ) {
                 Container.Super.prototype.dettach.call( this, item );
                 
                 this.context.$field.update();
@@ -233,7 +233,7 @@
                 else
                     this[0].select()
             }
-            , 'swap': function( child1, child2 ) {
+            , swap: function( child1, child2 ) {
                 Container.Super.prototype.swap.call( this, child1,child2 );
                 
                 this.context.$field.update();
@@ -241,13 +241,13 @@
             }
         })
         , Delete = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Delete.Super.call( this, elem, caller );
                 
                 this.name = 'delete';
                 this.bind( 'click' );
             }
-            , 'click': function( ev ) {
+            , click: function( ev ) {
                 var item      = this.parent,
                     container = item.parent;
                 
@@ -258,13 +258,13 @@
             }
         })
         , Up = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Up.Super.call( this, elem, caller );
                 
                 this.name = 'up';
                 this.bind( 'click' );
             }
-            , 'click': function( ev ) {
+            , click: function( ev ) {
                 var item = this.parent,
                     prev = item.previous();
                     
@@ -274,13 +274,13 @@
             }
         })
         , Down = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Down.Super.call( this, elem, caller );
                 
                 this.name = 'down';
                 this.bind( 'click' );
             }
-            , 'click': function( ev ) {
+            , click: function( ev ) {
                 var item = this.parent,
                     next = item.next();
                     
@@ -290,7 +290,7 @@
             }
         })
     ;
-    
+
     JsB.object( 'App.Category.Selector'     , Selector  );
     JsB.object( 'App.Category.Field'        , Field     );
     JsB.object( 'App.Category.Results'      , Results   );
@@ -299,5 +299,5 @@
     JsB.object( 'App.Category.Delete'       , Delete    );
     JsB.object( 'App.Category.Up'           , Up        );
     JsB.object( 'App.Category.Down'         , Down      );
-    
+
 })( JsB );

@@ -29,6 +29,48 @@ class Dashboard extends JSON_Controller {
     }
     
     /**
+     * general_stats: Gets general stats
+     *
+     * @access public
+     * @return json
+     *
+    **/
+    public function general_stats() {
+        $range = $this->input->post('date');
+        $range = explode( '/', $range );
+
+        $notifications = new Notification();
+        $counters      = new Content_Counter();
+        $contents      = new Content();
+        $users         = new Newsletter_Contact();
+
+        parent::index(
+            array(
+                '$notifications' => number_format( $notifications->where( array(
+                        'creation_date >=' => date("Y-m-d H:i:s", strtotime(trim($range[0]))),
+                        'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
+                    ))->count() 
+                ),
+                '$counters' => number_format( $counters->where( array(
+                        'creation_date >=' => date("Y-m-d H:i:s", strtotime(trim($range[0]))),
+                        'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
+                    ))->count() 
+                ),
+                '$contents' => number_format( $contents->where( array(
+                        'creation_date >=' => date("Y-m-d H:i:s", strtotime(trim($range[0]))),
+                        'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
+                    ))->count() 
+                ),
+                '$contacts' => number_format( $users->where( array(
+                        'creation_date >=' => date("Y-m-d H:i:s", strtotime(trim($range[0]))),
+                        'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
+                    ))->count() 
+                ),
+            )
+        );
+    }
+
+    /**
      * browsers: Get Google Analitycs Browser Statistics
      *
      * @access public
@@ -50,12 +92,12 @@ class Dashboard extends JSON_Controller {
     }
 
     /**
-     * general_stats: Get Google Analitycs General Statistics
+     * devices: Get Google Analitycs General Statistics
      *
      * @access public
      * @return json
     **/
-    public function general_stats() {
+    public function devices() {
         $rows = $this->_get_data('deviceCategory','sessions', '-', 3);
         $total = 0;
         foreach ( $rows as $row ) {
@@ -83,7 +125,7 @@ class Dashboard extends JSON_Controller {
                 $data[] = array($row[0] . '/' . date('Y'), $row[1]);
             }
 
-            return parent::index( $this->_get_data() );
+            return parent::index( $data );
         }
         else {
             parent::index( array('error' => 1, 'message' => $this->lang->line('unespected_message') ) );
@@ -116,6 +158,3 @@ class Dashboard extends JSON_Controller {
         return $ga_data->getRows();;
     }
 }
-
-/* End of file dashboard.php */
-/* Location: ./applications/gpanel/controllers/json/dashboard.php */

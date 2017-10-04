@@ -1,12 +1,28 @@
-<div class="portlet box yellow" data-jsb-name="datatable" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet light bordered" data-jsb-name="contents" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-globe"></i><?=$title?>
+        <div class="caption font-green-sharp uppercase">
+            <i class="icon-speech font-green-sharp"></i><?=$title?>
         </div>
-        <div class="tools">
-            <a href="javascript:;" class="collapse" data-jsb-name="collapse" title="<?=$this->lang->line('collapse')?>" data-jsb-class="App.Portlet.Collapse"></a>
+        <div class="actions">
             <?php if( count( $views ) == 0 ) : ?>
-            <a href="javascript:;" class="reload" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload"></a>
+            <a href="javascript:;" class="btn btn-circle btn-icon-only btn-default reload" title="<?=$this->lang->line('reload')?>" data-jsb-name="reload" data-jsb-class="App.Portlet.Reload">
+                <i class="icon-reload"></i>
+            </a>
+            <?php endif ?>
+            <?php if( isset( $actions ) ) : ?>
+            <div class="btn-group">
+                <button class="btn red btn-outline btn-circle" data-toggle="dropdown">
+                    <i class="fa fa-cogs"></i>
+                    <?=$this->lang->line('actions')?> <i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <?php foreach ($actions as $action => $link) : ?>
+                    <li>
+                        <a href="<?=site_url($link)?>"><?=$action?></a>
+                    </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
             <?php endif ?>
         </div>
     </div>

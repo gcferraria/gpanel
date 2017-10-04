@@ -63,6 +63,3 @@
  * Define the path of the newsletter templates
  */
  $config['newsletter_templates_path'] = '_templates/newsletter';
-
-/* End of file newsletter.php */
-/* Location: ../applications/gpanel/config/newsletter.php */

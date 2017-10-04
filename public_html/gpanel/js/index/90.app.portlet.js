@@ -97,7 +97,7 @@
                 bootbox.confirm( this.$.attr('data-text'), function(result) {
                     if( result ) {
                         var params = {};
-                        var rowsSelected = that.context.parent.$table.getRowsSelected(); 
+                        var rowsSelected = that.context.context.$body.$table.getRowsSelected(); 
                         if ( rowsSelected !== undefined ) 
                             params['rows'] = rowsSelected; 
 

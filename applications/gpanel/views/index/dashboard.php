@@ -13,13 +13,11 @@
 	</div>
 </div>
 
-<div class="clearfix"></div>
-
 <div class="row">
 	<div class="col-md-6 col-sm-6">
 		<?=$this->load->view('index/dashboard/_browsers')?>
     </div>
     <div class="col-md-6 col-sm-6">
-		<?=$this->load->view('index/dashboard/_general_stats')?>
+		<?=$this->load->view('index/dashboard/_devices')?>
     </div>
 </div>

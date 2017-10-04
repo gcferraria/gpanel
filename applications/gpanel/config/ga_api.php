@@ -46,10 +46,13 @@
  * Map Multiple Domains and your profile id.
  */
  $config['ga_profiles'] = array(
-    'jf-castelo.pt'    		 => '58947967',
-    'sesimbracup.com'  		 => '81432989',
-    'casagraciano.pt'  		 => '111723763',
-    'fascinioclub.com' 		 => '56065546',
-    'nautibras.pt'     		 => '128365160',
-    'sesimbrabeachsoccer.pt' => '140134601',
+    'jf-castelo.pt'    		       => '58947967' ,
+    'jf-assav.pt' 			       => '87320355' ,
+    'sesimbracup.com'  		       => '81432989' ,
+    'casagraciano.pt'  		       => '111723763',
+    'fascinioclub.com' 		       => '56065546' ,
+    'nautibras.pt'     		       => '128365160',
+    'sesimbrabeachsoccer.pt'       => '140134601',
+    'goncaloferraria.pt'	       => '81936010',
+    'casamento.goncaloferraria.pt' => '157248898'
  );

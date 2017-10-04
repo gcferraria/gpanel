@@ -4,9 +4,7 @@
         <li class="classic-menu-dropdown<?=(isset($l1['selected']) && $l1['selected']) ? ' active' : ''?>">
 
             <?php if ( empty( $l1['children'] ) ) : ?>
-
-            <a href="<?=site_url($l1['url'])?>" title="<?=$l1['title']?>"><?=$l1['title']?></a>
-
+            <a href="<?=site_url($l1['url'])?>"><?=$l1['title']?></a>
             <?php else: ?>
 
             <a data-toggle="dropdown" href="javascript:;" data-hover="megamenu-dropdown" data-close-others="true">
@@ -62,4 +60,15 @@
     </ul>
 </div>
 
-<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+<form class="search-form" action="extra_search.html" method="GET">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..." name="query">
+        <span class="input-group-btn">
+            <a href="javascript:;" class="btn submit">
+                <i class="icon-magnifier"></i>
+            </a>
+        </span>
+    </div>
+</form>
+
+<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>

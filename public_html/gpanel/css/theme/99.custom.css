@@ -1,24 +1,18 @@
-/* here you can put your own css to customize and override the theme */
-
-/***
-Rounded Portlets
-***/
-/*
-.portlet {
-    border-radius: 4px !important;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #8290a3;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    background-color: #dde3ec;
+    transition: background-color 5000s ease-in-out 0s;
 }
-
-.portlet .portlet-title {
-    border-radius: 4px 4px 0px 0px !important;
-}
-
-.portlet .portlet-body,
-.portlet .portlet-body .form-actions  {
-    border-radius: 0px 0px 4px 4px !important;
-}
-*/
-
-/* Menu */
 li.mega-menu-dropdown >  ul.dropdown-menu {
     min-width: 700px;
 }
@@ -101,6 +95,9 @@ div.row.media .table-scrollable>.table-bordered>tbody>tr>td a.file {
     display : block;
     overflow: hidden;
 }
+.form .form-actions {
+    border-top: 0 !important;
+}
 div.form-group .progress {
     margin: 10px 0;
 }
@@ -131,4 +128,14 @@ div.panel-body ul.list-group span.path {
     display: inline-block;
     font-size: 11px;
     margin:0 10px
+}
+div.login.content .has-error .form-control {
+    border-color: #e73d4a;
+    color: #e73d4a;
+}
+div.login.content .input-icon > i {
+    color: #32c5d2!important;
+}
+div.login.content .has-error .input-icon > i {
+    color: #e73d4a!important;
 }

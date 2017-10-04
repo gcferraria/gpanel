@@ -2,7 +2,7 @@
     
     var
         TinyMce = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 TinyMce.Super.call( this, elem, caller );
                 
                 var that = this;
@@ -17,24 +17,24 @@
                     );
                 });
             }
-            , 'ckeditor': function() {
+            , ckeditor: function() {
                 return this.$.ckeditorGet();
             }
-            , 'value': function() {
+            , value: function() {
                 return this.$.val();
             }
-            , 'disable': function() {
+            , disable: function() {
                 return;
             }
-            , 'enable': function() {
+            , enable: function() {
                 return;
             }
-            , 'update': function( data ) {
+            , update: function( data ) {
                 this.ckeditor().setData( data );
             }
         })
     ;
-    
+
     JsB.object( 'App.Wysiwyg', TinyMce );
-    
+
 })( JsB );

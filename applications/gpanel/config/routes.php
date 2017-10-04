@@ -45,6 +45,3 @@ $route['404_override']       = '';
 
 $route['(:any)\.json']    = 'json/$1';
 $route['(:any)(\.html)?'] = 'html/$1';
-
-/* End of file routes.php */
-/* Location: ../applications/gpanel/config/routes.php */

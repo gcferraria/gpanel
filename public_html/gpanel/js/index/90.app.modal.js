@@ -2,7 +2,7 @@
 	
 	var
 	   	Modal = my.Class( JsB, {
-	   		 'constructor': function( elem, caller ) {
+	   		constructor: function( elem, caller ) {
                 Modal.Super.call( this, elem, caller );
             	
             	var that = this;

@@ -48,7 +48,7 @@
             }
             , reload: function( options ) {
                 var that = this,
-                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$daterange.value() };
+                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$dashboard.$daterange.value() };
 
                 $.ajax({
                     'type'      : 'POST',
@@ -56,7 +56,7 @@
                     'data'      : data,
                     'dataType'  : 'json',
                     'beforeSend': function() {
-                        that.root.blockUI(that.context)
+                        that.root.blockUI(that.context,{animate:true})
                     },
                     'error'     : function( XHR, textStatus ) {
                         that.root.unblockUI(that.context)
@@ -156,7 +156,7 @@
             }
             , reload: function() {
                 var that = this,
-                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$daterange.value() };
+                    data = { 'metric' : this.metric, 'profile': this.profile, 'date': this.root.$dashboard.$daterange.value() };
 
                 $.ajax({
                     'type'      : 'POST',
@@ -164,7 +164,7 @@
                     'data'      : data,
                     'dataType'  : 'json',
                     'beforeSend': function() {
-                        that.root.blockUI(that.context)
+                        that.root.blockUI(that.context,{animate:true})
                     },
                     'error'     : function( XHR, textStatus ) {
                         that.root.unblockUI(that.context)

@@ -2,7 +2,7 @@
 	
 	var
 	   	Scroll = my.Class( JsB, {
-	   		 'constructor': function( elem, caller ) {
+	   		constructor: function( elem, caller ) {
                 Scroll.Super.call( this, elem, caller );
             	
             	this.height = 0;

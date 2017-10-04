@@ -1,13 +1,14 @@
-<div class="portlet box purple-wisteria" data-jsb-name="browsers" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet light bordered" data-jsb-name="browsers" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-calendar"></i> <?=$this->lang->line("dashboard_box_browsers_title")?>
+            <i class="icon-bar-chart font-purple"></i> 
+            <span class="caption-subject font-purple bold uppercase"><?=$this->lang->line("dashboard_box_browsers_title")?></span>
         </div>
         <div class="actions">
-            <a href="javascript:;" class="btn btn-sm btn-default" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload">
+            <a href="javascript:;" class="btn btn-sm btn-circle red easy-pie-chart-reload" data-jsb-name="reload" title="<?=$this->lang->line('reload')?>" data-jsb-class="App.Portlet.Reload">
             <i class="fa fa-repeat"></i> <?=$this->lang->line("reload")?></a>
             <div class="btn-group">
-                <a class="btn btn-sm btn-default dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                <a class="btn green btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
 					<?=$this->lang->line('dashboard_site_choise')?> <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu pull-right">

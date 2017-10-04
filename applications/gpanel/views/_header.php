@@ -21,13 +21,13 @@
     <link rel="stylesheet" href="<?=base_url('css/theme.css')?>" type="text/css" />
 
 </head>
-<body class="page-header-fixed page-quick-sidebar-over-content page-full-width">
+<body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-content-white page-full-width">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <?php if ( isset( $this->administrator ) ) : ?>
-    <header class="page-header -i navbar navbar-fixed-top">
+    <header class="page-header navbar navbar-fixed-top">
         <div class="page-header-inner">
             <div class="page-logo">
                 <a href="<?=site_url('dashboard')?>">

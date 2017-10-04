@@ -35,6 +35,3 @@ $config['migration_version'] = 1;
 |
 */
 $config['migration_path'] = APPPATH . 'migrations/';
-
-/* End of file migration.php */
-/* Location: ../applications/gpanel/config/migration.php */

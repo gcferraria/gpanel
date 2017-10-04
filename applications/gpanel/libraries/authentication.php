@@ -1,16 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Authentication Class
- *
- * @package    CodeIgniter
- * @subpackage Libraries
- * @category   Authentication
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2012 - 2015 Gonçalo Ferraria
- * @version    1.2 Authentication.php 2014-07-06 gferraria $
- */
-
 class Authentication {
 
     /**
@@ -61,8 +50,6 @@ class Authentication {
 
                 return TRUE;
             }
-
-            return FALSE;
         }
 
         return FALSE;
@@ -76,7 +63,7 @@ class Authentication {
      * @param string  $username, [Required] username of the administrator.
      * @param string  $password, [Required] password of the administrator.
      * @param boolean $remember, [Required] Remember Login Option.
-     * @return mixed
+     * @return boolean
     **/
     public function login( $username, $password, $remember ) {
 
@@ -120,6 +107,53 @@ class Authentication {
         );
 
         return FALSE;
+    }
+
+    /**
+     * usernameExists: Checks if the username exists.
+     *
+     * @access public
+     * @param  string  $username, [Required] username of the administrator.
+     * @return boolean
+    **/
+    public function usernameExists( $username ) {
+
+        if ( isset($username) && !empty($username) ) {
+            $administrator = new Administrator();
+
+            if ( $administrator->get_by_username( $username )->exists() ) {
+                return TRUE;
+            }
+        }
+
+        return  FALSE;
+    }
+
+    /**
+     * forgetPassword: Generate a new password.
+     *
+     * @access public
+     * @param  string  $email, [Required] email of the administrator.
+     * @return mixed, null if email not exists or string with generated password.
+    **/
+    public function forgetPassword( $email ) {
+        
+        if ( isset($email) && !empty($email) ) {
+            $administrator = new Administrator();
+            $administrator->where( array( 'email' => $email, 'active_flag' => 1 ) )->get();
+            
+            if ( $administrator->exists() ) {
+                $password = random_string('alnum', 8 );
+                $administrator->password = $password;
+
+                // Save user data.
+                if( $administrator->save() ) {
+                    return $password;
+                }
+            }
+        }
+
+        return;
     }
 
     /**
@@ -211,6 +245,3 @@ class Authentication {
     }
 
 }
-
-/* End of file authentication.php */
-/* Location: ../applications/gpanel/libraries/authentication.php */

@@ -2,7 +2,7 @@
 
     var
         Form = my.Class( JsB.object('App.Form.Ajax'), {
-             'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 Form.Super.call( this, elem, caller );
 
                 this.async  = false;
@@ -35,7 +35,7 @@
                     });
                 });
             }
-            , 'handle': function( tab, navigation, index ) {
+            , handle: function( tab, navigation, index ) {
                 var total   = navigation.find('li').length;
                 var current = index + 1;
 
@@ -52,43 +52,43 @@
                     this.$button.hide();
                 }
             }
-            , 'next': function( tab, navigation, index ) {
+            , next: function( tab, navigation, index ) {
                 this.hasErrors = false;
                 this.submit(null, { 'name': 'step', 'value': index });
                 return ( this.hasErrors == false );
             }
-            , '_onSuccess': function( data ) {
+            , _onSuccess: function( data ) {
                 if ( data.show_errors !== undefined ) this.hasErrors = true;
                 else this.clean_errors();
 
                 this.update( data );
             }
-            , 'previous': function( tab, navigation, index ) {
+            , previous: function( tab, navigation, index ) {
                 this.clean_errors();
             }
         })
         , Navigation = my.Class( JsB, {
-            'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 Navigation.Super.call( this, elem, caller );
             }
-            , 'hide': function() {
+            , hide: function() {
                 this.$.addClass('hide');
             }
-            , 'show': function() {
+            , show: function() {
                 this.$.removeClass('hide');
             }
         })
         , Submit = my.Class( JsB.object('App.Form.Ajax.Submit'), {
-            'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 Submit.Super.call( this, elem, caller );
             }
-            , 'hide': function() {
+            , hide: function() {
                 this.$.addClass('hide');
             }
-            , 'show': function() {
+            , show: function() {
                 this.$.removeClass('hide');
             }
-            , 'click': function( ev, args ) {
+            , click: function( ev, args ) {
                 this.context.submit( ev, { 'name': 'step', 'value': this.context.length });
                 return false;
             }

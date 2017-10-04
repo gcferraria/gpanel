@@ -30,32 +30,17 @@ class Dashboard extends HTML_Controller {
      * @return void
     **/
     public function index() {
-        $notifications = new Notification();
-        $counters      = new Content_Counter();
-        $contents      = new Content();
-        $users         = new Newsletter_Contact();
-
+        
         $data = (object) array(
-            'statistics' => (object) array(
-                'notifications'       => number_format( $notifications->count() ),
-                'counters'            => number_format( $counters->count() ),
-                'contents'            => number_format( $contents->count() ),
-                'newsletter_contacts' => number_format( $users->count() ),
-            ),
             'activity' => (object) array(
                 'contents' => $this->_get_last_contents(),
                 'sessions' => $this->_get_last_sessions(),
             ),
-            'visits' => (object)array(
-                'url' => '/dashboard/ga_visits.json',
-            ),
-            'browsers' => (object)array(
-                'url' => '/dashboard/browsers.json', 
-            ),
-            'devices' => (object)array(
-                'url' => '/dashboard/general_stats.json', 
-            ),
-            'domains' => $this->ga_api->profiles,
+            'statistics' => (object) array( 'url' => '/dashboard/general_stats.json' ),
+            'visits'     => (object) array( 'url' => '/dashboard/ga_visits.json'     ),
+            'browsers'   => (object) array( 'url' => '/dashboard/browsers.json'      ),
+            'devices'    => (object) array( 'url' => '/dashboard/devices.json'       ),
+            'domains'    => $this->ga_api->profiles,
         );
 
         $this->add_data( array( 'dashboard' => $data ) );
@@ -106,10 +91,14 @@ class Dashboard extends HTML_Controller {
             else
                 $time = $this->lang->line('right_now');
 
+            // Gets creator
+            $creator = $content->administrator->get();
+
             array_push( $data, (object) array(
                     'name'       => $content->name,
                     'publish'    => $time,
                     'categories' => $categories,
+                    'creator'    => $creator->name,
                 )
             );
         }
@@ -127,7 +116,7 @@ class Dashboard extends HTML_Controller {
         $sessions = new Administrator_Session();
         $sessions
             ->order_by( 'creation_date DESC' )
-            ->limit(10);
+            ->limit(12);
 
         $data = array();
         foreach ( $sessions->get() as $session ) {
@@ -144,6 +133,3 @@ class Dashboard extends HTML_Controller {
         return $data;
     }
 }
-
-/* End of file dashboard.php */
-/* Location: ../applications/gpanel/controllers/html/dashboard.php */

@@ -21,6 +21,3 @@
  * Define list of available languages.
  */
  $config['i18n_available_languages'] = array('pt','gb','us','es');
-
-/* End of file i18n.php */
-/* Location: ../applications/gpanel/config/i18n.php */

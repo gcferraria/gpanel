@@ -37,9 +37,6 @@
                                        his parent and will not appear in the 
                                        application's tree
       data-jsb-name   the object's name in the application's tree
-      data-jsb-json   TODO
-      data-jsb-clone  TODO
-  
 
     FUNCTIONS 
   
@@ -58,9 +55,6 @@
 
         RETURNS
           suport framework's object (default: jQuery)
-
-        byClass     TODO
-        byGuid      TODO      
 
       object( name[, object] )
         Acess/define JsB objects
@@ -106,10 +100,6 @@
 
         RETURNS
           a cloned version od the object
-
-
-      data()
-        TODO
 
 
       deselect( [ boolean | index | object | name ] )
@@ -462,9 +452,7 @@
                 return this.$.hasClass( 'hidden' );
             }
             , 'load': function ( scripts, callback ) {
-                /*
-                * TODO: to be check by abras
-                */
+
                 //set counter to zero
                 var js_load_count = 0;
                 

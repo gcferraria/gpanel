@@ -9,7 +9,7 @@
  *
  * Email for send Notifications in Online Services.
  */
- $config['noreply_email'] = 'noreply@jf-assav.pt';
+ $config['noreply_email'] = 'noreply@domain.pt';
 
 /**
  * --------------------------------
@@ -20,7 +20,4 @@
  *
  * Name for send Notifications in Online Services.
  */
- $config['noreply_name'] = 'Serviços Online';
-
-/* End of file gpanel.php */
-/* Location: ../applications/gpanel/config/production/gpanel.php */
+ $config['noreply_name'] = 'Online Services';

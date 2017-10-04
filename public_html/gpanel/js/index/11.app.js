@@ -22,27 +22,46 @@
                 if (this.isIE10 || this.isIE9 || this.isIE8)
                     $('html').addClass('ie'); // detect IE10 version
             }
-            , blockUI: function(el, centerY) {
-            	el.$.block({
-                    message: '<img src="/images/ajax-loader-big.gif" align="">',
-                    centerY: centerY != undefined ? centerY : true,
+            , blockUI: function(el, options) {
+            	options = $.extend(true, {}, options);
+
+                var html = '';
+                if (options.animate) {
+                    html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' + '</div>';
+                } else if (options.iconOnly) {
+                    html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="/images/loading-spinner-grey.gif" align=""></div>';
+                } else if (options.textOnly) {
+                    html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                } else {
+                    html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="/images/loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                }
+
+                if (el.$.height() <= ($(window).height())) {
+                    options.centerY = true;
+                }
+
+                el.$.block({
+                    message: html,
+                    baseZ: options.zIndex ? options.zIndex : 1000,
+                    centerY: options.centerY !== undefined ? options.centerY : false,
                     css: {
                         top: '10%',
-                        border: 'none',
-                        padding: '2px',
+                        border: '0',
+                        padding: '0',
                         backgroundColor: 'none'
                     },
                     overlayCSS: {
-                        backgroundColor: '#000',
-                        opacity: 0.1,
+                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
+                        opacity: options.boxed ? 0.05 : 0.1,
                         cursor: 'wait'
                     }
-               });
+                });
          	}
  			, unblockUI: function(el) {
             	el.$.unblock({
              		onUnblock: function () {
-                 		el.$.removeAttr("style");
+                        el.$.css('position', '');
+                        el.$.css('zoom', '');
                 	}
             	});
         	}
@@ -55,6 +74,29 @@
                         toastr.error(message);
                     break;
                 }
+            }
+            , getResponsiveBreakpoint: function(size) {
+                var sizes = {
+                    'xs' : 480,
+                    'sm' : 768,
+                    'md' : 992,
+                    'lg' : 1200
+                };
+
+                return sizes[size] ? sizes[size] : 0; 
+            }
+            , getViewPort: function() {
+                var e = window,
+                    a = 'inner';
+                if (!('innerWidth' in window)) {
+                    a = 'client';
+                    e = document.documentElement || document.body;
+                }
+
+                return {
+                    width: e[a + 'Width'],
+                    height: e[a + 'Height']
+                };
             }
 		})
 	;

@@ -185,6 +185,3 @@ class Administrators extends HTML_Controller {
     }
 
 }
-
-/* End of file administrators.php */
-/* Location: ../applications/gpanel/controllers/html/administration/administrators.php */

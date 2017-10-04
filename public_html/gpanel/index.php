@@ -9,7 +9,7 @@
  * Is important to clear chache in css and js files beetween versions
  *
  */
- define('VERSION', '3.1.3');
+ define('VERSION', '4.5.4');
 
 /*
  *---------------------------------------------------------------

@@ -60,6 +60,3 @@ $foreign_characters = array(
     '/Œ/' => 'OE',
     '/ƒ/' => 'f'
 );
-
-/* End of file foreign_chars.php */
-/* Location: ../applications/gpanel/config/foreign_chars.php */

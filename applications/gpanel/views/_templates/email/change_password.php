@@ -7,12 +7,8 @@
 <body>
     <p>
         A sua password de acesso à área privada foi alterada.<br />
-		Os seus dados de acesso são:
+		A sua nova password de acesso é: <strong><?=$password?></strong>
     </p>
-    <ul>
-        <li><strong>Username:</strong> <?=$username?></li>
-        <li><strong>Password:</strong> <?=$password?></li>
-    </ul>
     <small>
 		Esta comunicação foi enviada automaticamente.<br />
 		Por favor não responda a este e-mail.Para mais esclarecimentos sobre esta comunicação será necessário contactar o ordenante da operação.

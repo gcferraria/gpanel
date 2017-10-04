@@ -2,7 +2,7 @@
 
     var
         Tree = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Tree.Super.call( this, elem, caller );
 
                 var that = this;
@@ -25,7 +25,7 @@
                         },
                         'types' : {
                             'default' : {
-                                'icon' : 'fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom'
+                                'icon' : 'fa fa-folder icon-state-warning icon-lg'
                             },
                         },
                         'plugins': ['types']
@@ -36,7 +36,7 @@
                     });
                 });
             }
-            , 'reload': function( node ) {
+            , reload: function( node ) {
                 this.$.jstree( 'refresh', node );
             }
         })

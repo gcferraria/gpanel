@@ -40,8 +40,16 @@ class Notifications extends HTML_Controller {
         );
 
         $this->add_data( array(
-                'title' => $this->lang->line('notification_title'),
-                'table' => $data,
+                'title'         => $this->lang->line('notification_title'),
+                'table'         => $data,
+                'table_actions' => array(
+                    'read' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'notifications/read.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Read',
+                        'text'           => $this->lang->line('notifications_mark_as_read'),
+                    ),
+                ),
             )
         );
 

@@ -2,7 +2,7 @@
 
     var 
         Fancybox = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Fancybox.Super.call( this, elem, caller );
                 this.$.fancybox({
                     groupAttr: 'data-rel',

@@ -5,7 +5,7 @@
             constructor: function( elem, caller ) {
                 Field.Super.call( this, elem, caller );
             }
-            , 'update': function() {
+            , update: function() {
                 var data     = [],
                     children = this.parent.$files.toArray();
                 
@@ -46,7 +46,6 @@
                 this.parent.$files.empty();
             }
         })
-        
         , Progress = my.Class( JsB, {
             constructor: function( elem, caller ) {
                 Progress.Super.call( this, elem, caller );
@@ -58,7 +57,6 @@
                 this.$.addClass('display-hide');
             }
         })
-
         , Files = my.Class( JsB, {
             constructor: function( elem, caller ) {
                 Files.Super.call( this, elem, caller );
@@ -88,7 +86,6 @@
                 this.parent.$field.update();
             }
         })
-
         , Delete = my.Class( JsB, {
             'constructor': function( elem, caller ) {
                 Delete.Super.call( this, elem, caller );
@@ -103,7 +100,6 @@
                 return false;
             }
         })
-
         , OpenModal = my.Class( JsB, {
             'constructor': function( elem, caller ) {
                 OpenModal.Super.call( this, elem, caller );
@@ -121,7 +117,6 @@
                 return false;
             }
         })
-
         , Modal = my.Class( JsB, {
             'constructor': function( elem, caller ) {
                 Modal.Super.call( this, elem, caller );
@@ -157,7 +152,6 @@
                 this.$.modal('hide');
             }
         })
-        
         , Save = my.Class( JsB, {
             'constructor': function( elem, caller ) {
                 Save.Super.call( this, elem, caller );

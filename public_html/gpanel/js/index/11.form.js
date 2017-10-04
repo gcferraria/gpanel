@@ -2,7 +2,7 @@
 
     var
         Form = my.Class( JsB, {
-            'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 Form.Super.call( this, elem, caller );
 
                 this.fields = [];
@@ -14,14 +14,14 @@
                     that.fields = that.$fields.toArray();
                 });
             }
-            , 'submit': function( ev ) {
+            , submit: function( ev ) {
                 ev.preventDefault();
                 this.$.submit();
             }
-            , 'redirect': function( data ) {
+            , redirect: function( data ) {
                 setTimeout( function() { window.location = data.url }, data.duration || 0 );
             }
-            , 'disable': function() {
+            , disable: function() {
                 for ( var idx in this.fields ) {
                     var field = this.fields[ idx ];
 
@@ -29,7 +29,7 @@
                         field.$field.disable();
                 }
             }
-            , 'enable': function() {
+            , enable: function() {
                 for ( var idx in this.fields ) {
                     var field = this.fields[ idx ];
 
@@ -37,7 +37,7 @@
                         field.$field.enable();
                 }
             }
-            , 'show_errors': function( errors ) {
+            , show_errors: function( errors ) {
                 if ( typeof( errors ) == 'object' ) {
                     for ( var idx in this.fields ) {
                         var field = this.fields[ idx ];
@@ -57,7 +57,7 @@
                     }
                 }
             }
-            , 'clean_errors': function() {
+            , clean_errors: function() {
                 for ( var idx in this.fields ) {
                     var field = this.fields[ idx ];
 
@@ -68,7 +68,7 @@
                     field.$error.update('');
                 }
             }
-            , 'reset': function() {
+            , reset: function() {
                 for ( var idx in this.fields ) {
                     var field = this.fields[ idx ];
 
@@ -83,18 +83,18 @@
                     }
                 }
             }
-            , 'notification': function( args ) {
+            , notification: function( args ) {
                 app.notification( args[0], args[1] );
             }
         })
 
         , AjaxForm = my.Class( Form, {
-            'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 AjaxForm.Super.call( this, elem, caller );
 
                 this.async = true;
             }
-            , 'submit': function( ev, args ) {
+            , submit: function( ev, args ) {
                 var that = this,
                     data = this.$.serializeArray();
 
@@ -121,6 +121,9 @@
                     }
                 });
             }
+            , show_errors: function( errors ) {
+                AjaxForm.Super.prototype.show_errors.call( this, errors );
+            }
             , _beforeSend: function() {
                 this.$button.$.button('loading');
                 this.disable();
@@ -138,13 +141,13 @@
         })
 
         , Submit = my.Class( JsB, {
-            'constructor': function ( elem, caller ) {
+            constructor: function ( elem, caller ) {
                 Submit.Super.call( this, elem, caller );
 
                 this.name = 'button';
                 this.bind('click');
             }
-            , 'click': function( ev, args ) {
+            , click: function( ev, args ) {
                 this.context.submit( ev );
                 return false;
             }

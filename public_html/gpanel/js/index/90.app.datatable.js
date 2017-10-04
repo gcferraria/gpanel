@@ -24,6 +24,7 @@
                         "bServerSide"   : true,
                         'bAutoWidth'    : false,
                         'bDeferRender'  : true,
+                        "bStateSave"    : true, // save datatable state(pagination, sort, etc) in cookie.
                         "iDisplayLength": 10,
                         "oLanguage"     : { "sUrl": "/datatables.json" },
                         "aoColumnDefs" : [{  // define columns sorting options(by default all columns are sortable extept the first checkbox column)
@@ -33,7 +34,6 @@
                         fnDrawCallback: function( oSettings ) {
                             caller.$.find('.dataTables_filter input').addClass("form-control input-small input-inline");
                             caller.$.find('.dataTables_length select').addClass("form-control input-xsmall");
-                            caller.$.find('.dataTables_length select').select2();
                         },
                         fnRowCallback: function( nRow, aData, iDisplayIndex ) {
                             var id = $( nRow ).attr('id');
@@ -60,7 +60,7 @@
             }
             , reload: function() {
                 var elem = this.parent;
-                app.blockUI(elem);
+                app.blockUI(elem,{animate:true});
 
                 this.table._fnAjaxUpdate({'sEcho': this.table.sEcho});
                 
@@ -86,7 +86,7 @@
                     'type'      : 'GET',
                     'url'       : url,
                     'dataType'  : 'json',
-                    'beforeSend': function() { app.blockUI(elem); },
+                    'beforeSend': function() { app.blockUI(elem, {animate:true}); },
                     'error'     : function( XHR, textStatus ) {},
                     'complete'  : function() { app.unblockUI(elem); },
                     'success'   : function( data ) {

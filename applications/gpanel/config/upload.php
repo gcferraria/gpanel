@@ -130,6 +130,3 @@
  *
  */
  $config['remove_spaces'] = 'TRUE';
-
-/* End of file upload.php */
-/* Location: ../applications/gpanel/config/upload.php */
