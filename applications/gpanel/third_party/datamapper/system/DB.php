@@ -1,5 +1,4 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  * Data Mapper ORM bootstrap
  *
@@ -12,9 +11,7 @@
  * @link		http://datamapper.wanwizard.eu/
  * @version 	2.0.0
  */
-
 // ------------------------------------------------------------------------
-
 /**
  * Initialize the database
  *
@@ -35,41 +32,33 @@ function &DB($params = '', $active_record_override = NULL)
 				show_error('The configuration file database.php does not exist.');
 			}
 		}
-
 		include($file_path);
-
 		if ( ! isset($db) OR count($db) == 0)
 		{
 			show_error('No database connection settings were found in the database config file.');
 		}
-
 		if ($params != '')
 		{
 			$active_group = $params;
 		}
-
 		if ( ! isset($active_group) OR ! isset($db[$active_group]))
 		{
 			show_error('You have specified an invalid database connection group.');
 		}
-
 		$params = $db[$active_group];
 	}
 	elseif (is_string($params))
 	{
-
 		/* parse the URL from the DSN string
 		 *  Database settings can be passed as discreet
 		 *  parameters or as a data source name in the first
 		 *  parameter. DSNs must have this prototype:
 		 *  $dsn = 'driver://username:password@hostname/database';
 		 */
-
 		if (($dns = @parse_url($params)) === FALSE)
 		{
 			show_error('Invalid DB Connection String');
 		}
-
 		$params = array(
 							'dbdriver'	=> $dns['scheme'],
 							'hostname'	=> (isset($dns['host'])) ? rawurldecode($dns['host']) : '',
@@ -77,12 +66,10 @@ function &DB($params = '', $active_record_override = NULL)
 							'password'	=> (isset($dns['pass'])) ? rawurldecode($dns['pass']) : '',
 							'database'	=> (isset($dns['path'])) ? rawurldecode(substr($dns['path'], 1)) : ''
 						);
-
 		// were additional config items set?
 		if (isset($dns['query']))
 		{
 			parse_str($dns['query'], $extra);
-
 			foreach ($extra as $key => $val)
 			{
 				// booleans please
@@ -94,37 +81,41 @@ function &DB($params = '', $active_record_override = NULL)
 				{
 					$val = FALSE;
 				}
-
 				$params[$key] = $val;
 			}
 		}
 	}
-
 	// No DB specified yet?  Beat them senseless...
 	if ( ! isset($params['dbdriver']) OR $params['dbdriver'] == '')
 	{
 		show_error('You have not selected a database type to connect to.');
 	}
-
 	// Load the DB classes.  Note: Since the active record class is optional
 	// we need to dynamically create a class that extends proper parent class
 	// based on whether we're using the active record class or not.
 	// Kudos to Paul for discovering this clever use of eval()
-
 	if ($active_record_override !== NULL)
 	{
 		$active_record = $active_record_override;
 	}
-
 	require_once(BASEPATH.'database/DB_driver.php');
-
 	if ( ! isset($active_record) OR $active_record == TRUE)
 	{
-		require_once(BASEPATH.'database/DB_active_rec.php');
-
-		if ( ! class_exists('CI_DB'))
+		if (file_exists(BASEPATH.'database/DB_active_rec.php'))
 		{
-			eval('class CI_DB extends CI_DB_active_record { }');
+			require_once(BASEPATH.'database/DB_active_rec.php');
+			if ( ! class_exists('CI_DB'))
+			{
+				eval('class CI_DB extends CI_DB_active_record { }');
+			}
+		}
+		else
+		{
+			require_once(BASEPATH.'database/DB_query_builder.php');
+			if ( ! class_exists('CI_DB'))
+			{
+				eval('class CI_DB extends CI_DB_query_builder { }');
+			}
 		}
 	}
 	else
@@ -134,29 +125,19 @@ function &DB($params = '', $active_record_override = NULL)
 			eval('class CI_DB extends CI_DB_driver { }');
 		}
 	}
-
 	require_once(BASEPATH.'database/drivers/'.$params['dbdriver'].'/'.$params['dbdriver'].'_driver.php');
-
 	// Instantiate the DB adapter
 	$driver = 'CI_DB_'.$params['dbdriver'].'_driver';
-
 	// load Datamappers DB interceptor class
-	require_once(APPPATH.'third_party/datamapper/system/DB_driver.php');
-
+	require(DATAMAPPERPATH.'third_party/datamapper/system/DB_driver.php');
 	$DB = new $driver($params);
-
-	if ($DB->autoinit == TRUE)
-	{
+//	if ($DB->autoinit == TRUE)
+//	{
 		$DB->initialize();
-	}
-
+//	}
 	if (isset($params['stricton']) && $params['stricton'] == TRUE)
 	{
 		$DB->query('SET SESSION sql_mode="STRICT_ALL_TABLES"');
 	}
-
 	return $DB;
 }
-
-/* End of file DB.php */
-/* Location: ./application/third_party/datamapper/system/DB.php */

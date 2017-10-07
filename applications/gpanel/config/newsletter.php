@@ -9,11 +9,7 @@
  *
  * Define the available emails for send newsletters.
  */
- $config['newsletter_from_emails'] = array(
-    'No Reply - Junta de Freguesia do Castelo' => 'no_reply@jf-castelo.pt',
-    'Junta de Freguesia do Castelo' 		   => 'geral@jf-castelo.pt' ,
-    'Sesimbra Summer Cup'  					   => 'sesimbracup@jf-castelo.pt',
- );
+ $config['newsletter_from_emails'] = array();
 
 /**
  * ------------------------
@@ -24,9 +20,7 @@
  *
  * Define the available templates.
  */
- $config['newsletter_templates'] = array(
-    'Atualidade' => 'news',
- );
+ $config['newsletter_templates'] = array();
 
 /**
  * ------------------------
@@ -37,10 +31,7 @@
  *
  * Define the available websites for select contents.
  */
- $config['newsletter_websites'] = array(
-    'http://www.jf-castelo.pt'   => '/sites/jfc/',
-    'http://www.sesimbracup.com' => '/sites/ssc/',
- );
+ $config['newsletter_websites'] = array();
 
 /**
  * ------------------------
@@ -51,7 +42,7 @@
  *
  * Define the available content types for populate the template.
  */
- $config['newsletter_content_types'] = array('new','event');
+ $config['newsletter_content_types'] = array();
 
 /**
  * ------------------------

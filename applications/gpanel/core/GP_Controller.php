@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GP_Controller extends CI_Controller {
-
+class GP_Controller extends CI_Controller 
+{
     /**
      * @var array, data to render in template
      * @access public
@@ -15,16 +16,20 @@ class GP_Controller extends CI_Controller {
      * @access public
      * @return void
     **/
-    function __construct( $access = 'public' ) {
+    public function __construct( $access = 'public' ) 
+    {
         parent::__construct( $access );
 
         // Restrict Access. Only logged administrators.
-        if ( $access == 'restrict' ) {
-
+        if ( $access == 'restrict' ) 
+        {
             // Redirects to the login area.
-            if ( ! $this->authentication->logged_in() ) {
+            if ( ! $this->authentication->logged_in() ) 
+            {
                 redirect();
-            } else {
+            } 
+            else 
+            {
                 $this->administrator = $this->authentication->administrator();
             }
         }
@@ -37,8 +42,8 @@ class GP_Controller extends CI_Controller {
      * @param array $data, [Optional] Data.
      * @return void
     **/
-    public function add_data ( $data = array() ) {
+    public function add_data ( $data = array() ) 
+    {
         $this->data = array_replace_recursive( $this->data, $data );
     }
-
 }

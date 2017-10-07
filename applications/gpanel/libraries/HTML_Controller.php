@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class HTML_Controller extends GP_Controller {
-
+class HTML_Controller extends GP_Controller 
+{
     /**
      * _construct: HTML_Controller Class constructor.
      *
@@ -15,7 +16,8 @@ class HTML_Controller extends GP_Controller {
         $this->data = array( 'title' => $this->lang->line('title') );
 
         // Restrict Access. Only logged administrators.
-        if ( $access == 'restrict' ) {
+        if ( $access == 'restrict' ) 
+        {
             $notifications = new Notification();
 
             // Add Authentication data.
@@ -38,11 +40,12 @@ class HTML_Controller extends GP_Controller {
      * @param  array $template, [optional] Template name to render.
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $segments = $this->uri->segment_array();
 
-        foreach( $segments as $index => $segment ) {
+        foreach( $segments as $index => $segment ) 
+        {
             if ( is_numeric( $segment ) )
                 unset( $segments[ $index ] );
         }
@@ -60,9 +63,9 @@ class HTML_Controller extends GP_Controller {
         );
 
         // Display Template.
-        $this->load->view( '_header', $this->data );
-        $this->load->view( $template, $this->data );
-        $this->load->view( '_footer', $this->data );
+        $this->load->view( 'html/_header'    , $this->data );
+        $this->load->view( 'html/'. $template, $this->data );
+        $this->load->view( 'html/_footer'    , $this->data );
     }
 
     /**
@@ -83,7 +86,7 @@ class HTML_Controller extends GP_Controller {
         if ( $file )
             $path .= "/$file";
 
-        if ( ! is_file( APPPATH . "views/$path.php") ) {
+        if ( ! is_file( APPPATH . "views/html/$path.php") ) {
 
             // Remove Last position
             array_pop( $segments );
@@ -92,7 +95,7 @@ class HTML_Controller extends GP_Controller {
             return $this->find( $segments, $file );
         }
 
-        return $this->load->view( $path, $this->data, true );
+        return $this->load->view( 'html/' . $path, $this->data, true );
     }
     
     /**
@@ -221,6 +224,3 @@ class HTML_Controller extends GP_Controller {
         return $data;
     }
 }
-
-/* End of file HTML_Controller.php */
-/* Location: ../applications/gpanel/libraries/HTML_Controller.php */

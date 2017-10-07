@@ -128,7 +128,7 @@ class GP_Email extends CI_Email {
      * bcc_batch_size
      * encoding
      */
-    public function initialize($config = array()) {
+    public function initialize(array $config = array()) {
 
         if (!is_array($config)) {
             $config = array();

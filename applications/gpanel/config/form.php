@@ -10,7 +10,7 @@
  * Define the location of the form template.
  *
  */
- $config['form_template'] = 'form/form';
+ $config['form_template'] = 'html/form/form';
 
 /**
  * ------------------------
@@ -22,7 +22,7 @@
  * Define the location of the multistep for template.
  *
  */
- $config['form_multistep_template'] = 'form/forms/multistep';
+ $config['form_multistep_template'] = 'html/form/forms/multistep';
 
 /**
  * ------------------------
@@ -34,7 +34,7 @@
  * Define the location of the fields template.
  *
  */
- $config['fields_template'] = 'form/fields/';
+ $config['fields_template'] = 'html/form/fields/';
 
 /**
  * ------------------------

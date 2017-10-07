@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  * Data Mapper ORM bootstrap
  *
@@ -12,12 +11,16 @@
  * @link		http://datamapper.wanwizard.eu/
  * @version 	2.0.0
  */
-
-$dmclass = <<<CODE
-class DM_DB_Driver extends $driver
+// determine our driver alias name
+$org_driver = $driver;
+$driver = str_replace('CI_DB_', 'DM_DB_', $driver);
+if ( ! class_exists($driver, FALSE) )
+{
+	$dmclass = <<<CODE
+class $driver extends $org_driver
 {
 	// public interface to internal driver methods
-	public function dm_call_method(\$function, \$p1 = null, \$p2 = null, \$p3 = null, \$p4 = null)
+	public function dm_call_method(\$function, \$p1 = null, \$p2 = null, \$p3 = null, \$p4 = null, \$p5 = null)
 	{
 		switch (func_num_args())
 		{
@@ -35,33 +38,27 @@ class DM_DB_Driver extends $driver
 			case 5:
 				return \$this->{\$function}(\$p1, \$p2, \$p3, \$p4);
 				break;
+			case 6:
+				return \$this->{\$function}(\$p1, \$p2, \$p3, \$p4, \$p5);
+				break;
 		}
 	}
-
 	// public interface to internal driver properties
 	public function dm_get(\$var)
 	{
 		return isset(\$this->{\$var}) ? \$this->{\$var} : NULL;
 	}
-
 	public function dm_set(\$var, \$value)
 	{
 		\$this->{\$var} = \$value;
 	}
-
 	public function dm_set_append(\$var, \$value)
 	{
 		\$this->{\$var}[] = \$value;
 	}
 }
 CODE;
-
-// dynamically add our class extension
-eval($dmclass);
-unset($dmclass);
-
-// and update the name of the class to instantiate
-$driver = 'DM_DB_Driver';
-
-/* End of file DB_driver.php */
-/* Location: ./application/third_party/datamapper/system/DB_driver.php */
+	// dynamically add our class extension
+	eval($dmclass);
+	unset($dmclass);
+}
