@@ -1,4 +1,5 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed.');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['newline']  = "\r\n";
 $config['crlf']     = "\n";

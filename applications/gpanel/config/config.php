@@ -1,6 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+function __autoload ($class)
+{
+    $file = APPPATH . 'libraries/' . $class . '.php';
+    if (strpos($class, 'CI_') !== 0) {
+        if (file_exists($file) && is_file($file)) {
+            @include_once ( APPPATH . 'libraries/' . $class . '.php');
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

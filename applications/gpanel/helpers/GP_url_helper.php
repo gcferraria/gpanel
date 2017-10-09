@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * youtube_id_from_url: get youtube video ID from URL.
@@ -8,10 +9,10 @@
  * @return string Youtube video id or FALSE if none found.
  */
 
-if ( !function_exists('youtube_id_from_url') ) {
-
-    function youtube_id_from_url( $url ) {
-
+if ( !function_exists('youtube_id_from_url') ) 
+{
+    function youtube_id_from_url( $url ) 
+    {
         $pattern =
             '%^# Match any youtube URL
             (?:https?://)?  # Optional scheme. Either http or https
@@ -45,12 +46,12 @@ if ( !function_exists('youtube_id_from_url') ) {
  * @return string Vimeo video id or FALSE if none found.
  */
 
-if ( !function_exists('vimeo_id_from_url') ) {
-
-    function vimeo_id_from_url( $url ) {
-
+if ( !function_exists('vimeo_id_from_url') ) 
+{
+    function vimeo_id_from_url( $url ) 
+    {
         $pattern =
-            '%^# Match any youtube URL
+            '%^# Match any Vimeo URL
             (?:https?://)?  # Optional scheme. Either http or https
             (?:www\.)?      # Optional www subdomain
             vimeo\.com\/
@@ -74,9 +75,10 @@ if ( !function_exists('vimeo_id_from_url') ) {
  * @return string new static url.
  */
 
-if ( !function_exists('static_url') ) {
-
-    function static_url( $url ) {
+if ( !function_exists('static_url') ) 
+{
+    function static_url( $url ) 
+    {
 	    $CI =& get_instance();
 
         return $CI->config->item('static_url') . str_replace( $CI->config->item('static_url'), '', $url);
@@ -90,10 +92,10 @@ if ( !function_exists('static_url') ) {
  * @param  string $url
  * @return string.
  */
-if ( !function_exists('extract_domain') ) {
-
-    function extract_domain( $url ) {
-
+if ( !function_exists('extract_domain') ) 
+{
+    function extract_domain( $url ) 
+    {
 	    $result = preg_match( "/^(?:https?:\/\/)?(?:www\.)?(.*?)\.([a-z]{2,3})$/", $url, $matches );
         if ( !is_null($result) )
             return $matches[1];
@@ -101,6 +103,3 @@ if ( !function_exists('extract_domain') ) {
         return '';
 	}
 }
-
-/* End of file url_helper.php */
-/* Location: ../applications/common/helpers/url_helper.php */

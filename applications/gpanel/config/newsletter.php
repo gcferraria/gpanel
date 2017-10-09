@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * ------------------------
@@ -53,4 +54,4 @@
  *
  * Define the path of the newsletter templates
  */
- $config['newsletter_templates_path'] = '_templates/newsletter';
+ $config['newsletter_templates_path'] = 'html/_templates/newsletter';
