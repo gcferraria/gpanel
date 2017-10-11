@@ -1,20 +1,23 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Content_Types extends JSON_Controller {
-
+class Content_Types extends JSON_Controller 
+{
     /**
      * index: Get Content Types.
      *
      * @access public
      * @return json
     **/
-    public function index( $data = array()) {
+    public function index( $data = array() ) 
+    {
         $content_types = new Content_Type;
         $columns = array( 'name','uriname','creation_date','status');
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $content_types->or_like( array(
                     'name'    => $search_text,
                     'uriname' => $search_text,
@@ -25,25 +28,31 @@ class Content_Types extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $content_types->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else
+        else 
+        {
             $content_types->order_by('name');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $content_types->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $content_types as $content_type ) {
+        foreach ( $content_types as $content_type ) 
+        {
             $data[] = array(
                 "DT_RowId" => $content_type->id,
                 0 => $content_type->name,
@@ -75,8 +84,8 @@ class Content_Types extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Inicialize Content Type Object.
         $content_type = new Content_Type;
 
@@ -86,15 +95,15 @@ class Content_Types extends JSON_Controller {
         $content_type->active_flag = $this->input->post('active_flag');
 
         // If the Content Type is valid insert the data.
-        if( $content_type->save() ) {
-
+        if( $content_type->save() ) 
+        {
             $data = array(
                 'reset'        => 1,
                 'notification' => array( 'success',$this->lang->line('save_success_message') ),
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors'  => $content_type->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -111,8 +120,8 @@ class Content_Types extends JSON_Controller {
      * @param  int $id, Content Type Id.
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Inicialize Content Type Object.
         $content_type = new Content_Type;
 
@@ -125,13 +134,15 @@ class Content_Types extends JSON_Controller {
         $content_type->active_flag = $this->input->post('active_flag');
 
         // If the Content Type is valid insert the data.
-        if( $content_type->save() ) {
+        if( $content_type->save() ) 
+        {
             $data = array(
                 'show_errors'  => array(),
                 'notification' => array( 'success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $content_type->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -148,8 +159,8 @@ class Content_Types extends JSON_Controller {
      * @param  int $id, Content Type Id
      * @return json
     **/
-    public function delete( $id ) {
-
+    public function delete( $id ) 
+    {
         // Inicialize Content Type Object.
         $content_type = new Content_Type;
 
@@ -160,7 +171,8 @@ class Content_Types extends JSON_Controller {
           If Content Type has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if ( $content_type->delete() ) {
+        if ( $content_type->delete() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -168,7 +180,8 @@ class Content_Types extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -179,6 +192,3 @@ class Content_Types extends JSON_Controller {
     }
 
 }
-
-/* End of file content_types.php */
-/* Location: ./applications/gpanel/controllers/json/administration/content_types.php */

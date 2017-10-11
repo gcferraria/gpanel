@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -27,6 +28,3 @@ $lang = array (
     'category_delete_warning_step3'   => 'Introduza no formul&aacute;rio seguinte o nome da Categoria que pretende Apagar, de modo a confirmar a opera&ccedil;&atilde;o.',
     'category_delete_name_help'       => 'Introduza o nome da categoria a Apagar.',
 );
-
-/* End of file category_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/category_lang.php */

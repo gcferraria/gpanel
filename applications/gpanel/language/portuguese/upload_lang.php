@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
     'upload_file_exceeds_limit'      => 'Excedeu o limite',
@@ -16,6 +17,3 @@ $lang = array (
     'upload_no_filepath'             => 'A diretoria de destino não existe',
     'upload_not_writable'            => 'Não possui permissões de escrita',
 );
-
-/* End of file upload_lang.php */
-/* Location: ../applications/gpanel/language/portuguese/upload_lang.php */

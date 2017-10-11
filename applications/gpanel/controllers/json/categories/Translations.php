@@ -1,27 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Translations Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       JSON_Controller
- * @category   Categories
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.1 translations.php 2015-11-01 gferraria $
- */
-
-class Translations extends JSON_Controller {
-
+class Translations extends JSON_Controller 
+{
     /**
      * index: Get Category Translations data.
      *
      * @access public
      * @return json
     **/
-    public function index( $id ) {
-
+    public function index( $id ) 
+    {
         // Initialize Category Object.
         $category = new Category();
 
@@ -39,7 +28,8 @@ class Translations extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $translations->or_like( array(
                     'name'  => $search_text,
                     'value' => $search_text
@@ -50,25 +40,31 @@ class Translations extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $translations->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else
+        {
             $translations->order_by('id');
-
+        }
+        
          // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $translations->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $translations as $translation ) {
+        foreach ( $translations as $translation ) 
+        {
             $language = $translation->language->get();
 
             $data[] = array(
@@ -99,7 +95,8 @@ class Translations extends JSON_Controller {
      * @param  int $id, Category Id
      * @return json
     **/
-    public function save( $id ) {
+    public function save( $id ) 
+    {
         $errors      = array();
         $category    = new Category();
         $translation = new Translation();
@@ -124,10 +121,12 @@ class Translations extends JSON_Controller {
 
         $values = array();
         $rules  = 0;
-        foreach ( $fields as $field ) {
+        foreach ( $fields as $field ) 
+        {
             $values[ $field['field'] ] = $this->input->post( $field['field'] );
 
-            foreach ( $field['rules'] as $rule ) {
+            foreach ( $field['rules'] as $rule ) 
+            {
                 $rules++;
 
                 // Add validation rule for field.
@@ -146,24 +145,28 @@ class Translations extends JSON_Controller {
         $operation = $this->input->post('operation');
 
         // Check if this combination already exists
-        if( $valid && empty( $operation ) ) {
+        if( $valid && empty( $operation ) ) 
+        {
             if ( ( $valid = !($translation->get()->exists()) ) == FALSE )
                 $errors['language_id'] = $this->lang->line('unique_combination');
         }
 
         // If the Content is valid insert the data.
-        if ( $valid && $translation->valid ) {
-
-            foreach ($fields as $field) {
+        if ( $valid && $translation->valid ) 
+        {
+            foreach ($fields as $field) 
+            {
                 $translation = new Translation();
 
-                if ( empty( $operation ) ) {
+                if ( empty( $operation ) ) 
+                {
                     $translation->category_id = $category->id;
                     $translation->language_id = $language->id;
                     $translation->name        = $field['field'];
                     $translation->value       = $this->input->post( $field['field'] );
                 }
-                else {
+                else 
+                {
                     $translation->where(array(
                             'category_id' => $category->id,
                             'language_id' => $language->id,
@@ -182,10 +185,11 @@ class Translations extends JSON_Controller {
             if ( empty( $operation ) )
                 $data['reset'] = 1;
         }
-        else {
-
+        else 
+        {
             //Get Fields Error Messages.
-            foreach ( $fields as $field ) {
+            foreach ( $fields as $field ) 
+            {
                 if ( $error = $this->form_validation->error( $field['field'] ) )
                     $errors[ $field['field'] ] = strip_tags( $error );
             }
@@ -206,16 +210,18 @@ class Translations extends JSON_Controller {
      * @param  int $language id, Language identifier
      * @return json
     **/
-    public function delete( $language_id ) {
-
+    public function delete( $language_id ) 
+    {
         $object;
         $category_id = $this->input->get('category_id');
-        if ( !empty( $category_id ) ) {
+        if ( !empty( $category_id ) ) 
+        {
             $object = new Category();
             $object->get_by_id( $category_id );
         }
 
-        if( empty($object) || !$object->exists() ) {
+        if( empty($object) || !$object->exists() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -225,12 +231,14 @@ class Translations extends JSON_Controller {
         }
 
         $result = TRUE;
-        if ( $object->translations->count() > 0 ) {
+        if ( $object->translations->count() > 0 ) 
+        {
             $translations = $object->translations->where('language_id', $language_id)->get();
             $result = $object->delete( $translations->all, 'translations' );
         }
 
-        if($result) {
+        if( $result ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -238,7 +246,8 @@ class Translations extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -248,6 +257,3 @@ class Translations extends JSON_Controller {
         }
     }
 }
-
-/* End of file translations.php */
-/* Location: ./applications/gpanel/controllers/json/categories/translations.php */

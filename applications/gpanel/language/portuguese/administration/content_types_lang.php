@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -16,28 +17,25 @@ $lang = array (
     'content_type_active_yes'             => 'Sim',
     'content_type_active_no'              => 'N&atilde;o',
 
-    'content_type_field_title'                  => 'Campos do Tipo de Conte&uacute;do %s',
-    'content_type_field_title_add'              => 'Adicionar Campo ao Tipo de Conte&uacute;do',
-    'content_type_field_title_edit'             => 'Alterar o Campo do Tipo de Conte&uacute;do',
-    'content_type_field_breadcrumb_add'         => 'Adicionar Campo ao Tipo de Conte&uacute;do',
-    'content_type_field_breadcrumb_edit'        => 'Alterar o campo %s do Tipo de Conte&uacute;do',
-    'content_type_field_name'                   => 'Nome',
-    'content_type_field_label'                  => 'Label',
-    'content_type_field_content_type_id'        => 'Tipo de Conte&uacute;do',
-    'content_type_field_type'                   => 'Tipo',
-    'content_type_field_required'               => 'Obrigat&oacute;rio',
-    'content_type_field_required_yes'           => 'Sim',
-    'content_type_field_required_no'            => 'N&atilde;o',
-    'content_type_field_args'                   => 'Argumentos Adicionais',
-    'content_type_field_help'                   => 'Ajuda',
-    'content_type_field_position'               => 'Posi&ccedil;&atilde;o',
-    'content_type_field_active_flag'            => 'Activo',
-    'content_type_field_active_yes'             => 'Sim',
-    'content_type_field_active_no'              => 'N&atilde;o',
-    'content_type_field_status'                 => 'Estado',
-    'content_type_field_translatable'           => 'Tradutível',
+    'content_type_field_title'            => 'Campos do Tipo de Conte&uacute;do %s',
+    'content_type_field_title_add'        => 'Adicionar Campo ao Tipo de Conte&uacute;do',
+    'content_type_field_title_edit'       => 'Alterar o Campo do Tipo de Conte&uacute;do',
+    'content_type_field_breadcrumb_add'   => 'Adicionar Campo ao Tipo de Conte&uacute;do',
+    'content_type_field_breadcrumb_edit'  => 'Alterar o campo %s do Tipo de Conte&uacute;do',
+    'content_type_field_name'             => 'Nome',
+    'content_type_field_label'            => 'Label',
+    'content_type_field_content_type_id'  => 'Tipo de Conte&uacute;do',
+    'content_type_field_type'             => 'Tipo',
+    'content_type_field_required'         => 'Obrigat&oacute;rio',
+    'content_type_field_required_yes'     => 'Sim',
+    'content_type_field_required_no'      => 'N&atilde;o',
+    'content_type_field_args'             => 'Argumentos Adicionais',
+    'content_type_field_help'             => 'Ajuda',
+    'content_type_field_position'         => 'Posi&ccedil;&atilde;o',
+    'content_type_field_active_flag'      => 'Activo',
+    'content_type_field_active_yes'       => 'Sim',
+    'content_type_field_active_no'        => 'N&atilde;o',
+    'content_type_field_status'           => 'Estado',
+    'content_type_field_translatable'     => 'Tradutível',
 
 );
-
-/* End of file content_types_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/administration/content_types_lang.php */

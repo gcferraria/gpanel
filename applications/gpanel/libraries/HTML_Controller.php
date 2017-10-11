@@ -76,8 +76,8 @@ class HTML_Controller extends GP_Controller
      * @param  string $file    , [Optional] Name to find an specific file.
      * @return string
     **/
-    public function find( $segments = array(), $file = null ) {
-
+    public function find( $segments = array(), $file = null ) 
+    {
         if ( sizeof( $segments ) == 0 )
             return '';
 
@@ -86,8 +86,8 @@ class HTML_Controller extends GP_Controller
         if ( $file )
             $path .= "/$file";
 
-        if ( ! is_file( APPPATH . "views/html/$path.php") ) {
-
+        if ( ! is_file( APPPATH . "views/html/$path.php") ) 
+        {
             // Remove Last position
             array_pop( $segments );
 
@@ -104,7 +104,8 @@ class HTML_Controller extends GP_Controller
      * @access private
      * @return array 
      */
-    private function _menu_data() {
+    private function _menu_data() 
+    {
         $data = array(
             array(
                 'title'    => $this->lang->line('menu_dashboard'),
@@ -212,15 +213,18 @@ class HTML_Controller extends GP_Controller
             ),
         );
 
-        if ( $this->authentication->is_admin() ) {
+        if ( $this->authentication->is_admin() ) 
+        {
             $data = array_merge_recursive($data,$admin_data); 
         }
         
         // Add selected attribute for menu entry
-        foreach ( $data as &$entry ) {
+        foreach ( $data as &$entry ) 
+        {
             $entry['selected'] = ( preg_match( '/^(\/)?' . preg_quote( $entry['path'], '/i' ) . '/',  $this->uri->uri_string() ) );
         }
 
         return $data;
     }
+
 }

@@ -1,20 +1,23 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contacts extends JSON_Controller {
-
+class Contacts extends JSON_Controller 
+{
     /**
      * index: Get Newsletter Contacts.
      *
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
+    public function index($data = array()) 
+    {
         $newsletter_contacts = new Newsletter_Contact();
         $columns = array( 'email','name','source','creation_date','active_flag');
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $newsletter_contacts->or_like( array(
                     'name'    => $search_text,
                     'email'   => $search_text,
@@ -25,27 +28,31 @@ class Contacts extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $newsletter_contacts->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else {
+        else 
+        {
             $newsletter_contacts->order_by('creation_date', 'desc');
         }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $newsletter_contacts->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $newsletter_contacts as $contact ) {
-
+        foreach ( $newsletter_contacts as $contact ) 
+        {
             $data[] = array(
                 "DT_RowId" => $contact->id,
                 0 => '<a href="mailto:' . strtolower( $contact->email ) . '">' . word_limiter( $contact->email, 10 ) . '</a>',
@@ -78,7 +85,8 @@ class Contacts extends JSON_Controller {
      * @param  int $id, [Required] Newsletter Contact Id
      * @return json
     **/
-    public function edit( $id ) {
+    public function edit( $id ) 
+    {
         $newsletter_contact = new Newsletter_Contact();
 
         // Find Newsletter Contact to Edit.
@@ -88,14 +96,15 @@ class Contacts extends JSON_Controller {
         $newsletter_contact->active_flag = $this->input->post('active_flag');
 
         // If the Newsletter Contact is valid update the Record.
-        if ( $newsletter_contact->save() ) {
-
+        if ( $newsletter_contact->save() ) 
+        {
             $data = array(
                 'show_errors'  => array(),
                 'notification' => array('success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $newsletter_contact->errors->all,
                 'notification' => array('error', $this->lang->line('save_error_message') ),
@@ -112,7 +121,8 @@ class Contacts extends JSON_Controller {
      * @param  int $id, Newsletter Contact Id
      * @return json
     **/
-    public function delete( $id ) {
+    public function delete( $id ) 
+    {
         $newsletter_contact = new Newsletter_Contact();
 
         // Find Newsletter Contact to be Deleted.
@@ -122,7 +132,8 @@ class Contacts extends JSON_Controller {
           If Newslertter Contact has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if ( $newsletter_contact->delete() ) {
+        if ( $newsletter_contact->delete() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -130,7 +141,8 @@ class Contacts extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -141,6 +153,3 @@ class Contacts extends JSON_Controller {
     }
 
 }
-
-/* End of file contacts.php */
-/* Location: ./applications/gpanel/controllers/json/newsletters/contacts.php */

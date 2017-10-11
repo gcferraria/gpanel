@@ -1,21 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/**
- * Translations Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       Categories
- * @category   Categories
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2015 Gonçalo Ferraria
- * @version    1.0 translations.php 2015-01-11 gferraria $
- */
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 include APPPATH . "controllers/html/Categories.php";
 
-class Translations extends Categories {
-
+class Translations extends Categories 
+{
     /**
      * @var Object, Content Object.
      * @access public
@@ -29,7 +18,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         $this->config->load('i18n');
@@ -65,7 +55,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function index( $id ) {
+    public function index( $id ) 
+    {
         show_404();
     }
 
@@ -75,7 +66,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function save() {
+    public function save() 
+    {
         $language = new I18n_Language();
         $language->get_by_id( $this->uri->segment(7));
 
@@ -111,7 +103,8 @@ class Translations extends Categories {
      * @param $object, $lang Language Object
      * @return array
     **/
-    private function _fields( $lang = NULL ) {
+    private function _fields( $lang = NULL ) 
+    {
 
         // Gets associated content type.
         $content_type = $this->content->content_type->get();
@@ -131,7 +124,8 @@ class Translations extends Categories {
         array_sort( $fields, 'position' );
 
         // Add Values to Fields if exist.
-        if ( !empty ( $values ) ) {
+        if ( !empty ( $values ) ) 
+        {
             foreach ( $values as $name => $value )
                 $fields[$name]['value'] =  $value;
         }
@@ -140,6 +134,3 @@ class Translations extends Categories {
     }
 
 }
-
-/* End of file  translations.php */
-/* Location: ../applications/gpanel/controllers/html/categories/contents/translations.php */

@@ -1,15 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Administrator
- *
- * @uses      DataMapper
- * @package   Administration
- * @copyright Copyright (c) 2012, Gonçalo Ferraria
- * @author    Gonçalo Ferraria <gferraria@gmail.com>
- */
-
 class Administrator extends DataMapper 
 {
     public $table    = 'administrator';
@@ -69,24 +60,6 @@ class Administrator extends DataMapper
             'type' => 'file',
         ),
     );
-
-    /**
-     * __construct: Administrator class constructor.
-     *              Call parent Construct.
-     *
-     * @access public
-     * @return void
-    **/
-    public function __construct( $id = NULL ) 
-    {
-        // Call parent constructor.
-        parent::__construct( $id );
-
-        log_message(
-            'debug',
-            'Model: ' . __CLASS__ . '; Initialized.'
-        );
-    }
 
     /**
      * login: Check if Administrator have a valid login.

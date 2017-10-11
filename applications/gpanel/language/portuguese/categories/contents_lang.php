@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -23,6 +24,3 @@ $lang = array (
     'content_categories_placeholder'       => 'Introduza o nome da Categoria',
 
 );
-
-/* End of file contents_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/categories/contents_lang.php */

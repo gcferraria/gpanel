@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends HTML_Controller {
-
+class Categories extends HTML_Controller 
+{
     /**
      * @var Object, Category Object.
      * @access public
@@ -14,7 +15,8 @@ class Categories extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Initialize Category Object.
@@ -45,7 +47,8 @@ class Categories extends HTML_Controller {
 
         // Add Bredcrumbs based on hierarchy of categories.
         $breadcrumbs = array();
-        foreach( $this->category->parents() as $object ) {
+        foreach( $this->category->parents() as $object ) 
+        {
             array_push( $breadcrumbs, array(
                     'text'  => $object->name,
                     'title' => $object->uripath,
@@ -63,8 +66,8 @@ class Categories extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumbs to Add Category.
         $this->breadcrumb->add( array(
                 array(
@@ -94,8 +97,8 @@ class Categories extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Add Breadcrumb to edit Category.
         $this->breadcrumb->add( array(
                 array(
@@ -118,7 +121,8 @@ class Categories extends HTML_Controller {
 
         // Get Views for this Category and convert to JSON.
         $categories = array();
-        foreach ( $this->category->views->get() as $view ) {
+        foreach ( $this->category->views->get() as $view ) 
+        {
             $category = new Category();
             $category->get_by_id( $view->dest_category_id );
             array_push( $categories, array(
@@ -134,7 +138,8 @@ class Categories extends HTML_Controller {
         // Get fields
         $fields = $this->_fields( $this->category->id );
 
-        if( ! $this->administrator->isAdmin() ) {
+        if( ! $this->administrator->isAdmin() ) 
+        {
             if( $this->administrator->id != $this->category->administrator->get()->id )
                 $fields['uriname']['attrs']['readonly'] = "readonly";
         }
@@ -162,8 +167,8 @@ class Categories extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function delete() {
-
+    public function delete() 
+    {
         // Add Breadcrumb to delete Category.
         $this->breadcrumb->add( array(
                 array(
@@ -217,8 +222,8 @@ class Categories extends HTML_Controller {
      * @param  $category_id, Current Category Object
      * @return array
     **/
-    private function _fields( $category_id = NULL) {
-
+    private function _fields( $category_id = NULL) 
+    {
         // Get Category base fields.
         $fields = $this->category->validation;
 
@@ -258,6 +263,3 @@ class Categories extends HTML_Controller {
     }
 
 }
-
-/* End of file categories.php */
-/* Location: ../applications/gpanel/controllers/html/categories.php */

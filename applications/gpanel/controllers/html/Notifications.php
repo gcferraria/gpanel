@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Notifications extends HTML_Controller {
-
+class Notifications extends HTML_Controller 
+{
     /**
      * __construct: Notifications Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Breadcrumb for Notifications.
@@ -25,8 +27,8 @@ class Notifications extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'showAll' => true,
             'source'  => 'notifications.json',
@@ -63,7 +65,8 @@ class Notifications extends HTML_Controller {
      * @param int $id, [Required] Notification Identifier.
      * @return void
     **/
-    public function open( $id ) {
+    public function open( $id ) 
+    {
         $notification = new Notification();
 
         // Get Notification to be opened.
@@ -98,6 +101,3 @@ class Notifications extends HTML_Controller {
         parent::index();
     }
 }
-
-/* End of file notifications.php */
-/* Location: ../applications/gpanel/controllers/html/notifications.php */

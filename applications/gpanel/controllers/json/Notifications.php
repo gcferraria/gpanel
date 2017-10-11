@@ -1,20 +1,23 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Notifications extends JSON_Controller {
-
+class Notifications extends JSON_Controller 
+{
     /**
      * index: Get Notifications.
      *
      * @access public
      * @return json
     **/
-    public function index( $data = array() ) {
+    public function index( $data = array() ) 
+    {
         $notifications = new Notification();
         $columns = array( 'id', 'name','source','subject','creation_date','status');
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $notifications->or_like( array(
                     'name'    => $search_text,
                     'email'   => $search_text,
@@ -27,29 +30,35 @@ class Notifications extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $notifications->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else {
+        else 
+        {
             $notifications->order_by('status');
             $notifications->order_by('creation_date', 'desc');
         }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $notifications->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $notifications as $notification ) {
+        foreach ( $notifications as $notification ) 
+        {
             $attach = '';
-            if ( $notification->attach ) {
+            if ( $notification->attach ) 
+            {
                 $file   = explode( '/', $notification->attach);
                 $attach = '<a href="' . $this->config->item('download_url') . end( $file ) . '" title="'.$this->lang->line('download').'" target="_blank" class="btn default btn-xs black"><i class="fa fa fa-file-pdf-o"></i></a> '; 
             }
@@ -87,7 +96,8 @@ class Notifications extends JSON_Controller {
      * @param  int $id, Notification Id
      * @return json
     **/
-    public function delete( $id ) {
+    public function delete( $id ) 
+    {
         $notification = new Notification();
 
         // Find Notification to be Deleted.
@@ -97,7 +107,8 @@ class Notifications extends JSON_Controller {
             If the Notification has been deleted successfully, updates the list,
             otherwise shows an unexpected error.
         */
-        if ( $notification->delete() ) {
+        if ( $notification->delete() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -105,7 +116,8 @@ class Notifications extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -121,16 +133,17 @@ class Notifications extends JSON_Controller {
      * @access public
      * @return json 
      */
-    public function read() {
+    public function read() 
+    {
 
         $rows = $this->input->post('rows');
-        if ( isset($rows) && !empty($rows)) {
-
+        if ( isset($rows) && !empty($rows)) 
+        {
             $ids = array();
-            foreach ($rows as $row) {
-                foreach ($row as $key => $value) {
+            foreach ($rows as $row) 
+            {
+                foreach ($row as $key => $value)
                     $ids[] = $value;
-                }
             }
 
             // Find Notification to be Mark as Read.
@@ -139,18 +152,19 @@ class Notifications extends JSON_Controller {
 
             /* Save all Notifications */
             $result = TRUE;
-            foreach ($notifications as $notification) {
+            foreach ($notifications as $notification) 
+            {
                 $notification->status = 1;
-                if ( !$notification->save() ) {
+                if ( !$notification->save() )
                     $result = FALSE;
-                }
             }
 
             /*
                 If the Notification(s) has been marked as read with successfully, updates the list,
                 otherwise shows an unexpected error.
             */
-            if ( $result ) {
+            if ( $result ) 
+            {
                 return parent::index(
                     array(
                         'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
@@ -161,7 +175,8 @@ class Notifications extends JSON_Controller {
 
                 $notifications->refresh_all();
             }
-            else {
+            else 
+            {
                 return parent::index(
                     array(
                         'notification' => array('error', $this->lang->line('unespected_error') ),
@@ -169,7 +184,8 @@ class Notifications extends JSON_Controller {
                 );
             }
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'notification' => array('error', $this->lang->line('please_select_record') ),

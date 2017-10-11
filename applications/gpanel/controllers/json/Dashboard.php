@@ -170,4 +170,5 @@ class Dashboard extends JSON_Controller
 
         return $ga_data->getRows();;
     }
+
 }

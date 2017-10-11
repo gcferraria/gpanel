@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Administrators extends HTML_Controller {
-
+class Administrators extends HTML_Controller 
+{
     /**
      * __construct: Administrators Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Administrators Breadcrumb.
@@ -25,8 +27,8 @@ class Administrators extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'source' => 'administration/administrators.json',
             'header' => array(
@@ -55,8 +57,8 @@ class Administrators extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumbs to Add Administrator.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('administrator_breadcrumb_add'),
@@ -70,8 +72,8 @@ class Administrators extends HTML_Controller {
 
         // Build Administrator Form.
         $administrator_form
-        ->builder( 'post', '/administration/administrators/add.json' )
-        ->add_fields( $this->_fields( $administrator ) );
+            ->builder( 'post', '/administration/administrators/add.json' )
+            ->add_fields( $this->_fields( $administrator ) );
 
         $this->add_data( array(
                 'title' => $this->lang->line('administrator_title_add'),
@@ -91,8 +93,8 @@ class Administrators extends HTML_Controller {
      * @param  string $id, Administrator Identifier
      * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Find Administrator to Edit.
         $administrator = new Administrator();
         $administrator->get_by_id( $id );
@@ -120,8 +122,8 @@ class Administrators extends HTML_Controller {
 
         // Build Administrator Form.
         $administrator_form
-        ->builder( 'post', '/administration/administrators/edit/' . $administrator->id . '.json')
-        ->add_fields( $fields, $administrator );
+            ->builder( 'post', '/administration/administrators/edit/' . $administrator->id . '.json')
+            ->add_fields( $fields, $administrator );
 
         $this->add_data( array(
                 'title'   => $this->lang->line('administrator_title_edit'),
@@ -142,8 +144,8 @@ class Administrators extends HTML_Controller {
      * @param  object $administrator, [Required] Administrator Object.
      * @return array
     **/
-    private function _fields( $administrator ) {
-
+    private function _fields( $administrator ) 
+    {
         // Get Administrator base fields.
         $fields = $administrator->validation;
 

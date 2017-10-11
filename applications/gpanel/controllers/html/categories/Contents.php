@@ -1,22 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Contents Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       Categories
- * @category   Categories
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2015 Gonçalo Ferraria
- * @version    1.1 contents.php 2015-01-10 gferraria $
- */
-
 include APPPATH . "controllers/html/Categories.php";
 
-class Contents extends Categories {
-
+class Contents extends Categories 
+{
     /**
      * __construct: Contents Class constructor.
      *              Define data for upload modal.
@@ -24,7 +12,8 @@ class Contents extends Categories {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         $this->config->load('i18n');
@@ -32,7 +21,8 @@ class Contents extends Categories {
         if (
             $this->uri->segment(3) == 'add' ||
             $this->uri->segment(3) == 'edit'
-        ) {
+        ) 
+        {
             // Add upload modal data.
             $this->add_data( array(
                     'table' => (object) array(
@@ -58,10 +48,12 @@ class Contents extends Categories {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
+    public function index( $template = 'index' ) 
+    {
         $actions = $languages = array();
 
-        if ( count( explode ( '/', $this->category->uripath ) ) >= 4 ) {
+        if ( count( explode ( '/', $this->category->uripath ) ) >= 4 ) 
+        {
             $actions = array(
                 $this->lang->line('add')  => 'categories/add/'  . $this->category->id,
                 $this->lang->line('edit') => 'categories/edit/' . $this->category->id
@@ -85,7 +77,8 @@ class Contents extends Categories {
 
         // Gets Availables Category Views.
         $views = array();
-        foreach ( $this->category->views->get() as $view ) {
+        foreach ( $this->category->views->get() as $view ) 
+        {
             $category = new Category();
             $category->get_by_id( $view->dest_category_id );
             array_push( $views, $category );
@@ -123,8 +116,8 @@ class Contents extends Categories {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumbs to Add Content.
         $this->breadcrumb->add( array(
                 array(
@@ -144,17 +137,16 @@ class Contents extends Categories {
         */
         $content_type  = $this->session->flashdata('content_type');
         $content_types = $this->category->content_types->where( array(
-                    'active_flag' => 1,
-                )
-            );
+                'active_flag' => 1,
+            )
+        );
 
-        if ( $content_types->count() > 1 && !$content_type ) {
-
+        if ( $content_types->count() > 1 && !$content_type ) 
+        {
             // Load available content types.
             $values = array();
-            foreach ( $content_types->get() as $object ) {
+            foreach ( $content_types->get() as $object ) 
                 $values[ $object->name ] = $object->id;
-            }
 
             // Build Chose Content Type Form.
             $content_form
@@ -172,7 +164,8 @@ class Contents extends Categories {
                     )
                 );
         }
-        else {
+        else 
+        {
             // Keep content type.
             $this->session->keep_flashdata('content_type');
 
@@ -191,12 +184,12 @@ class Contents extends Categories {
         }
 
         $this->add_data( array(
-                    'title' => $this->lang->line('content_title_add'),
-                    'content' => (object) array(
-                        'form' => $content_form->render_form(),
-                    )
+                'title' => $this->lang->line('content_title_add'),
+                'content' => (object) array(
+                    'form' => $content_form->render_form(),
                 )
-            );
+            )
+        );
 
         parent::index();
     }
@@ -207,8 +200,8 @@ class Contents extends Categories {
     * @access public
     * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Add Breadcumbs to Edit Content.
         $this->breadcrumb->add( array(
                 array(
@@ -230,7 +223,8 @@ class Contents extends Categories {
 
         // Get Categories for this Content and convert to JSON.
         $categories = array();
-        foreach ( $content->categories->order_by('contents_category_content.id')->get() as $category ) {
+        foreach ( $content->categories->order_by('contents_category_content.id')->get() as $category ) 
+        {
             array_push( $categories, array(
                     'name'  => $category->id,
                     '$name' => $category->name,
@@ -272,8 +266,8 @@ class Contents extends Categories {
      * @param  object $content_type, [Required] Content Type Object.
      * @return array
     **/
-    private function _fields( $content, $content_type ) {
-
+    private function _fields( $content, $content_type ) 
+    {
         // Gets Content Base Fields.
         $fields = $content->validation;
 
@@ -303,13 +297,17 @@ class Contents extends Categories {
         $content_type_fields = $content_type->fields();
 
         // Populate values for content type fields category.
-        foreach ($content_type_fields as $content_type_field) {
-            if ( $content_type_field['type'] == 'category' ) {
-                if ( isset( $values[$content_type_field['field'] ] ) ) {
+        foreach ($content_type_fields as $content_type_field) 
+        {
+            if ( $content_type_field['type'] == 'category' ) 
+            {
+                if ( isset( $values[$content_type_field['field'] ] ) ) 
+                {
                     $ids = json_decode($values[$content_type_field['field'] ]);
 
                     $categories = array();
-                    foreach ($ids as $id) {
+                    foreach ($ids as $id) 
+                    {
                         $category = new Category();
                         $category->get_by_id( $id );
 
@@ -333,10 +331,10 @@ class Contents extends Categories {
         array_sort( $fields, 'position' );
 
         // Add Values to Fields if exist.
-        if ( !empty ( $values ) ) {
-            foreach ( $values as $name => $value ) {
+        if ( !empty ( $values ) ) 
+        {
+            foreach ( $values as $name => $value )
                 $content->{ $name } = $value;
-            }
         }
 
         return $fields;
@@ -349,8 +347,8 @@ class Contents extends Categories {
      * @access private
      * @return array
     **/
-    private function _upload_fields() {
-
+    private function _upload_fields() 
+    {
         // Initialize File Object.
         $file = new File();
 
@@ -368,6 +366,3 @@ class Contents extends Categories {
     }
 
 }
-
-/* End of file contents.php */
-/* Location: ../applications/gpanel/controllers/html/categories/contents.php */

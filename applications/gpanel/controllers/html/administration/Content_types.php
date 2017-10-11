@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Content_Types extends HTML_Controller {
-
+class Content_Types extends HTML_Controller 
+{
     /**
      * __construct: Content Types Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Breadcrumb for Content Types.
@@ -25,8 +27,8 @@ class Content_Types extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'source' => 'administration/content_types.json',
             'header' => array(
@@ -55,8 +57,8 @@ class Content_Types extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Content Type.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('content_type_breadcrumb_add'),
@@ -70,8 +72,8 @@ class Content_Types extends HTML_Controller {
 
         // Build Content Type Form.
         $content_type_form
-        ->builder('post','/administration/content_types/add.json')
-        ->add_fields( $this->_fields( $content_type ) );
+            ->builder('post','/administration/content_types/add.json')
+            ->add_fields( $this->_fields( $content_type ) );
 
         $this->add_data( array(
                 'title'        => $this->lang->line('content_type_title_add'),
@@ -91,8 +93,8 @@ class Content_Types extends HTML_Controller {
      * @param  string $id, Content Type Identifier
      * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Find Content Type to Edit.
         $content_type = new Content_Type();
         $content_type->get_by_id( $id );
@@ -115,8 +117,8 @@ class Content_Types extends HTML_Controller {
 
         // Build Content Type Form.
         $content_type_form
-        ->builder('post', '/administration/content_types/edit/' . $content_type->id . '.json')
-        ->add_fields( $this->_fields( $content_type ), $content_type );
+            ->builder('post', '/administration/content_types/edit/' . $content_type->id . '.json')
+            ->add_fields( $this->_fields( $content_type ), $content_type );
 
         $this->add_data( array(
                 'title'        => $this->lang->line('content_type_title_edit'),
@@ -137,8 +139,8 @@ class Content_Types extends HTML_Controller {
      * @param  object $content_type, [Required] Content Type Object.
      * @return array
     **/
-    private function _fields( $content_type ) {
-
+    private function _fields( $content_type ) 
+    {
         // Get Content Type Base Fields.
         $fields = $content_type->validation;
 
@@ -156,6 +158,3 @@ class Content_Types extends HTML_Controller {
     }
 
 }
-
-/* End of file content_types.php */
-/* Location: ../applications/gpanel/controllers/html/administration/content_types.php */

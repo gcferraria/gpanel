@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Fields extends HTML_Controller {
-
+class Fields extends HTML_Controller 
+{
     /**
      * @var Object, Content Type Object.
      * @access private
@@ -15,13 +16,15 @@ class Fields extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Get Content Type id based on action.
         if ( $this->uri->segment(4) == 'add' )
             $id = (int) $this->uri->segment(5);
-        elseif ( $this->uri->segment(4) == 'edit' ) {
+        elseif ( $this->uri->segment(4) == 'edit' ) 
+        {
 
             $this->content_type_field = new Content_Type_Field();
             $this->content_type_field->get_by_id(
@@ -31,7 +34,9 @@ class Fields extends HTML_Controller {
             $id = $this->content_type_field->content_type_id;
         }
         else
+        {
             $id = (int) $this->uri->segment(5);
+        }
 
         // Inicialize Content Type Object.
         $this->content_type = new Content_Type();
@@ -68,8 +73,8 @@ class Fields extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'source' => 'administration/content_types/fields/index/' . $this->content_type->id . '.json',
             'header' => array(
@@ -97,8 +102,8 @@ class Fields extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Content Type Field.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('content_type_field_breadcrumb_add'),
@@ -112,8 +117,8 @@ class Fields extends HTML_Controller {
 
         // Build Content Type Field Form.
         $content_type_field_form
-        ->builder( 'post', '/administration/content_types/fields/add/' . $this->content_type->id . '.json')
-        ->add_fields( $this->_fields( $content_type_field ) );
+            ->builder( 'post', '/administration/content_types/fields/add/' . $this->content_type->id . '.json')
+            ->add_fields( $this->_fields( $content_type_field ) );
 
         $this->add_data( array(
                 'title' => $this->lang->line('content_type_field_title_add'),
@@ -132,8 +137,8 @@ class Fields extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function edit() {
-
+    public function edit() 
+    {
         if ( ! $this->content_type_field->exists() )
             return;
 
@@ -152,11 +157,11 @@ class Fields extends HTML_Controller {
 
         // Build Content Type Field Form.
         $content_type_field_form
-        ->builder('post', '/administration/content_types/fields/edit/' . $this->content_type_field->id . '.json')
-        ->add_fields(
-            $this->_fields( $this->content_type_field ),
-            $this->content_type_field
-        );
+            ->builder('post', '/administration/content_types/fields/edit/' . $this->content_type_field->id . '.json')
+            ->add_fields(
+                $this->_fields( $this->content_type_field ),
+                $this->content_type_field
+            );
 
         $this->add_data( array(
                 'title'   => $this->lang->line('content_type_field_title_edit'),
@@ -177,16 +182,15 @@ class Fields extends HTML_Controller {
      * @param  object $content_type_field, [Required] Content Type Field Object.
      * @return array
     **/
-    private function _fields( $content_type_field ) {
-
+    private function _fields( $content_type_field ) 
+    {
         // Get Content Type Field Base Fields.
         $fields = $content_type_field->validation;
 
         // Load allowed type fields.
         $allowed_fields = array();
-        foreach( $this->form->config['allowed_fields'] as $field_type ) {
+        foreach( $this->form->config['allowed_fields'] as $field_type )
             $allowed_fields[ $field_type ] = $field_type;
-        }
 
         // Define Content Type Field Attributes.
         $attrs = array(
@@ -214,6 +218,3 @@ class Fields extends HTML_Controller {
     }
 
 }
-
-/* End of file fields.php */
-/* Location: ../applications/gpanel/controllers/html/administration/content_types/fields.php */

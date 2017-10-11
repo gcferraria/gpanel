@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contents extends JSON_Controller {
-
+class Contents extends JSON_Controller 
+{
     /**
      * index: Get Contents.
      *
@@ -9,8 +10,8 @@ class Contents extends JSON_Controller {
      * @param  int $id, [Required] Category Identifier.
      * @return json
     **/
-    public function index( $id = array() ) {
-
+    public function index( $id = array() ) 
+    {
         if ( !is_numeric( $id ) )
             return;
 
@@ -37,13 +38,16 @@ class Contents extends JSON_Controller {
          // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $contents->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else {
+        else 
+        {
             // Order Content by Publish date and weight.
             $contents->order_by( 'publish_date DESC' );
             $contents->order_by( 'weight ASC');
@@ -51,16 +55,18 @@ class Contents extends JSON_Controller {
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $contents->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $contents as $content ) {
-
-            switch( $content->status() ) {
+        foreach ( $contents as $content ) 
+        {
+            switch( $content->status() ) 
+            {
                 case -1:
                     $status = '<span class="label label-sm label-danger">'.$this->lang->line('inactive').'</span>';
                     break;
@@ -84,12 +90,15 @@ class Contents extends JSON_Controller {
             );
 
             // Show icons for add/edit translations for this content.
-            if ( count( $languages ) > 1 ) {
+            if ( count( $languages ) > 1 ) 
+            {
                 $operations = $row['5'];
 
                 $icons = '';
-                foreach( $languages as $language ) {
-                    if( !$language->is_default() ) {
+                foreach( $languages as $language ) 
+                {
+                    if( !$language->is_default() ) 
+                    {
                         $translations = $content->translations->where( 'language_id', $language->id );
 
                         $icons .= ( $translations->count() > 1 )
@@ -124,7 +133,8 @@ class Contents extends JSON_Controller {
      * @param  int $id, [Required] Category Identifier.
      * @return json
     **/
-    public function content_type( $id ) {
+    public function content_type( $id ) 
+    {
 
         // Get Content Type Chosed.
         $content_type_id = $this->input->post('content_type_id');
@@ -150,8 +160,8 @@ class Contents extends JSON_Controller {
      * @param  int $id, [Required] Category Identifier.
      * @return json
     **/
-    public function add( $id ) {
-
+    public function add( $id ) 
+    {
         // Inicialize Content Type and Content Object.
         $content_type = new Content_Type();
         $content      = new Content();
@@ -173,10 +183,12 @@ class Contents extends JSON_Controller {
 
         $values = array();
         $rules  = 0;
-        foreach ( $fields as $field ) {
+        foreach ( $fields as $field ) 
+        {
             $values[ $field['field'] ] = $this->input->post( $field['field'] );
 
-            foreach ( $field['rules'] as $rule ) {
+            foreach ( $field['rules'] as $rule ) 
+            {
                 $rules++;
 
                 // Add validation rule for field.
@@ -195,8 +207,8 @@ class Contents extends JSON_Controller {
         $valid = ( $rules > 0 ) ? $this->form_validation->run() : TRUE;
 
         // If the Content is valid insert the data.
-        if ( $valid && $content->valid ) {
-
+        if ( $valid && $content->valid ) 
+        {
             // Get Categories to associate at this Content.
             $categories = array();
             if ( $this->input->post('categories') )
@@ -220,20 +232,24 @@ class Contents extends JSON_Controller {
                         'values'       => $values,
                     )
                 )
-            ) {
+            ) 
+            {
                 $data = array(
                     'reset'        => 1,
                     'notification' => array('success', $this->lang->line('save_success_message') ),
                 );
             }
             else
+            {
                 $data = array( 'notification' => array('error', $this->lang->line('save_error_message') ) );
+            }
         }
-        else {
-
+        else 
+        {
             //Get Fields Error Messages.
             $errors = array();
-            foreach ( $fields as $field ) {
+            foreach ( $fields as $field ) 
+            {
                 if ( $error = $this->form_validation->error( $field['field'] ) )
                     $errors[ $field['field'] ] = strip_tags( $error );
             }
@@ -254,8 +270,8 @@ class Contents extends JSON_Controller {
      * @param  int $id, [Required] Content Identifier.
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Get Category Id.
         $category_id = $this->input->get('category_id');
 
@@ -282,10 +298,12 @@ class Contents extends JSON_Controller {
 
         $values = array();
         $rules  = 0;
-        foreach ( $fields as $field ) {
+        foreach ( $fields as $field ) 
+        {
             $values[ $field['field'] ] = $this->input->post( $field['field'] );
 
-            foreach ( $field['rules'] as $rule ) {
+            foreach ( $field['rules'] as $rule ) 
+            {
                 $rules++;
 
                 // Add validation rule for field.
@@ -304,8 +322,8 @@ class Contents extends JSON_Controller {
         $valid = ( $rules > 0 ) ? $this->form_validation->run() : TRUE;
 
         // If the Content is valid insert the data.
-        if ( $valid && $content->valid ) {
-
+        if ( $valid && $content->valid ) 
+        {
             // Get Categories to associate at this Content.
             $categories = array();
             if ( $this->input->post('categories') )
@@ -329,17 +347,20 @@ class Contents extends JSON_Controller {
                         'values'       => $values,
                     )
                 )
-            ) {
+            ) 
+            {
                 $data = array(
                     'show_errors'  => array(),
                     'notification' => array('success',$this->lang->line('save_success_message') ),
                 );
             }
         }
-        else {
+        else 
+        {
             //Get Fields Error Messages.
             $errors = array();
-            foreach ( $fields as $field ) {
+            foreach ( $fields as $field ) 
+            {
                 if ( $error = $this->form_validation->error( $field['field'] ) )
                     $errors[ $field['field'] ] = strip_tags( $error );
             }
@@ -360,8 +381,8 @@ class Contents extends JSON_Controller {
      * @param  int $id, Content id
      * @return json
     **/
-    public function delete( $id ) {
-
+    public function delete( $id ) 
+    {
         // Get Category Id.
         $category_id = $this->input->get('category_id');
 
@@ -375,7 +396,8 @@ class Contents extends JSON_Controller {
           If Content has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if ( $content->delete( array( 'category' => $category_id ) ) ) {
+        if ( $content->delete( array( 'category' => $category_id ) ) ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -383,7 +405,8 @@ class Contents extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -394,6 +417,3 @@ class Contents extends JSON_Controller {
     }
 
 }
-
-/* End of file contents.php */
-/* Location: ./applications/gpanel/controllers/json/categories/contents.php */

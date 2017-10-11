@@ -1,15 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Roles extends JSON_Controller {
-
+class Roles extends JSON_Controller 
+{
     /**
      * index: Get Roles.
      *
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
-
+    public function index( $data = array() ) 
+    {
         // Get all Roles.
         $roles = new Role();
 
@@ -18,7 +19,8 @@ class Roles extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $roles->or_like( array(
                     'name' => $search_text,
                 )
@@ -28,25 +30,31 @@ class Roles extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $roles->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else
+        {
             $roles->order_by('name');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $roles->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $roles as $role ) {
+        foreach ( $roles as $role ) 
+        {
             $data[] = array(
                 "DT_RowId" => $role->id,
                 0 => $role->name,
@@ -75,8 +83,8 @@ class Roles extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Inicialize Role Object.
         $role = new Role();
 
@@ -85,15 +93,15 @@ class Roles extends JSON_Controller {
         $role->active_flag = $this->input->post('active_flag');
 
         // If Role is valid insert the data.
-        if ( $role->save() ) {
-
+        if ( $role->save() ) 
+        {
             $data = array(
                 'reset'        => 1,
                 'notification' => array('success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors'  => $role->errors->all,
                 'notification' => array('error', $this->lang->line('save_error_message') ),
@@ -110,8 +118,8 @@ class Roles extends JSON_Controller {
      * @param  int $id, [Required] Role Id
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Get Role to edite.
         $role = new Role();
 
@@ -123,13 +131,15 @@ class Roles extends JSON_Controller {
         $role->active_flag = $this->input->post('active_flag');
 
         // If Role is valid updates the data.
-        if ( $role->save() ) {
+        if ( $role->save() ) 
+        {
             $data = array(
                 'show_errors'  => array(),
                 'notification' => array('success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $role->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -140,6 +150,3 @@ class Roles extends JSON_Controller {
     }
 
 }
-
-/* End of file users.php */
-/* Location: ./applications/gpanel/controllers/json/roles.php */

@@ -1,19 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Languages Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       HTML_Controller
- * @category   i18n
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 Languages.php 2014-11-15 gferraria $
- */
-
-class Languages extends HTML_Controller {
-
+class Languages extends HTML_Controller 
+{
     /**
      * __construct: Class constructor.
      *              Load Language File and Add default Breadcrumb.
@@ -21,7 +10,8 @@ class Languages extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Load Language File.
@@ -44,8 +34,8 @@ class Languages extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index($template = 'index') 
+    {
         $this->add_data( array(
                 'title'   => $this->lang->line('i18n_language_title'),
                 'table'   =>  (object) array(
@@ -72,8 +62,8 @@ class Languages extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Language.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('i18n_language_title_add'),
@@ -102,7 +92,8 @@ class Languages extends HTML_Controller {
      * @param  $id, Language Indentifier
      * @return void
     **/
-    public function edit( $id ) {
+    public function edit( $id ) 
+    {
         $language = new i18n_Language();
         $language->get_by_id( $id );
 
@@ -136,7 +127,8 @@ class Languages extends HTML_Controller {
      * @access private
      * @return array
     **/
-    private function _fields() {
+    private function _fields() 
+    {
         $language = new i18n_Language();
 
         // Get base fields.
@@ -144,9 +136,8 @@ class Languages extends HTML_Controller {
 
         // Countries
         $contries = array();
-        foreach ( $this->config->item('i18n_available_languages') as $lang ) {
+        foreach ( $this->config->item('i18n_available_languages') as $lang )
             $contries[ $this->lang->line('i18n_language_' . $lang ) ] = $lang;
-        }
 
         // Define I18n Language Fields Attributes.
         $attrs = array(
@@ -172,6 +163,3 @@ class Languages extends HTML_Controller {
     }
 
 }
-
-/* End of file languages.php */
-/* Location: ../applications/gpanel/controllers/html/administration/i18n/languages.php */

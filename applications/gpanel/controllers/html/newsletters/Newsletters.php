@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Newsletters extends HTML_Controller {
-
+class Newsletters extends HTML_Controller 
+{
     /**
      * __construct: Newsletters Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Load Configuration File.
@@ -28,8 +30,8 @@ class Newsletters extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'source' => 'newsletters/newsletters.json',
             'header' => array(
@@ -56,8 +58,8 @@ class Newsletters extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Newsletter.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('newsletter_title_add'),
@@ -109,8 +111,8 @@ class Newsletters extends HTML_Controller {
      * @param  object $newsletter, [Required] Newsletter Object.
      * @return array
     **/
-    private function _general_information_fields( $newsletter ) {
-
+    private function _general_information_fields( $newsletter ) 
+    {
         // Get Newsletter base fields.
         $fields = $newsletter->validation;
 
@@ -144,8 +146,8 @@ class Newsletters extends HTML_Controller {
      * @param  object $newsletter, [Required] Newsletter Object.
      * @return array
     **/
-    private function _contents_fields( $newsletter ) {
-
+    private function _contents_fields( $newsletter ) 
+    {
         // Get Newsletter base fields.
         $fields = $newsletter->validation;
 
@@ -190,8 +192,8 @@ class Newsletters extends HTML_Controller {
      * @param  object $newsletter, [Required] Newsletter Object.
      * @return array
     **/
-    private function _confirmation_fields( $newsletter ) {
-
+    private function _confirmation_fields( $newsletter ) 
+    {
         // Get Newsletter base fields.
         $fields = $newsletter->validation;
 
@@ -206,6 +208,3 @@ class Newsletters extends HTML_Controller {
     }
 
 }
-
-/* End of file newsletter.php */
-/* Location: ../applications/gpanel/controllers/html/newsletters/newsletter.php */

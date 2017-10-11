@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contacts extends HTML_Controller {
-
+class Contacts extends HTML_Controller 
+{
     /**
      * __construct: Newsletter Contacts Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Breadcrumb for Newsletter Contacts.
@@ -25,8 +27,8 @@ class Contacts extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'source' => 'newsletters/contacts.json',
             'header' => array(
@@ -53,7 +55,8 @@ class Contacts extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function edit( $id ) {
+    public function edit( $id ) 
+    {
         $newsletter_contact = new Newsletter_Contact();
 
         // Find Newsletter Contact to Edit.
@@ -78,11 +81,11 @@ class Contacts extends HTML_Controller {
 
         // Build Newsletter Contact Form.
         $newsletter_contact_form
-        ->builder('post', '/newsletters/contacts/edit/' . $newsletter_contact->id . '.json')
-        ->add_fields(
-            $this->_fields( $newsletter_contact ),
-            $newsletter_contact
-        );
+            ->builder('post', '/newsletters/contacts/edit/' . $newsletter_contact->id . '.json')
+            ->add_fields(
+                $this->_fields( $newsletter_contact ),
+                $newsletter_contact
+            );
 
         $this->add_data( array(
                 'title' => 
@@ -107,8 +110,8 @@ class Contacts extends HTML_Controller {
      * @param  object $newsletter_contact, [Required] Newsletter Contact Object.
      * @return array
     **/
-    private function _fields( $newsletter_contact ) {
-
+    private function _fields( $newsletter_contact ) 
+    {
         // Get Newsletter Contact base fields.
         $fields = $newsletter_contact->validation;
 
@@ -136,6 +139,3 @@ class Contacts extends HTML_Controller {
     }
 
 }
-
-/* End of file contacts.php */
-/* Location: ../applications/gpanel/controllers/html/newsletters/contacts.php */

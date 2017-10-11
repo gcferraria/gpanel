@@ -1,15 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Administrators extends JSON_Controller {
-
+class Administrators extends JSON_Controller 
+{
     /**
      * index: Get Administrators.
      *
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
-
+    public function index( $data = array() ) 
+    {
         // Get All Administrators.
         $administrators = new Administrator();
 
@@ -18,7 +19,8 @@ class Administrators extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $administrators->or_like( array(
                     'name'     => $search_text,
                     'username' => $search_text,
@@ -30,25 +32,31 @@ class Administrators extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $administrators->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else
+        else 
+        {
             $administrators->order_by('name');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $administrators->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $administrators as $administrator ) {
+        foreach ( $administrators as $administrator ) 
+        {
             $data[] = array(
                 "DT_RowId" => $administrator->id,
                 0 => '<a href="mailto:'.$administrator->email.'">'.$administrator->name.'</a>',
@@ -78,8 +86,8 @@ class Administrators extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Inicialize Administrator Object.
         $administrator = new Administrator;
 
@@ -93,15 +101,15 @@ class Administrators extends JSON_Controller {
         $administrator->active_flag      = $this->input->post('active_flag');
 
         // If the Administrator is valid insert the data.
-        if ( $administrator->save() ) {
-
+        if ( $administrator->save() ) 
+        {
             $data = array(
                 'reset'        => 1,
                 'notification' => array( 'success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors'  => $administrator->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -118,8 +126,8 @@ class Administrators extends JSON_Controller {
      * @param  int $id, [Required] Administrator Id
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Inicialize Administrator Object.
         $administrator = new Administrator();
 
@@ -134,14 +142,15 @@ class Administrators extends JSON_Controller {
         $administrator->active_flag      = $this->input->post('active_flag');
 
         // If the Administrator is valid update the Administrator.
-        if ( $administrator->save() ) {
+        if ( $administrator->save() ) 
+        {
             $data = array(
                 'show_errors'  => array(),
                 'notification' => array( 'success', $this->lang->line('save_success_message') ),
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors' => $administrator->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -151,6 +160,3 @@ class Administrators extends JSON_Controller {
         parent::index( $data );
     }
 }
-
-/* End of file administrators.php */
-/* Location: ./applications/gpanel/controllers/json/administration/administrators.php */

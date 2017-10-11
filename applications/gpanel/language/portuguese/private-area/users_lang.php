@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
     
@@ -22,6 +23,3 @@ $lang = array (
     'user_change_password_error_message'   => 'Não foi possível alterar a password do Utilizador. Contacte o administrator do sistema.',
     'user_change_password_notif_subject'   => 'Alteração dos Dados de Acesso',
 );
-
-/* End of file users_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/private-area/users_lang.php */

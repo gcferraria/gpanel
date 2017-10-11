@@ -58,25 +58,31 @@ class GP_Router extends CI_Router
      * @param  array
      * @return array
      */
-    function _validate_request( $segments ) {
-
+    function _validate_request( $segments ) 
+    {
         if ( count( $segments ) == 0 )
+        {
             return $segments;
+        }
 
         // Does the requested controller exist in the root folder?
         if ( file_exists( APPPATH . 'controllers/' . ucfirst($segments[0]) . '.php' ) )
+        {
             return $segments;
+        }
 
         // Is the controller in a sub-folder?
-        if ( is_dir( APPPATH . 'controllers/' . $segments[0] ) ) {
-
+        if ( is_dir( APPPATH . 'controllers/' . $segments[0] ) ) 
+        {
             $dir = '';
-            do {
+            do 
+            {
                 if ( strlen( $dir ) > 0 )
                     $dir .= '/';
 
                 $dir .= array_shift( $segments );
-            } while ( count( $segments ) > 0
+            } 
+            while ( count( $segments ) > 0
                 && is_dir(  APPPATH . 'controllers/' . $dir . '/' . $segments[0] )
                 && ( isset( $segments[1] ) && is_file( APPPATH . 'controllers/' . $dir . '/' . $segments[0] . '/' . ucfirst($segments[1]) . '.php' ) )
             );
@@ -85,30 +91,37 @@ class GP_Router extends CI_Router
             $this->set_directory($dir);
 
             if ( count( $segments ) > 0 && ! file_exists( APPPATH . 'controllers/' . $this->fetch_directory() . ucfirst($segments[0]) . '.php' ) )
+            {
                 array_unshift($segments, $this->default_controller);
+            }
 
-            if ( count( $segments ) > 0 ) {
-
+            if ( count( $segments ) > 0 ) 
+            {
                 // Does the requested controller exist in the sub-folder?
                 if ( ! file_exists( APPPATH . 'controllers/' . $this->fetch_directory() . ucfirst($segments[0]) . '.php' ) )
+                {
                     $this->directory = '';
+                }
             }
-            else {
-
+            else 
+            {
                 // Is the method being specified in the route?
-                if ( strpos( $this->default_controller, '/') !== FALSE ) {
+                if ( strpos( $this->default_controller, '/') !== FALSE ) 
+                {
                     $x = explode('/', $this->default_controller);
 
                     $this->set_class($x[0]);
                     $this->set_method($x[1]);
                 }
-                else {
+                else 
+                {
                     $this->set_class($this->default_controller);
                     $this->set_method('index');
                 }
 
                 // Does the default controller exist in the sub-folder?
-                if ( ! file_exists(APPPATH.'controllers/' . $this->fetch_directory() . $this->default_controller . '.php')) {
+                if ( ! file_exists(APPPATH.'controllers/' . $this->fetch_directory() . $this->default_controller . '.php')) 
+                {
                     $this->directory = '';
                     return array();
                 }
@@ -119,7 +132,8 @@ class GP_Router extends CI_Router
 
         // If we've gotten this far it means that the URI does not correlate to a valid
         // controller class.  We will now see if there is an override
-        if ( !empty($this->routes['404_override'] ) ) {
+        if ( !empty($this->routes['404_override'] ) ) 
+        {
             $x = explode('/', $this->routes['404_override']);
 
             $this->set_class($x[0]);
@@ -131,4 +145,5 @@ class GP_Router extends CI_Router
         // Nothing else to do at this point but show a 404.
         show_404( $segments[0] );
     }
+
 }

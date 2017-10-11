@@ -1,19 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Websites Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       HTML_Controller
- * @category   Settings
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 Websites.php 2014-11-22 gferraria $
- */
-
-class Websites extends HTML_Controller {
-
+class Websites extends HTML_Controller 
+{
     /**
      * __construct: Class constructor.
      *              Load Language File and Add default Breadcrumb.
@@ -21,7 +10,8 @@ class Websites extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Load Language File.
@@ -41,8 +31,8 @@ class Websites extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $this->add_data( array(
                 'title'   => $this->lang->line('settings_website_titles'),
                 'table'   =>  (object) array(
@@ -68,8 +58,8 @@ class Websites extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Website.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('settings_website_title_add'),
@@ -98,7 +88,8 @@ class Websites extends HTML_Controller {
      * @param  $id, Website Indentifier
      * @return void
     **/
-    public function edit( $id ) {
+    public function edit( $id ) 
+    {
         $website = new Settings_Website();
         $website->get_by_id( $id );
 
@@ -139,7 +130,8 @@ class Websites extends HTML_Controller {
      * @access private
      * @return array
     **/
-    private function _fields() {
+    private function _fields() 
+    {
         $website  = new Settings_Website();
         $language = new I18n_Language();
 
@@ -163,6 +155,3 @@ class Websites extends HTML_Controller {
     }
 
 }
-
-/* End of file websites.php */
-/* Location: ../applications/gpanel/controllers/html/administration/settings/websites.php */

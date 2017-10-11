@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Newsletters extends JSON_Controller {
-
+class Newsletters extends JSON_Controller 
+{
     /**
      * __construct: JSON Newsletters Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
         $this->load->config('newsletter');
     }
@@ -19,13 +21,15 @@ class Newsletters extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
+    public function index( $data = array() ) 
+    {
         $newsletters = new Newsletter();
         $columns = array( 'name','creation_date' );
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $newsletters->or_like( array(
                     'name' => $search_text,
                 )
@@ -35,26 +39,31 @@ class Newsletters extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $newsletters->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else {
+        else 
+        {
             $newsletters->order_by('creation_date', 'desc');
         }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $newsletters->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $newsletters as $newsletter ) {
+        foreach ( $newsletters as $newsletter ) 
+        {
             $data[] = array(
                 "DT_RowId" => $newsletter->id,
                 0 => $newsletter->name,
@@ -83,7 +92,8 @@ class Newsletters extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function add() {
+    public function add() 
+    {
         $data = array();
 
         // Inicialize Newsletter Object.
@@ -102,7 +112,8 @@ class Newsletters extends JSON_Controller {
         $newsletter->body          = "<html><head><title>$newsletter->name</title></head><body>$newsletter->body</body></html>";
         $newsletter->creator_id    = $this->administrator->id;
 
-        if ( !empty( $range ) ) {
+        if ( !empty( $range ) ) 
+        {
             $range = explode('/', $range);
 
             $newsletter->contents_start_date = trim( $range[0] );
@@ -117,11 +128,12 @@ class Newsletters extends JSON_Controller {
 
         // If Newsletter is valid insert the data.
         if ( $newsletter->valid && $step == $steps ) {
-            if ( $newsletter->save() ) {
-
+            if ( $newsletter->save() ) 
+            {
                 // Find from name.
                 $from_name;
-                foreach ( $this->config->item('newsletter_from_emails') as $name => $value ) {
+                foreach ( $this->config->item('newsletter_from_emails') as $name => $value ) 
+                {
                     if ( $value ==  $newsletter->from )
                         $from_name = $name;
                 }
@@ -131,7 +143,8 @@ class Newsletters extends JSON_Controller {
                 $newsletter_contact->where('active_flag', 1);
 
                 // Send newsletter for all active contacts.
-                foreach ( $newsletter_contact->get() as $contact ) {
+                foreach ( $newsletter_contact->get() as $contact ) 
+                {
                     $this->email->send_multipart = FALSE;
                     $this->email->clear(TRUE);
                     $this->email->from( $newsletter->from, $from_name );
@@ -149,12 +162,13 @@ class Newsletters extends JSON_Controller {
                     'notification' => array('success', $this->lang->line('save_success_message') ),
                 );
             }
-            else {
+            else 
+            {
                 $data = array( 'notification' => array('error', $this->lang->line('save_error_message') ) );
             }
         }
-        else {
-
+        else 
+        {
             if ( $step == 1 )
                 $fields = array('name','from','template');
             elseif ( $step == 2 )
@@ -167,19 +181,23 @@ class Newsletters extends JSON_Controller {
             //Get Fields Error Messages.
             $all    = $newsletter->errors->all;
             $errors = array();
-            foreach ( $fields as $field ) {
+            foreach ( $fields as $field ) 
+            {
                 if ( isset( $all[ $field ] ) )
                     $errors[ $field ] = strip_tags( $all[ $field ] );
             }
 
-            if ( count( $errors ) > 0 ) {
+            if ( count( $errors ) > 0 ) 
+            {
                 $data = array(
                     'show_errors'  => $errors,
                     'notification' => array('error', $this->lang->line('newsletter_validation_errors'))
                 );
             }
             elseif ( $step == 2 )
+            {
                 $data['$fields.$body.$field'] = $this->generate_template( $newsletter );
+            }
         }
 
         parent::index( $data );
@@ -192,7 +210,8 @@ class Newsletters extends JSON_Controller {
      * @param int $id, [Required] Newsletter Identifier.
      * @return text
     **/
-    public function open( $id ) {
+    public function open( $id ) 
+    {
         $newsletter = new Newsletter();
 
         // Get Newsletter to be opened.
@@ -224,7 +243,8 @@ class Newsletters extends JSON_Controller {
      * @param  int $id, Newsletter Id
      * @return json
     **/
-    public function delete( $id ) {
+    public function delete( $id ) 
+    {
         $newsletter = new Newsletter();
 
         // Find Newsletter to be Deleted.
@@ -234,7 +254,8 @@ class Newsletters extends JSON_Controller {
           If Newslertter has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if ( $newsletter->delete() ) {
+        if ( $newsletter->delete() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -242,7 +263,8 @@ class Newsletters extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -260,12 +282,15 @@ class Newsletters extends JSON_Controller {
      * @return json
     **/
 
-    private function generate_template( $newsletter ) {
+    private function generate_template( $newsletter ) 
+    {
         $data = array();
 
         // Load content based on selected content_types and data.
-        if ( !empty( $newsletter->content_types ) ) {
-            foreach ( explode( ',', $newsletter->content_types ) as $content_type_id ) {
+        if ( !empty( $newsletter->content_types ) ) 
+        {
+            foreach ( explode( ',', $newsletter->content_types ) as $content_type_id ) 
+            {
                 $content_type = new Content_Type();
                 $content_type->get_by_id( $content_type_id );
 
@@ -284,13 +309,15 @@ class Newsletters extends JSON_Controller {
 
                 // Find website url name.
                 $website_url;
-                foreach ( $this->config->item('newsletter_websites') as $name => $value ) {
+                foreach ( $this->config->item('newsletter_websites') as $name => $value ) 
+                {
                     if ( $value ==  $newsletter->website )
                         $website_url = $name;
                 }
 
                 $contents_data = array();
-                foreach ( $contents->get() as $content ) {
+                foreach ( $contents->get() as $content ) 
+                {
                     $temp = $content->__to_array();
 
                     // Build URL
@@ -313,6 +340,3 @@ class Newsletters extends JSON_Controller {
 
     }
 }
-
-/* End of file newsletters.php */
-/* Location: ./applications/gpanel/controllers/json/newsletters/newsletters.php */

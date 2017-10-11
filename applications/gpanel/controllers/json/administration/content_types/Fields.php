@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Fields extends JSON_Controller {
-
+class Fields extends JSON_Controller 
+{
     /**
      * index: Get Content Type Fields.
      *
@@ -9,8 +10,8 @@ class Fields extends JSON_Controller {
      * @param  int $id, Content Type Id.
      * @return json
     **/
-    public function index( $id = array() ) {
-
+    public function index( $id = array() ) 
+    {
         // Inicialize Content Type Object.
         $content_type = new Content_Type;
 
@@ -25,7 +26,8 @@ class Fields extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $fields->or_like( array(
                     'name'  => $search_text,
                     'label' => $search_text
@@ -36,25 +38,31 @@ class Fields extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $fields->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else
+        else 
+        {
             $fields->order_by('position');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $fields->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $fields as $field ) {
+        foreach ( $fields as $field ) 
+        {
             $data[] = array(
                 "DT_RowId" => $field->id,
                 0 => $field->name,
@@ -86,8 +94,8 @@ class Fields extends JSON_Controller {
      * @param  int $id, Content Type Id
      * @return json
     **/
-    public function add( $id ) {
-
+    public function add( $id ) 
+    {
         // Inicialize Content Type and Content Type Field Object.
         $content_type       = new Content_Type;
         $content_type_field = new Content_Type_Field;
@@ -108,15 +116,15 @@ class Fields extends JSON_Controller {
         $content_type_field->translatable    = $this->input->post('translatable');
 
         // If the Content Type Field is valid insert the data.
-        if ( $content_type_field->save( $content_type ) ) {
-
+        if ( $content_type_field->save( $content_type ) ) 
+        {
             $data = array(
                 'reset'        => 1,
                 'notification' => array( 'success', $this->lang->line('save_success_message') )
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors'  => $content_type_field->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -133,8 +141,8 @@ class Fields extends JSON_Controller {
      * @param  int $id, Content Type Field id.
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Inicialize Content Type Field Object.
         $content_type_field = new Content_Type_Field;
 
@@ -153,15 +161,15 @@ class Fields extends JSON_Controller {
         $content_type_field->translatable  = $this->input->post('translatable');
 
         // If the Content Type Field is valid insert the data.
-        if ( $content_type_field->save() ) {
-
+        if ( $content_type_field->save() ) 
+        {
             $data = array(
                 'show_errors'  => array(),
                 'notification' => array( 'success', $this->lang->line('save_success_message') )
             );
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors' => $content_type_field->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -178,8 +186,8 @@ class Fields extends JSON_Controller {
      * @param  int $id, Content Type Field id
      * @return json
     **/
-    public function delete( $id ) {
-
+    public function delete( $id ) 
+    {
         // Inicialize Content Type Field Object.
         $content_type_field = new Content_Type_Field;
 
@@ -190,7 +198,8 @@ class Fields extends JSON_Controller {
           If Content Type Field has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if ( $content_type_field->delete() ) {
+        if ( $content_type_field->delete() ) 
+        {
             return parent::index(
                 array(
                     'result'  => 1,
@@ -198,7 +207,8 @@ class Fields extends JSON_Controller {
                 )
             );
         }
-        else {
+        else 
+        {
             return parent::index(
                 array(
                     'result'  => 0,
@@ -208,6 +218,3 @@ class Fields extends JSON_Controller {
         }
     }
 }
-
-/* End of file fields.php */
-/* Location: ./applications/gpanel/controllers/json/administration/content_types/fields.php */

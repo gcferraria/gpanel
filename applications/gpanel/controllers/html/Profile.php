@@ -1,43 +1,44 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends HTML_Controller {
-
+class Profile extends HTML_Controller 
+{
     /**
      * __construct: Profile Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
-
+    public function __construct() 
+    {
         // Call parent constructor.
         parent::__construct( 'restrict' );
 
         // Add Administrator name to Breadcrumb.
         $message = sprintf(
-                $this->lang->line('profile_breadcrumb'),
-                $this->administrator->name
-            );
+            $this->lang->line('profile_breadcrumb'),
+            $this->administrator->name
+        );
 
         // Add Profile Title.
         $this->add_data( array(
-                    'administrator'     => $this->administrator,
-                    'total_contents'    => $this->administrator->get_created_contents_number(),
-                    'total_categories'  => $this->administrator->get_created_categories_number(),
-                    'total_media'       => $this->administrator->get_created_media_number(),
-                    'class'             => 'page-container-bg-solid',
-                    'sidebarClass'      => 'col-md-2',
-                    'contentClass'      => 'col-md-10',
-                    'title'             => $this->lang->line('profile_title') . ' | ' . $this->administrator->name,
-                )
-            );
+                'administrator'     => $this->administrator,
+                'total_contents'    => $this->administrator->get_created_contents_number(),
+                'total_categories'  => $this->administrator->get_created_categories_number(),
+                'total_media'       => $this->administrator->get_created_media_number(),
+                'class'             => 'page-container-bg-solid',
+                'sidebarClass'      => 'col-md-2',
+                'contentClass'      => 'col-md-10',
+                'title'             => $this->lang->line('profile_title') . ' | ' . $this->administrator->name,
+            )
+        );
 
         // Add Breadcrumb Profile
         $this->breadcrumb->add( array(
-                    'text' => $message,
-                    'href' => 'profile',
-                )
-            );
+                'text' => $message,
+                'href' => 'profile',
+            )
+        );
     }
 
     /**
@@ -46,8 +47,8 @@ class Profile extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) {
-
+    public function index( $template = 'index' ) 
+    {
         $data = (object) array(
             'contents' => $this->_get_last_contents(),
             'sessions' => $this->_get_last_sessions(),
@@ -64,8 +65,8 @@ class Profile extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function settings() {
-
+    public function settings() 
+    {
         $this->breadcrumb->add( array(
                 array(
                     'text'  => $this->lang->line('profile_breadcrumb_settings'),
@@ -111,16 +112,15 @@ class Profile extends HTML_Controller {
      * @access private
      * @return array
     **/
-    private function _personal_fields() {
-
+    private function _personal_fields() 
+    {
         // Get Adminitrator Base Fields.
         $fields = $this->administrator->validation;
 
         // Filter Personal Fields.
         $personal = array();
-        foreach ( array('name','username','email','sex') as $field ) {
+        foreach ( array('name','username','email','sex') as $field )
             $personal[ $field ] = $fields[ $field ];
-        }
 
         // Define Personal Fields attributes.
         $attrs = array(
@@ -147,16 +147,15 @@ class Profile extends HTML_Controller {
      * @access private
      * @return array
     **/
-    private function _change_password_fields() {
-
+    private function _change_password_fields() 
+    {
         // Get Adminitrator Base Fields.
         $fields = $this->administrator->validation;
 
         // Filter Change Password Fields.
         $password = array();
-        foreach ( array('password', 'confirm_password') as $field ) {
+        foreach ( array('password', 'confirm_password') as $field )
             $password[ $field ] = $fields[ $field ];
-        }
 
         // Define Change Password Fields attributes.
         $attrs = array(
@@ -183,18 +182,20 @@ class Profile extends HTML_Controller {
      * @access private
      * @return array
      */
-    private function _get_last_contents() {
-
+    private function _get_last_contents() 
+    {
         $contents = $this->administrator->contents
             ->where( array( 'publish_flag' => 1 ) )
             ->order_by( 'publish_date DESC' )
             ->limit(10);
 
         $data = array();
-        foreach ( $contents->get() as $content ) {
+        foreach ( $contents->get() as $content ) 
+        {
             $categories = array();
 
-            foreach ( $content->categories->get() as $category ) {
+            foreach ( $content->categories->get() as $category ) 
+            {
                 array_push( $categories, (object) array(
                         'id'   => $category->id,
                         'name' => $category->name,
@@ -222,14 +223,15 @@ class Profile extends HTML_Controller {
      * @access private
      * @return array
      */
-    private function _get_last_sessions() {
-
+    private function _get_last_sessions() 
+    {
         $sessions = $this->administrator->sessions
             ->order_by( 'creation_date DESC' )
             ->limit(10);
 
         $data = array();
-        foreach ( $sessions->get() as $session ) {
+        foreach ( $sessions->get() as $session ) 
+        {
             array_push( $data, (object) array(
                     'ip_address'       => $session->ip_address,
                     'browser'          => $session->browser,

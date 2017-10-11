@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -14,6 +15,3 @@ $lang = array (
     'settings_website_languages'   => 'Línguas',
 
 );
-
-/* End of file websites_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/settings/websites_lang.php */

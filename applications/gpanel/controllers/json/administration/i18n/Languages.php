@@ -1,25 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Languages Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       JSON_Controller
- * @category   i18n
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 Languages.php 2014-11-15 gferraria $
- */
-class Languages extends JSON_Controller {
-
+class Languages extends JSON_Controller 
+{
     /**
      * index: Get Languages.
      *
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
+    public function index( $data = array() ) 
+    {
         $languages = new I18n_Language();
 
         // Define List Columns.
@@ -27,7 +18,8 @@ class Languages extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $languages->or_like( array(
                     'name' => $search_text,
                     'code' => $search_text,
@@ -36,15 +28,20 @@ class Languages extends JSON_Controller {
         }
 
         // Order By.
-        if ( isset( $_POST['iSortCol_0'] ) ) {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+        if ( isset( $_POST['iSortCol_0'] ) ) 
+        {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $languages->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else
+        else 
+        {
             $languages->order_by('name');
+        }
 
         // Pagination
         $page = 1;
@@ -54,7 +51,8 @@ class Languages extends JSON_Controller {
         $languages->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $languages as $language ) {
+        foreach ( $languages as $language ) 
+        {
             $data[] = array(
                 "DT_RowId" => $language->id,
                 0 => $language->code,
@@ -88,11 +86,14 @@ class Languages extends JSON_Controller {
      * @param  int $id, Language Id
      * @return json
     **/
-    public function save( $id = null ) {
+    public function save( $id = null ) 
+    {
         $language = new I18n_Language();
 
-        if( !is_null( $id ) )
+        if( !is_null( $id ) ) 
+        {
             $language->get_by_id( $id );
+        }
 
         $language->code    = $this->input->post('code');
         $language->name    = $this->input->post('name');
@@ -100,14 +101,16 @@ class Languages extends JSON_Controller {
         $language->active  = $this->input->post('active');
         $language->country = $this->input->post('country');
 
-        if ( $language->save() ) {
+        if ( $language->save() ) 
+        {
             $data = array();
             if ( is_null( $id ) )
                 $data['reset'] = 1;
 
             $data['notification'] = array( 'success', $this->lang->line('save_success_message') );
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $language->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -118,6 +121,3 @@ class Languages extends JSON_Controller {
     }
 
 }
-
-/* End of file languages.php */
-/* Location: ./applications/gpanel/controllers/json/administration/i18n/languages.php */

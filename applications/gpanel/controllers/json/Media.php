@@ -1,18 +1,19 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Media extends GP_Controller {
-
+class Media extends GP_Controller 
+{
     /**
      * index: Get Media Files.
      *
      * @access public
      * @return json
     **/
-    public function index() {
-
+    public function index() 
+    {
         // Check if is an ajax request.
-        if ( ! $this->input->is_ajax_request() ) {
-
+        if ( ! $this->input->is_ajax_request() ) 
+        {
             log_message(
                 'error',
                 'Controller: ' . __CLASS__ . '; Method: ' . __METHOD__ . '; '.
@@ -32,7 +33,8 @@ class Media extends GP_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $files->or_like( array(
                     'name'     => $search_text,
                     'filename' => $search_text,
@@ -43,25 +45,31 @@ class Media extends GP_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $files->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else
+        {
             $files->order_by('id DESC');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $files->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $files as $file ) {
+        foreach ( $files as $file ) 
+        {
             $filetype = $file->filetype;
             $filetype = str_replace( '/', '_', $filetype );
 
@@ -104,11 +112,11 @@ class Media extends GP_Controller {
      * @access public
      * @return json
     **/
-    public function modal() {
-
+    public function modal() 
+    {
         // Check if is an ajax request.
-        if ( ! $this->input->is_ajax_request() ) {
-
+        if ( ! $this->input->is_ajax_request() ) 
+        {
             log_message(
                 'error',
                 'Controller: ' . __CLASS__ . '; Method: ' . __METHOD__ . '; '.
@@ -128,7 +136,8 @@ class Media extends GP_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $files->or_like( array(
                     'name'     => $search_text,
                     'filename' => $search_text,
@@ -139,26 +148,31 @@ class Media extends GP_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $files->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else
+        {
             $files->order_by('id DESC');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $files->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $files as $file ) {
-
+        foreach ( $files as $file ) 
+        {
             $filetype = $file->filetype;
             $filetype = str_replace( '/', '_', $filetype );
 
@@ -190,7 +204,8 @@ class Media extends GP_Controller {
      * @access public
      * @return json
     **/
-    public function upload() {
+    public function upload() 
+    {
         $error = null;
         
         // Inicialize Media File Object.
@@ -204,8 +219,8 @@ class Media extends GP_Controller {
         $this->upload->do_upload( $filename );
 
         // If the File is valid insert the data.
-        if ( sizeof ( $this->upload->error_msg ) == 0 ) {
-
+        if ( sizeof ( $this->upload->error_msg ) == 0 ) 
+        {
             // Get Upload Data.
             $upload = $this->upload->data();
             
@@ -248,20 +263,24 @@ class Media extends GP_Controller {
             }*/
 
             // Save File.
-            if ( is_null( $error ) && $file->save() ) {
+            if ( is_null( $error ) && $file->save() ) 
+            {
                 $data = array(
                     'result'   => 1,
                     'filename' => $file->filename,
                     'url'      => $this->config->item('static_url') . $file->filename,
                 );
             }
-            else {
-                if ( is_null( $error ) ) {
+            else 
+            {
+                if ( is_null( $error ) ) 
+                {
                     $data = array( 'error', $this->lang->line('unespected_error'));
                 }
             }
         }
-        else {
+        else 
+        {
             if ( sizeof ( $this->upload->error_msg ) > 0 )
                 $error = $this->upload->error_msg[0];
 
@@ -278,10 +297,11 @@ class Media extends GP_Controller {
      * @param  int $id, Media File id
      * @return json
     **/
-    public function delete( $id ) {
+    public function delete( $id ) 
+    {
          // Check if is an ajax request.
-        if ( ! $this->input->is_ajax_request() ) {
-
+        if ( ! $this->input->is_ajax_request() ) 
+        {
             log_message(
                 'error',
                 'Controller: ' . __CLASS__ . '; Method: ' . __METHOD__ . '; '.
@@ -307,8 +327,8 @@ class Media extends GP_Controller {
           from filesystem, otherwise shows an unexpected error.
         */
         $data = array();
-        if ( $file->delete() ) {
-
+        if ( $file->delete() ) 
+        {
             // Delete file from the filesystem if exists.
             if( get_file_info( $fullpath ) != FALSE )
                 delete_files( $fullpath );
@@ -318,7 +338,8 @@ class Media extends GP_Controller {
                 'message' => $this->lang->line('delete_success_message'),
             );
         }
-        else {
+        else 
+        {
             $data = array(
                 'result'  => 0,
                 'message' => $this->lang->line('delete_error_message'),

@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends JSON_Controller {
-
+class Users extends JSON_Controller 
+{
     /**
      * index: Get Users.
      *
      * @access public
      * @return json
     **/
-    public function index($data = array()) {
+    public function index($data = array()) 
+    {
         // Get all Users.
         $users = new User();
 
@@ -17,7 +19,8 @@ class Users extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $users->or_like( array(
                     'name'     => $search_text,
                     'email'    => $search_text,
@@ -28,25 +31,31 @@ class Users extends JSON_Controller {
         // Order By.
         if ( isset( $_POST['iSortCol_0'] ) )
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $users->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else
+        {
             $users->order_by('name');
+        }
 
         // Pagination
         $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) {
+        if ( $this->input->post('iDisplayStart') > 0  ) 
+        {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
         $users->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $users as $user ) {
+        foreach ( $users as $user ) 
+        {
             $data[] = array(
                 "DT_RowId" => $user->id,
                 0 => '<a href="mailto:'.$user->email.'">'.$user->name.'</a>',
@@ -76,8 +85,8 @@ class Users extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Inicialize User Object.
         $user = new User();
 
@@ -91,26 +100,29 @@ class Users extends JSON_Controller {
         $user->validate();
 
         // If User is valid insert the data.
-        if ( $user->valid ) {
-
+        if ( $user->valid ) 
+        {
             $roles = array();
-            if( is_array($this->input->post('roles') ) ) {
-                foreach ( $this->input->post('roles')  as $role ) {
+            if( is_array($this->input->post('roles') ) ) 
+            {
+                foreach ( $this->input->post('roles')  as $role ) 
+                {
                     if( !empty($role) )
                         $roles[] = $role;
                 }
             }
 
             // Save user and the related roles.
-            if ( $user->save( array( 'roles' => $roles ) ) ) {
+            if ( $user->save( array( 'roles' => $roles ) ) ) 
+            {
                 $data = array(
                     'reset'        => 1,
                     'notification' => array('success', $this->lang->line('save_success_message') ),
                 );
             }
         }
-        else {
-
+        else 
+        {
             $data = array(
                 'show_errors'  => $user->errors->all,
                 'notification' => array('error', $this->lang->line('save_error_message') ),
@@ -127,8 +139,8 @@ class Users extends JSON_Controller {
      * @param  int $id, [Required] User Id
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Get User to edite.
         $user = new User();
 
@@ -143,25 +155,29 @@ class Users extends JSON_Controller {
         $user->validate();
 
         // If User is valid updates the data.
-        if ( $user->valid ) {
-
+        if ( $user->valid ) 
+        {
             $roles = array();
-            if( is_array($this->input->post('roles') ) ) {
-                foreach ( $this->input->post('roles')  as $role ) {
+            if( is_array($this->input->post('roles') ) ) 
+            {
+                foreach ( $this->input->post('roles')  as $role ) 
+                {
                     if( !empty($role) )
                         $roles[] = $role;
                 }
             }
 
             // Save user and the related roles.
-            if ( $user->save( array( 'roles' => $roles ) ) ) {
+            if ( $user->save( array( 'roles' => $roles ) ) ) 
+            {
                 $data = array(
                     'show_errors'  => array(),
                     'notification' => array('success', $this->lang->line('save_success_message') ),
                 );
             }
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $user->errors->all,
                 'notification' => array('error', $this->lang->line('save_error_message') ),
@@ -178,8 +194,8 @@ class Users extends JSON_Controller {
      * @param  int $id, [Required] User Id
      * @return json
     **/
-    public function change_password( $id ) {
-
+    public function change_password( $id ) 
+    {
         // Get User to edit.
         $user = new User();
 
@@ -193,10 +209,10 @@ class Users extends JSON_Controller {
         $user->validate();
 
         // If User is valid, change the password.
-        if ( $user->valid ) {
-
-            if ( $user->save() ) {
-
+        if ( $user->valid ) 
+        {
+            if ( $user->save() ) 
+            {
                 // Send email for user.
                 $this->email->send_multipart = FALSE;
                 $this->email->from( $this->config->item('noreply_email'), $this->config->item('noreply_name') );
@@ -216,7 +232,8 @@ class Users extends JSON_Controller {
                 );
             }
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $user->errors->all,
                 'notification' => array('error', $this->lang->line('user_change_password_error_message') ),
@@ -227,6 +244,3 @@ class Users extends JSON_Controller {
     }
 
 }
-
-/* End of file users.php */
-/* Location: ./applications/gpanel/controllers/json/private-area/users.php */

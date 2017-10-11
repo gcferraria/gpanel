@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Roles extends HTML_Controller {
-
+class Roles extends HTML_Controller 
+{
     /**
      * __construct: Roles Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Roles Breadcrumb.
@@ -25,8 +27,8 @@ class Roles extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index($template = 'index') 
+    {
         $data = (object) array(
             'source' => 'private-area/roles.json',
             'header' => array(
@@ -54,8 +56,8 @@ class Roles extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumbs to Add Role.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('role_breadcrumb_add'),
@@ -69,8 +71,8 @@ class Roles extends HTML_Controller {
 
         // Build Role Form.
         $role_form
-        ->builder( 'post', '/private-area/roles/add.json' )
-        ->add_fields( $this->_fields( $role ) );
+            ->builder( 'post', '/private-area/roles/add.json' )
+            ->add_fields( $this->_fields( $role ) );
 
         $this->add_data( array(
                 'title' => $this->lang->line('role_title_add'),
@@ -90,8 +92,8 @@ class Roles extends HTML_Controller {
      * @param  string $id, Role Identifier
      * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Find Role to Edit.
         $role = new Role();
         $role->get_by_id( $id );
@@ -114,8 +116,8 @@ class Roles extends HTML_Controller {
 
         // Build Role Form.
         $role_form
-        ->builder('post', '/private-area/roles/edit/' . $role->id . '.json')
-        ->add_fields( $this->_fields( $role ), $role );
+            ->builder('post', '/private-area/roles/edit/' . $role->id . '.json')
+            ->add_fields( $this->_fields( $role ), $role );
 
         $this->add_data( array(
                 'title' => $this->lang->line('role_title_edit'),
@@ -136,8 +138,8 @@ class Roles extends HTML_Controller {
      * @param  object $role, [Required] Role Object.
      * @return array
     **/
-    private function _fields( $role ) {
-
+    private function _fields( $role ) 
+    {
         // Get Role base fields.
         $fields = $role->validation;
 
@@ -155,6 +157,3 @@ class Roles extends HTML_Controller {
     }
 
 }
-
-/* End of file roles.php */
-/* Location: ../applications/gpanel/controllers/html/private-area/roles.php */

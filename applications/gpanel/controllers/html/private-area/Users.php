@@ -1,14 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends HTML_Controller {
-
+class Users extends HTML_Controller 
+{
     /**
      * __construct: Users Class constructor.
      *
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Users Breadcrumb.
@@ -25,8 +27,8 @@ class Users extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function index($template = 'index') {
-
+    public function index($template = 'index') 
+    {
         $data = (object) array(
             'source' => 'private-area/users.json',
             'header' => array(
@@ -55,8 +57,8 @@ class Users extends HTML_Controller {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumbs to Add User.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('user_breadcrumb_add'),
@@ -70,8 +72,8 @@ class Users extends HTML_Controller {
 
         // Build User Form.
         $user_form
-        ->builder( 'post', '/private-area/users/add.json' )
-        ->add_fields( $this->_fields( $user ) );
+            ->builder( 'post', '/private-area/users/add.json' )
+            ->add_fields( $this->_fields( $user ) );
 
         $this->add_data( array(
                 'title' => $this->lang->line('user_title_add'),
@@ -91,8 +93,8 @@ class Users extends HTML_Controller {
      * @param  string $id, User identifier
      * @return void
     **/
-    public function edit( $id ) {
- 
+    public function edit( $id ) 
+    {
         // Find User to Edit.
         $user = new User();
         $user->get_by_id( $id );
@@ -125,18 +127,18 @@ class Users extends HTML_Controller {
 
         // Build User Data Form.
         $personal_form
-        ->builder('post','/private-area/users/edit/' . $user->id . '.json', array('data-jsb-name' => 'userdata'))
-        ->add_fields(
-            $this->_user_data_fields( $user ),
-            $user
-        );
+            ->builder('post','/private-area/users/edit/' . $user->id . '.json', array('data-jsb-name' => 'userdata'))
+            ->add_fields(
+                $this->_user_data_fields( $user ),
+                $user
+            );
 
         // Build Change Password Form.
         $change_pass_form
-        ->builder('post','/private-area/users/change_password/' . $user->id . '.json', array('data-jsb-name' => 'password'))
-        ->add_fields(
-            $this->_change_password_fields( $user )
-        );
+            ->builder('post','/private-area/users/change_password/' . $user->id . '.json', array('data-jsb-name' => 'password'))
+            ->add_fields(
+                $this->_change_password_fields( $user )
+            );
 
         $data = (object) array(
             'object'               => $user,
@@ -147,7 +149,6 @@ class Users extends HTML_Controller {
         );
 
         $this->add_data( array( 'user' => $data ) );
-        
 
         parent::index();
     }
@@ -160,8 +161,8 @@ class Users extends HTML_Controller {
      * @param  object $user, [Required] User Object.
      * @return array
     **/
-    private function _fields( $user ) {
-
+    private function _fields( $user ) 
+    {
         // Get User base fields.
         $fields = $user->validation;
 
@@ -213,16 +214,15 @@ class Users extends HTML_Controller {
      * @param  object $user, [Required] User Object.
      * @return array
     **/
-    private function _user_data_fields( $user ) {
-
+    private function _user_data_fields( $user ) 
+    {
         // Get User Base Fields.
         $fields = $user->validation;
 
         // Filter User Data Fields.
         $data = array();
-        foreach ( array('name', 'email', 'active_flag', 'roles') as $field ) {
+        foreach ( array('name', 'email', 'active_flag', 'roles') as $field )
             $data[ $field ] = $fields[ $field ];
-        }
 
         // Initialize Role Object.
         $role = new Role();
@@ -265,16 +265,15 @@ class Users extends HTML_Controller {
      * @param  object $user, [Required] User Object.
      * @return array
     **/
-    private function _change_password_fields( $user ) {
-
+    private function _change_password_fields( $user ) 
+    {
         // Get User Base Fields.
         $fields = $user->validation;
 
         // Filter Change Password Fields.
         $password = array();
-        foreach ( array('password', 'confirm_password') as $field ) {
+        foreach ( array('password', 'confirm_password') as $field )
             $password[ $field ] = $fields[ $field ];
-        }
 
         // Define Change Password Fields attributes.
         $attrs = array(
@@ -296,6 +295,3 @@ class Users extends HTML_Controller {
     }
 
 }
-
-/* End of file users.php */
-/* Location: ../applications/gpanel/controllers/html/private-area/users.php */

@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -24,6 +25,3 @@ $lang = array (
     'newsletter_validation_errors'  => 'Existem erros de validação associado à newsletter.',
 
 );
-
-/* End of file newsletters_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/newsletters/newsletters.php */

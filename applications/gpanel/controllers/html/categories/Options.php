@@ -1,21 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/**
- * Options Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       Categories
- * @category   Categories
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 options.php 2014-11-22 gferraria $
- */
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 include APPPATH . "controllers/html/Categories.php";
 
-class Options extends Categories {
-
+class Options extends Categories 
+{
     /**
      * __construct: Category Options Class constructor.
      *              Get current Category Object.
@@ -23,7 +12,8 @@ class Options extends Categories {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Add Default Breadcrumb.
@@ -41,8 +31,8 @@ class Options extends Categories {
      * @access public
      * @return void
     **/
-    public function index( $template = 'index') {
-
+    public function index( $template = 'index' ) 
+    {
         $options = (object) array(
             'source' => 'categories/options/own/' . $this->category->id . '.json',
             'header' => array(
@@ -83,8 +73,8 @@ class Options extends Categories {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Category Option.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('category_option_breadcrumb_add'),
@@ -118,8 +108,8 @@ class Options extends Categories {
      * @access public
      * @return void
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Initialize Category Object.
         $category_option = new Category_Option();
 
@@ -131,13 +121,13 @@ class Options extends Categories {
 
         // Add Breadcrumb to edit Category Option.
         $this->breadcrumb->add( array(
-                    'text' => sprintf(
-                        $this->lang->line('category_option_breadcrumb_edit'),
-                        $category_option->name
-                    ),
-                    'href' => uri_string(),
-                )
-            );
+                'text' => sprintf(
+                    $this->lang->line('category_option_breadcrumb_edit'),
+                    $category_option->name
+                ),
+                'href' => uri_string(),
+            )
+        );
 
         // Inicialize Category Option Form Object.
         $category_option_form = new Form();
@@ -151,12 +141,12 @@ class Options extends Categories {
             );
 
         $this->add_data( array(
-                    'title'   => $this->lang->line('category_option_title_edit'),
-                    'category_option' => (object) array(
-                        'form' => $category_option_form->render_form()
-                    )
+                'title'   => $this->lang->line('category_option_title_edit'),
+                'category_option' => (object) array(
+                    'form' => $category_option_form->render_form()
                 )
-            );
+            )
+        );
 
         parent::index();
     }
@@ -168,8 +158,8 @@ class Options extends Categories {
      * @access private
      * @return array
     **/
-    private function _fields( $category_option ) {
-
+    private function _fields( $category_option ) 
+    {
         // Get Category Option Base Fields.
         $fields = $category_option->validation;
 
@@ -192,15 +182,15 @@ class Options extends Categories {
      * @access private
      * @return array
     **/
-    private function _inherit_options () {
-
+    private function _inherit_options () 
+    {
         // Get Inherit Options for this category.
         $inherit = $this->category->inherited_options();
         $own     = $this->category->own_options();
 
         $inherit_options = array();
-        foreach ( $inherit as $name => $value ) {
-
+        foreach ( $inherit as $name => $value ) 
+        {
             if ( array_key_exists( $name, $own ) )
                 continue;
 
@@ -213,6 +203,3 @@ class Options extends Categories {
         return $inherit_options;
     }
 }
-
-/* End of file options.php */
-/* Location: ../applications/gpanel/controllers/html/categories/options.php */

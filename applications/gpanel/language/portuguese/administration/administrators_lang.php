@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -26,6 +27,3 @@ $lang = array (
     'administrator_creation_date'          => 'Data de criação',
 
 );
-
-/* End of file administrators_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/administration/administrators_lang.php */

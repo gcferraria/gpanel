@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
@@ -10,14 +11,9 @@ $lang = array (
     'i18n_language_active'     => 'Activo?',
     'i18n_language_default'    => 'Omissão?',
     'i18n_language_country'    => 'País',
-
-    /*Countries*/
     'i18n_language_pt'         => 'Portugal',
     'i18n_language_gb'         => 'Grã-Bretalha',
     'i18n_language_es'         => 'Espanha',
     'i18n_language_us'         => 'Estados Unidos da América',
 
 );
-
-/* End of file dashboard_lang.php */
-/* Location: ./applications/gpanel/language/portuguese/i18n/languages.php */

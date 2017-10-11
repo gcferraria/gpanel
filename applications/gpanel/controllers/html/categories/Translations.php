@@ -1,21 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/**
- * Translations Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       Categories
- * @category   Categories
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 translations.php 2014-12-08 gferraria $
- */
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 include APPPATH . "controllers/html/Categories.php";
 
-class Translations extends Categories {
-
+class Translations extends Categories 
+{
     /**
      * __construct: Class contruct.
      *              Load Language File.
@@ -23,7 +12,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
 
         // Load Language File.
@@ -43,8 +33,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function index() {
-
+    public function index() 
+    {
         $this->add_data( array(
                 'title'   => $this->lang->line('category_translation_title'),
                 'table'   =>  (object) array(
@@ -70,8 +60,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function add() {
-
+    public function add() 
+    {
         // Add Breadcumb to Add Category Translation.
         $this->breadcrumb->add( array(
                 'text' => $this->lang->line('category_translation_title_add'),
@@ -99,7 +89,8 @@ class Translations extends Categories {
      * @access public
      * @return void
     **/
-    public function edit( $id ) {
+    public function edit( $id ) 
+    {
         $language = new I18n_Language();
         $language->get_by_id( $this->uri->segment(5) );
 
@@ -134,7 +125,8 @@ class Translations extends Categories {
      * @param $object, $lang Language Object
      * @return array
     **/
-    private function _fields( $lang = NULL ) {
+    private function _fields( $lang = NULL ) 
+    {
         $translation = new Translation();
 
         // Get category translatable fields.
@@ -147,7 +139,8 @@ class Translations extends Categories {
 
         // Get languages available for this category ( default language not included ).
         $languages = array();
-        foreach ($this->category->languages() as $language ) {
+        foreach ( $this->category->languages() as $language ) 
+        {
             if( !$language->default )
                 $languages[ $language->name ] = $language->id;
         }
@@ -158,8 +151,8 @@ class Translations extends Categories {
         // Define category translatable fields attributes.
         $attrs = array( 'language_id' => array('values' => $languages ) );
 
-        if ( !empty($lang ) ) {
-
+        if ( !empty( $lang ) ) 
+        {
             // Add a hidden field for indicate that operation is an update.
             $fields['operation'] = array(
                 'field' => 'operation',
@@ -180,7 +173,8 @@ class Translations extends Categories {
         $fields = array_replace_recursive( $fields, $attrs );
 
         // Add Values to Fields if exist.
-        if ( !empty ( $values ) ) {
+        if ( !empty ( $values ) ) 
+        {
             foreach ( $values as $name => $value )
                 $fields[$name]['value'] =  $value;
         }
@@ -189,6 +183,3 @@ class Translations extends Categories {
     }
 
 }
-
-/* End of file  translations.php */
-/* Location: ../applications/gpanel/controllers/html/categories/translations.php */

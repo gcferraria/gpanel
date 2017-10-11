@@ -1,7 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends JSON_Controller {
-
+class Categories extends JSON_Controller 
+{
     /**
      * index: Get Categories Structure.
      *
@@ -9,7 +10,8 @@ class Categories extends JSON_Controller {
      * @param  int $id, Base Category Id.
      * @return json
     **/
-    public function index( $id = array() ) {
+    public function index( $id = array() ) 
+    {
         parent::index( $this->_category_data( $id ) );
     }
 
@@ -20,8 +22,8 @@ class Categories extends JSON_Controller {
      * @param  int $id, Category Id.
      * @return array
     **/
-    private function _category_data( $id ) {
-
+    private function _category_data( $id ) 
+    {
         // Initialize Category Object.
         $category = new Category;
 
@@ -35,9 +37,8 @@ class Categories extends JSON_Controller {
 
         // Get Children for this Category.
         $children = array();
-        foreach ( $categories->get() as $child ) {
+        foreach ( $categories->get() as $child )
             array_push( $children, $this->_category_data( $child->id ) );
-        }
 
         $data = array(
             'id'    => $category->id,
@@ -66,8 +67,8 @@ class Categories extends JSON_Controller {
      * @param  int $id, Parent Category Id
      * @return json
     **/
-    public function add( $id ) {
-
+    public function add( $id ) 
+    {
         // Inicialize Category Object and Get Parent Category.
         $parent = new Category();
         $category = new Category;
@@ -76,9 +77,9 @@ class Categories extends JSON_Controller {
 
         // Build Uriname.
         $uripath = sprintf( '%s%s/',
-                $parent->path(),
-                $this->input->post('uriname')
-            );
+            $parent->path(),
+            $this->input->post('uriname')
+        );
 
         // Set Category attributes.
         $category->parent_id    = $id;
@@ -96,11 +97,13 @@ class Categories extends JSON_Controller {
         $category->validate();
 
         // If the Category is valid insert the data.
-        if ( $category->valid ) {
-
+        if ( $category->valid ) 
+        {
             $content_types = array();
-            if( is_array($this->input->post('content_types') ) ) {
-                foreach ( $this->input->post('content_types')  as $content_type ) {
+            if( is_array($this->input->post('content_types') ) ) 
+            {
+                foreach ( $this->input->post('content_types')  as $content_type ) 
+                {
                     if( !empty($content_type) )
                         $content_types[] = $content_type;
                 }
@@ -118,7 +121,8 @@ class Categories extends JSON_Controller {
                         'views'         => $categories
                     )
                 )
-            ) {
+            ) 
+            {
                 $data = array(
                     'reset'        => 1,
                     'notification' => array('success', $this->lang->line('save_success_message') ),
@@ -126,7 +130,8 @@ class Categories extends JSON_Controller {
                 );
             }
         }
-        else {
+        else 
+        {
 
             $data = array(
                 'show_errors' => $category->errors->all,
@@ -144,8 +149,8 @@ class Categories extends JSON_Controller {
      * @param  int $id, Category id.
      * @return json
     **/
-    public function edit( $id ) {
-
+    public function edit( $id ) 
+    {
         // Initialize Category Object.
         $category = new Category;
 
@@ -171,11 +176,13 @@ class Categories extends JSON_Controller {
         $category->validate();
 
         // If the Category is valid insert the data.
-        if ( $category->valid ) {
-
+        if ( $category->valid ) 
+        {
             $content_types = array();
-            if( is_array($this->input->post('content_types') ) ) {
-                foreach ( $this->input->post('content_types')  as $content_type ) {
+            if( is_array($this->input->post('content_types') ) ) 
+            {
+                foreach ( $this->input->post('content_types')  as $content_type ) 
+                {
                     if( !empty($content_type) )
                         $content_types[] = $content_type;
                 }
@@ -193,11 +200,13 @@ class Categories extends JSON_Controller {
                         'views'         => $categories
                     )
                 )
-            ) {
+            ) 
+            {
                 // Necessary update all your childrens.
-                if ( $uriname != $category->uriname ) {
-
-                    foreach ( $category->childrens->get() as $child ) {
+                if ( $uriname != $category->uriname ) 
+                {
+                    foreach ( $category->childrens->get() as $child ) 
+                    {
                         $child->uripath = $child->path();
                         $child->save();
                     }
@@ -210,7 +219,8 @@ class Categories extends JSON_Controller {
                 );
             }
         }
-        else {
+        else 
+        {
             $data = array(
                     'show_errors'  => $category->errors->all,
                     'notification' => array('error',$this->lang->line('save_error_message') ),
@@ -227,9 +237,9 @@ class Categories extends JSON_Controller {
      * @param  int $id, Category id.
      * @return json
     **/
-    public function delete( $id ) {
-
-         // Initialize Category Object.
+    public function delete( $id ) 
+    {
+        // Initialize Category Object.
         $category = new Category;
 
         // Find Category to Delete.
@@ -237,9 +247,9 @@ class Categories extends JSON_Controller {
 
         // Set rule validation to macth category name
         $category->validation['name']['rules'] = array(
-                'required',
-                'valid_match' => array( $category->name )
-            );
+            'required',
+            'valid_match' => array( $category->name )
+        );
 
         // Set Category attributes.
         $category->name = $this->input->post('name');
@@ -248,14 +258,14 @@ class Categories extends JSON_Controller {
         $category->validate();
 
         // If the Category is valid insert the data.
-        if ( $category->valid ) {
-
+        if ( $category->valid ) 
+        {
             // Save parent id before delete category.
             $parent_id = $category->parent_id;
 
             // Save Category in database.
-            if ( $category->delete() ) {
-
+            if ( $category->delete() ) 
+            {
                 $data = array(
                     'reset'        => 1,
                     'notification' => array('success', $this->lang->line('delete_success_message') ),
@@ -266,7 +276,8 @@ class Categories extends JSON_Controller {
                 );
             }
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $category->errors->all,
                 'notification' => array('error', $this->lang->line('delete_error_message') ),
@@ -282,8 +293,8 @@ class Categories extends JSON_Controller {
      * @access public
      * @return json
     **/
-    public function search() {
-
+    public function search() 
+    {
         // Instanciate Category Object.
         $categories = new Category();
 
@@ -295,13 +306,14 @@ class Categories extends JSON_Controller {
 
         // Initialize Result.
         $data = array();
-        if ( !empty( $search_text ) ) {
-
+        if ( !empty( $search_text ) ) 
+        {
             // Add Content Type filter if defined.
-            if ( !empty ( $content_type ) ) {
+            if ( !empty ( $content_type ) ) 
+            {
                 $categories->where_related_content_types(
-                        'uriname', $content_type
-                    );
+                    'uriname', $content_type
+                );
             }
 
             // For not include current category.
@@ -312,7 +324,8 @@ class Categories extends JSON_Controller {
             // Add Search Text on name.
             $categories->like( 'name', $search_text );
 
-            foreach ( $categories->get() as $category ) {
+            foreach ( $categories->get() as $category ) 
+            {
                 $data[] = array(
                     'name'  => $category->id,
                     '$name' => $category->name,
@@ -325,6 +338,3 @@ class Categories extends JSON_Controller {
     }
 
 }
-
-/* End of file categories.php */
-/* Location: ./applications/gpanel/controllers/json/categories.php */

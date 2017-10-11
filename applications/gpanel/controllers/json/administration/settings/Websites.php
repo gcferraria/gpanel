@@ -1,25 +1,16 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Websites Class
- *
- * @package    CodeIgniter
- * @subpackage Controllers
- * @uses       JSON_Controller
- * @category   Settings
- * @author     Gonçalo Ferraria <gferraria@gmail.com>
- * @copyright  2014 Gonçalo Ferraria
- * @version    1.0 websites.php 2014-11-24 gferraria $
- */
-class Websites extends JSON_Controller {
-
+class Websites extends JSON_Controller 
+{
     /**
      * index: Get Websites.
      *
      * @access public
      * @return json
     **/
-    public function index( $data = array()) {
+    public function index( $data = array() ) 
+    {
         $websites = new Settings_Website();
 
         // Define List Columns.
@@ -27,7 +18,8 @@ class Websites extends JSON_Controller {
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) {
+        if ( !empty( $search_text ) ) 
+        {
             $websites->or_like( array(
                     'name'   => $search_text,
                     'domain' => $search_text,
@@ -36,15 +28,20 @@ class Websites extends JSON_Controller {
         }
 
         // Order By.
-        if ( isset( $_POST['iSortCol_0'] ) ) {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) {
+        if ( isset( $_POST['iSortCol_0'] ) ) 
+        {
+            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            {
+                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
+                {
                     $websites->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
-        else
+        else 
+        {
             $websites->order_by('name');
+        }
 
         // Pagination
         $page = 1;
@@ -54,7 +51,8 @@ class Websites extends JSON_Controller {
         $websites->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach ( $websites as $website ) {
+        foreach ( $websites as $website ) 
+        {
             $category = $website->category->get();
             $data[] = array(
                 "DT_RowId" => $website->id,
@@ -84,7 +82,8 @@ class Websites extends JSON_Controller {
      * @param  int $id, Website Id
      * @return json
     **/
-    public function save( $id = null ) {
+    public function save( $id = null ) 
+    {
         $website = new Settings_Website();
 
         if( !is_null( $id ) )
@@ -99,11 +98,13 @@ class Websites extends JSON_Controller {
         // Validate Record.
         $website->validate();
 
-        if( $website->valid ) {
+        if( $website->valid ) 
+        {
             $data = array();
 
             // If is a new website, create the category for this website.
-            if( is_null( $id ) ) {
+            if( is_null( $id ) ) 
+            {
                 $category = new Category();
 
                 // Set Category attributes.
@@ -116,30 +117,40 @@ class Websites extends JSON_Controller {
 
                 // Save Category.
                 if ( $category->save() )
+                {
                     $website->category_id = $category->id;
+                }
                 else
+                {
                     $data['notification'] = array( 'error', $this->lang->line('save_error_message') );
+                }
             }
 
             $languages = array();
-            if( is_array($this->input->post('languages') ) ) {
-                foreach ( $this->input->post('languages')  as $language ) {
+            if( is_array($this->input->post('languages') ) ) 
+            {
+                foreach ( $this->input->post('languages')  as $language ) 
+                {
                     if( !empty($language) )
                         $languages[] = $language;
                 }
             }
 
             // Save website
-            if ( $website->save( array('languages' => $languages ) ) && !isset( $data['notification'] ) ) {
+            if ( $website->save( array('languages' => $languages ) ) && !isset( $data['notification'] ) ) 
+            {
                 if ( is_null( $id ) )
                     $data['reset'] = 1;
 
                 $data['notification'] = array( 'success', $this->lang->line('save_success_message') );
             }
             else
+            {
                 $data['notification'] = array( 'error', $this->lang->line('unespected_error') );
+            }
         }
-        else {
+        else 
+        {
             $data = array(
                 'show_errors'  => $website->errors->all,
                 'notification' => array( 'error', $this->lang->line('save_error_message') ),
@@ -150,6 +161,3 @@ class Websites extends JSON_Controller {
     }
 
 }
-
-/* End of file websites.php */
-/* Location: ./applications/gpanel/controllers/json/administration/settings/websites.php */
