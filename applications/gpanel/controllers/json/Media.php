@@ -178,12 +178,10 @@ class Media extends GP_Controller
 
             $data[] = array(
                 "DT_RowId" => $file->id,
-                0 => '<input type="checkbox" name="id[]" data-url="'.$static_url . $file->filename.'" value="'. $file->filename .'" data-jsb-class="CheckBox" />',
+                0 => '<input type="checkbox" class="checkboxes" id="'.$file->id.'" data-url="'.$static_url . $file->filename.'" filename="'.$file->filename.'" data-jsb-class="CheckBox" />',
                 1 => $file->name,
                 2 => $file->filename,
-                3 => $file->filetype,
-                4 => $file->extension,
-                5 => byte_format( $file->filesize * 1000 ),
+                3 => byte_format( $file->filesize * 1000 ),
             );
         }
 

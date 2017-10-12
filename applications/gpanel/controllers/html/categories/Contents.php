@@ -30,8 +30,6 @@ class Contents extends Categories
                         'header' => array(
                             $this->lang->line('file_name'),
                             $this->lang->line('file_filename'),
-                            $this->lang->line('file_filetype'),
-                            $this->lang->line('file_extension'),
                             $this->lang->line('file_filesize'),
                         ),
                         'showAll'   => 1,

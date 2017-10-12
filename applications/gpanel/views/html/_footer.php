@@ -1,3 +1,10 @@
+    
+    <?php 
+        if ( isset( $_REQUEST['load_media_modal'] ) ) {
+            $this->load->view('html/index/categories/contents/_upload', array( 'table' => $table ) );
+        }
+    ?>
+
     <?php if ( isset( $this->administrator ) ) : ?>
     <div class="page-footer">
         <div class="page-footer-inner">

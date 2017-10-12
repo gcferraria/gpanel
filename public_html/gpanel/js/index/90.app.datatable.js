@@ -101,7 +101,7 @@
             , getRowsSelected: function() {
                 var rows = [];
                 $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', this.$ ).each(function(){
-                    rows.push({name: $(this).attr("name"), value: $(this).attr("id"), url: $(this).attr("data-url") });
+                    rows.push({name: $(this).attr("name"), value: $(this).attr("id"), filename: $(this).attr("filename"), url: $(this).attr("data-url") });
                 });
 
                 return rows;

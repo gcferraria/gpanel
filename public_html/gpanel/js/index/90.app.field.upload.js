@@ -85,6 +85,12 @@
                 Files.Super.prototype.dettach.call( this, item );
                 this.parent.$field.update();
             }
+            , swap: function( child1, child2 ) {
+                Files.Super.prototype.swap.call( this, child1,child2 );
+                
+                this.parent.$field.update();
+                this[0].select();
+            }
         })
         , Delete = my.Class( JsB, {
             'constructor': function( elem, caller ) {
@@ -97,6 +103,38 @@
                     container = item.parent;
                 
                 container.dettach( item );
+                return false;
+            }
+        })
+         Up = my.Class( JsB, {
+            constructor: function( elem, caller ) {
+                Up.Super.call( this, elem, caller );
+                
+                this.name = 'up';
+                this.bind( 'click' );
+            }
+            , click: function( ev ) {
+                var item = this.parent,
+                    prev = item.previous();
+                    
+                item.parent.swap( item, prev );
+                
+                return false;
+            }
+        })
+        , Down = my.Class( JsB, {
+            constructor: function( elem, caller ) {
+                Down.Super.call( this, elem, caller );
+                
+                this.name = 'down';
+                this.bind( 'click' );
+            }
+            , click: function( ev ) {
+                var item = this.parent,
+                    next = item.next();
+                    
+                item.parent.swap( item, next );
+                
                 return false;
             }
         })
@@ -128,7 +166,7 @@
                 this.$.modal({'show': false})
                 .on('shown.bs.modal', function (e) {
                     that.values = [];
-                    that.$table.table.fnReloadAjax(that.$table.$.attr('data-source'));
+                    that.$table.table.fnUpdate();
                 })
                 .on('hide.bs.modal', function (e) {
                     if( that.values instanceof Array ) {
@@ -136,7 +174,7 @@
                             for ( var idx in that.values ) {
                                 var file = that.values[idx];
                                 that.button.parent.$files.update({
-                                    '$filename' : file.value,
+                                    '$filename' : file.filename,
                                     '$open' : {'href' : file.url }
                                 });
                             }
@@ -168,6 +206,8 @@
     JsB.object( 'App.Upload.Progress'    , Progress  );
     JsB.object( 'App.Upload.Files'       , Files     );
     JsB.object( 'App.Upload.Files.Delete', Delete    );
+    JsB.object( 'App.Upload.Up'          , Up        );
+    JsB.object( 'App.Upload.Down'        , Down      );
     JsB.object( 'App.Upload.OpenModal'   , OpenModal );
     JsB.object( 'App.Modal.Upload'       , Modal     );
     JsB.object( 'App.Modal.Upload.Save'  , Save      );
