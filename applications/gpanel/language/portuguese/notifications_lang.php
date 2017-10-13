@@ -10,5 +10,6 @@ $lang = array (
     'notification_status'        => 'Estado',
     'notification_creation_date' => 'Data de Criação',
     'notifications_mark_as_read' => 'Marcar como lido',
+    'notifications_unread'		 => '%s notificações',
 
 );

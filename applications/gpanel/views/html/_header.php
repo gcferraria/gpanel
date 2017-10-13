@@ -50,9 +50,9 @@
                         <ul class="dropdown-menu">
                             <li class="external">
                                 <h3>
-                                    <span class="bold"><?=$notifications['number']?> notificações</span> por ler.
+                                    <span class="bold"><?=sprintf($this->lang->line('notifications_unread'),$notifications['number'])?></span> <?=$this->lang->line('pendents')?>
                                 </h3>
-                                <a href="<?=site_url('notifications') ?>">Ver todas</a>
+                                <a href="<?=site_url('notifications') ?>"><?=$this->lang->line('view_all')?></a>
                             </li>
                             <li>
                                 <ul class="dropdown-menu-list scroller" data-height="250" data-jsb-class="App.Scroll">
@@ -62,7 +62,7 @@
                                             <span class="time">
                                                 <?php
                                                 $diff = get_spent_hours( $notification->creation_date);
-                                                $diff = ( $diff->d > 0 ) ? $diff->format('%d') . ' dia(s)' : $diff->format('%h') . ' hora(s)'; 
+                                                $diff = ( $diff->d > 0 ) ? $diff->format('%d') . $this->lang->line('day(s)') : $diff->format('%h') . $this->lang->line('hour(s)'); 
                                                 ?>
                                                 <?=$diff?>
                                             </span>
@@ -92,9 +92,9 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-                            <li><a href="<?=site_url('profile')?>"><i class="icon-user"></i> O meu Perfil</a></li>
+                            <li><a href="<?=site_url('profile')?>"><i class="icon-user"></i><?=$this->lang->line('my_profile')?></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?=site_url('logout')?>"><i class="icon-key"></i> Log Out</a></li>
+                            <li><a href="<?=site_url('logout')?>"><i class="icon-key"></i><?=$this->lang->line('logout')?></a></li>
                         </ul>
                     </li>
                 </ul>

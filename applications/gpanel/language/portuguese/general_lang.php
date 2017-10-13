@@ -3,13 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
+    'author'           => 'Gonçalo Ferraria',
     'title'            => 'gPanel - Gestão de Conteúdos',
     'yes'              => 'Sim',
     'no'               => 'Não',
     'years'            => 'Anos',
     'months'           => 'Meses',
     'days'             => 'Dias',
+    'day(s)'           => ' dia(s)',
     'hours'            => 'Horas',
+    'hour(s)'          => ' hora(s)',
     'minutes'          => 'Minutos',
     'right_now'        => 'Agora mesmo',
     'add'              => 'Adicionar',
@@ -20,17 +23,19 @@ $lang = array (
     'download'         => 'Download',
     'save'             => 'Gravar',
     'operations'       => 'Operações',
-    'active'           => 'Activo',
-    'actions'          => 'Acções',
+    'active'           => 'Ativo',
+    'actions'          => 'Ações',
     'hold'             => 'Pendente',
-    'inactive'         => 'Inactivo',
+    'inactive'         => 'Inativo',
     'translations'     => 'Traduções',
     'delete_record'    => 'Tem a certeza que pretende apagar o registo?',
     'view_more'        => 'ver mais',
     'reload'           => 'Actualizar',
     'collapse'         => 'Colapsar',
     'view_all_records' => 'Ver todos os registos',
-    'select_options'   => 'Seleccione as opções...',
+    'select_options'   => 'Selecione as opções...',
+    'select_image'     => 'Selecionar imagem',
+    'select_file'      => 'Selecionar ficheiro',
     'new_password'     => 'Nova Password',
     'password_confirm' => 'Confirmação de Password',
     'read'             => 'Lido',
@@ -41,6 +46,8 @@ $lang = array (
     'male'             => 'Masculino',
     'female'           => 'Feminino',
     'cancel'           => 'Cancelar',
+    'view_all'         => 'Ver todas',
+    'pendents'         => 'pendentes',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',
@@ -79,6 +86,7 @@ $lang = array (
     'login_remember'  => 'Relembrar?', 
     'login_recoverr'  => 'Recuperar Password',
     'login_other_opt' => 'Ou faça login com',
+    'logout'          => 'Sair',
 
     /* Forget */
     'forget_title'        => 'Recuperar Password?',

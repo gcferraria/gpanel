@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang = array (
 
-	'profile_title'                   => 'Definições de perfil',
+	'my_profile'                      => 'O meu Perfil',
+    'profile_title'                   => 'Definições de perfil',
     'profile_breadcrumb'              => 'Perfil de %s',
     'profile_breadcrumb_settings'     => 'Definições',
     'profile_statistic_title'         => '&Uacute;ltimas Entradas',

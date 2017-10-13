@@ -8,7 +8,7 @@
     <?php if ( isset( $this->administrator ) ) : ?>
     <div class="page-footer">
         <div class="page-footer-inner">
-            <?=date('Y')?> &copy; gPanel Admin by Gonçalo Ferraria.; <?="Loading Time: " . $this->benchmark->elapsed_time()?>; <?="Memory Use: " . $this->benchmark->memory_usage()?>
+            <?=date('Y')?> &copy; gPanel Admin by <?=$this->lang->line('author')?>; <?="Loading Time: " . $this->benchmark->elapsed_time()?>; <?="Memory Use: " . $this->benchmark->memory_usage()?>
         </div>
         <div class="scroll-to-top" data-jsb-name="btnTop" data-jsb-class="Top">
             <i class="icon-arrow-up"></i>
