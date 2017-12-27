@@ -6,92 +6,126 @@ var Layout = function () {
         var body = $('body');
         var height;
 
-        if (body.hasClass("page-footer-fixed") === true && body.hasClass("page-sidebar-fixed") === false) {
+        if ( body.hasClass("page-footer-fixed") === true && body.hasClass("page-sidebar-fixed") === false ) 
+        {
             var available_height = app.getViewPort().height - $('.page-footer').outerHeight() - $('.page-header').outerHeight();
-            if (content.height() < available_height) {
+            if (content.height() < available_height) 
+            {
                 content.attr('style', 'min-height:' + available_height + 'px');
             }
-        } else {
-            if (body.hasClass('page-sidebar-fixed')) {
+
+        } 
+        else 
+        {
+            if ( body.hasClass('page-sidebar-fixed') ) 
+            {
                 height = _calculateFixedSidebarViewportHeight();
-                if (body.hasClass('page-footer-fixed') === false) {
+                if (body.hasClass('page-footer-fixed') === false ) 
+                {
                     height = height - $('.page-footer').outerHeight();
                 }
-            } else {
+
+            } 
+            else 
+            {
                 var headerHeight = $('.page-header').outerHeight();
                 var footerHeight = $('.page-footer').outerHeight();
 
-                if (app.getViewPort().width < app.getResponsiveBreakpoint('md')) {
+                if ( app.getViewPort().width < app.getResponsiveBreakpoint('md') ) 
+                {
                     height = app.getViewPort().height - headerHeight - footerHeight;
-                } else {
+                } 
+                else 
+                {
                     height = sidebar.height() + 20;
                 }
 
-                if ((height + headerHeight + footerHeight) <= app.getViewPort().height) {
+                if ( ( height + headerHeight + footerHeight ) <= app.getViewPort().height ) 
+                {
                     height = app.getViewPort().height - headerHeight - footerHeight;
                 }
             }
+
             content.attr('style', 'min-height:' + height + 'px');
         }
     };
 
-    // Handles sidebar toggler to close/hide the sidebar.
-    var handleFixedSidebarHoverEffect = function () {
-        var body = $('body');
-        if (body.hasClass('page-sidebar-fixed')) {
-            $('.page-sidebar').on('mouseenter', function () {
-                if (body.hasClass('page-sidebar-closed')) {
-                    $(this).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
-                }
-            }).on('mouseleave', function () {
-                if (body.hasClass('page-sidebar-closed')) {
-                    $(this).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+    // Handle sidebar menu links
+    var handleSidebarMenuActiveLink = function(mode, el) {
+        var url = location.hash.toLowerCase();    
+
+        var menu = $('.page-sidebar-menu');
+
+        if (mode === 'click' || mode === 'set') {
+            el = $(el);
+        } else if (mode === 'match') {
+            menu.find("li > a").each(function() {
+                var path = $(this).attr("href").toLowerCase();       
+                // url match condition         
+                if (path.length > 1 && url.substr(1, path.length - 1) == path.substr(1)) {
+                    el = $(this);
+                    return; 
                 }
             });
         }
+
+        if (!el || el.size() == 0) {
+            return;
+        }
+
+        if (el.attr('href').toLowerCase() === 'javascript:;' || el.attr('href').toLowerCase() === '#') {
+            return;
+        }        
+
+        var slideSpeed = parseInt(menu.data("slide-speed"));
+        var keepExpand = menu.data("keep-expanded");
     };
 
     // Handle sidebar menu
-    var handleSidebarMenu = function () {
+    var handleSidebarMenu = function () 
+    {
         // handle sidebar link click
-        $('.page-sidebar-menu').on('click', 'li > a.nav-toggle, li > a > span.nav-toggle', function (e) {
+        $('.page-sidebar-menu').on('click', 'li > a.nav-toggle, li > a > span.nav-toggle', function (e) 
+        {
             var that = $(this).closest('.nav-item').children('.nav-link');
-
-            if (app.getViewPort().width >= app.getResponsiveBreakpoint('md') && !$('.page-sidebar-menu').attr("data-initialized") && $('body').hasClass('page-sidebar-closed') &&  that.parent('li').parent('.page-sidebar-menu').size() === 1) {
+            if ( app.getViewPort().width >= app.getResponsiveBreakpoint('md') && !$('.page-sidebar-menu').attr("data-initialized") && $('body').hasClass('page-sidebar-closed') &&  that.parent('li').parent('.page-sidebar-menu').size() === 1) 
+            {
                 return;
             }
 
             var hasSubMenu = that.next().hasClass('sub-menu');
-
-            if (app.getViewPort().width >= app.getResponsiveBreakpoint('md') && that.parents('.page-sidebar-menu-hover-submenu').size() === 1) { // exit of hover sidebar menu
+            if (app.getViewPort().width >= app.getResponsiveBreakpoint('md') && that.parents('.page-sidebar-menu-hover-submenu').size() === 1) 
+            { 
                 return;
             }
 
-            if (hasSubMenu === false) {
-                if (app.getViewPort().width < app.getResponsiveBreakpoint('md') && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
+            if ( hasSubMenu === false ) 
+            {
+                if (app.getViewPort().width < app.getResponsiveBreakpoint('md') && $('.page-sidebar').hasClass("in")) 
+                {
                     $('.page-header .responsive-toggler').click();
                 }
+
                 return;
             }
 
-            var parent =that.parent().parent();
-            var the = that;
-            var menu = $('.page-sidebar-menu');
-            var sub = that.next();
-
+            var parent     = that.parent().parent();
+            var the        = that;
+            var menu       = $('.page-sidebar-menu');
+            var sub        = that.next();
             var autoScroll = menu.data("auto-scroll");
             var slideSpeed = parseInt(menu.data("slide-speed"));
             var keepExpand = menu.data("keep-expanded");
-            
-            if (!keepExpand) {
+
+            if ( !keepExpand ) {
                 parent.children('li.open').children('a').children('.arrow').removeClass('open');
                 parent.children('li.open').children('.sub-menu:not(.always-open)').slideUp(slideSpeed);
                 parent.children('li.open').removeClass('open');
             }
 
             var slideOffeset = -200;
-
-            if (sub.is(":visible")) {
+            if (sub.is(":visible")) 
+            {
                 $('.arrow', the).removeClass("open");
                 the.parent().removeClass("open");
                 sub.slideUp(slideSpeed, function () {
@@ -101,12 +135,14 @@ var Layout = function () {
                                 'scrollTo': (the.position()).top
                             });
                         } else {
-                            App.scrollTo(the, slideOffeset);
+                            app.scrollTo(the, slideOffeset);
                         }
                     }
                     handleSidebarAndContentHeight();
                 });
-            } else if (hasSubMenu) {
+            } 
+            else if (hasSubMenu) 
+            {
                 $('.arrow', the).addClass("open");
                 the.parent().addClass("open");
                 sub.slideDown(slideSpeed, function () {
@@ -116,7 +152,7 @@ var Layout = function () {
                                 'scrollTo': (the.position()).top
                             });
                         } else {
-                            App.scrollTo(the, slideOffeset);
+                            app.scrollTo(the, slideOffeset);
                         }
                     }
                     handleSidebarAndContentHeight();
@@ -138,14 +174,6 @@ var Layout = function () {
         $('.page-sidebar').on('click', '.sidebar-search .remove', function (e) {
             e.preventDefault();
             $('.sidebar-search').removeClass("open");
-        });
-
-        // handle the search query submit on enter press
-        $('.page-sidebar .sidebar-search').on('keypress', 'input.form-control', function (e) {
-            if (e.which == 13) {
-                $('.sidebar-search').submit();
-                return false; //<---- Add this line
-            }
         });
 
         // handle the search submit(for sidebar search and responsive mode of the header search)
@@ -179,62 +207,100 @@ var Layout = function () {
         }
     };
 
-    // Handles the horizontal menu
-    var handleHorizontalMenu = function () {
-        
-        $('.page-header').on('click', '.hor-menu a[data-toggle="tab"]', function (e) {
-            e.preventDefault();
-            var nav = $(".hor-menu .nav");
-            var active_link = nav.find('li.current');
-            $('li.active', active_link).removeClass("active");
-            $('.selected', active_link).remove();
-            var new_link = $(this).parents('li').last();
-            new_link.addClass("current");
-            new_link.find("a:first").append('<span class="selected"></span>');
-        });
+    // Helper function to calculate sidebar height for fixed sidebar layout.
+    var _calculateFixedSidebarViewportHeight = function () {
+        var sidebarHeight = app.getViewPort().height - $('.page-header').outerHeight(true);
+        if ($('body').hasClass("page-footer-fixed")) {
+            sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
+        }
 
-        $('.page-header').on('click', '.search-form', function (e) {
-            $(this).addClass("open");
-            $(this).find('.form-control').focus();
+        return sidebarHeight;
+    };
 
-            $('.page-header .search-form .form-control').on('blur', function (e) {
-                $(this).closest('.search-form').removeClass("open");
-                $(this).unbind("blur");
+    // Handles sidebar toggler to close/hide the sidebar.
+    var handleFixedSidebarHoverEffect = function () {
+        var body = $('body');
+        if (body.hasClass('page-sidebar-fixed')) {
+            $('.page-sidebar').on('mouseenter', function () {
+                if (body.hasClass('page-sidebar-closed')) {
+                    $(this).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
+                }
+            }).on('mouseleave', function () {
+                if (body.hasClass('page-sidebar-closed')) {
+                    $(this).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+                }
             });
-        });
+        }
+    };
 
-        $('.page-header').on('keypress', '.hor-menu .search-form .form-control', function (e) {
-            if (e.which == 13) {
-                $(this).closest('.search-form').submit();
-                return false;
-            }
-        });
-
-        $('.page-header').on('mousedown', '.search-form.open .submit', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).closest('.search-form').submit();
+    // Handles Bootstrap Tabs.
+    var handleTabs = function () {
+        // fix content height on tab click
+        $('body').on('shown.bs.tab', 'a[data-toggle="tab"]', function () {
+            handleSidebarAndContentHeight();
         });
     };
 
+    // Hanlde 100% height elements(block, portlet, etc)
+    var handle100HeightContent = function () {
+
+        $('.full-height-content').each(function()
+        {
+            var target = $(this);
+            var height;
+
+            height = app.getViewPort().height -
+                $('.page-header').outerHeight(true) -
+                $('.page-footer').outerHeight(true) -
+                $('.page-title').outerHeight(true) -
+                $('.page-bar').outerHeight(true);
+
+            if (target.hasClass('portlet')) {
+                var portletBody = target.find('.portlet-body');
+
+                //App.destroySlimScroll(portletBody.find('.full-height-content-body')); // destroy slimscroll 
+                
+                height = height -
+                    target.find('.portlet-title').outerHeight(true) -
+                    parseInt(target.find('.portlet-body').css('padding-top')) -
+                    parseInt(target.find('.portlet-body').css('padding-bottom')) - 5;
+
+                portletBody.css('min-height', height);
+            } 
+            else 
+            {
+               target.css('min-height', height);
+            }
+        });        
+    };
+
     return {
-
-        initHeader: function() {
-            handleHorizontalMenu();
-        },
-
         initSidebar: function() {
             handleSidebarMenu();
         },
 
-        init: function() {
-            this.initHeader();
+        initContent: function() {
+            handle100HeightContent(); // handles 100% height elements(block, portlet, etc)
+            handleTabs();
+        },
+
+        init: function () {            
             this.initSidebar();
+            this.initContent();
+        },
+
+        fixContentHeight: function () {
+            handleSidebarAndContentHeight();
+        },
+
+        initFixedSidebar: function() {
+            handleFixedSidebar();
         }
-    }
+    };
 
 }();
 
 jQuery(document).ready(function() {    
     Layout.init();
+    Layout.fixContentHeight();
 });

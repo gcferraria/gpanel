@@ -23,8 +23,6 @@ class Media extends GP_Controller
             show_error('Access not allowed', 500);
         }
 
-        $this->load->helper('number');
-
         // Get Static URL.
         $static_url = $this->config->item('static_url');
 
@@ -126,8 +124,6 @@ class Media extends GP_Controller
             show_error('Access not allowed', 500);
         }
 
-        $this->load->helper('number');
-
         // Get Static URL.
         $static_url = $this->config->item('static_url');
 
@@ -135,40 +131,52 @@ class Media extends GP_Controller
         $columns = array( 'name','filename','filetype','extension', 'filesize');
 
         // Add Search Text if defined.
-        $search_text = $this->input->post('sSearch');
-        if ( !empty( $search_text ) ) 
+        $search = $this->input->post('search');
+        if ( !empty( $search ) ) 
         {
             $files->or_like( array(
-                    'name'     => $search_text,
-                    'filename' => $search_text,
+                    'name'     => $search,
+                    'filename' => $search,
                 )
             );
         }
 
-        // Order By.
-        if ( isset( $_POST['iSortCol_0'] ) )
+        // Order by selected criteria.
+        $orderBy  = $this->input->post('orderBy');
+        $orderDir = $this->input->post('orderDir');
+        if ( !empty( $orderBy ) ) 
         {
-            for ( $i=0 ; $i < intval( $this->input->post('iSortingCols') ) ; $i++ ) 
+            if ( !empty( $orderDir ) ) 
             {
-                if ( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
-                {
-                    $files->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
-                }
+                $files->order_by( '' . $orderBy . '', '' . $orderDir .'' );
+            }
+            else 
+            {
+                $files->order_by( '' . $orderBy . '', 'asc' );                
             }
         }
-        else
+        else 
         {
-            $files->order_by('id DESC');
+            $files->order_by( 'id', 'desc' );
+        
         }
 
-        // Pagination
-        $page = 1;
-        if ( $this->input->post('iDisplayStart') > 0  ) 
-        {
-            $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
+        // Check for type filter
+        if ( $type = $this->input->post('type') ) {
+            switch( $type ) {
+                case "image": 
+                    $files->like('is_image', 1);
+                    break;
+                default:
+                    "";
+            }
         }
 
-        $files->get_paged( $page, $this->input->post('iDisplayLength') );
+        // Calculate Offset
+        $offset = $this->input->post('page') * $this->input->post('offset');
+
+        // Get content with limit and offset.
+        $files->get_paged( 1, $offset );
 
         $data = array();
         foreach ( $files as $file ) 
@@ -176,24 +184,43 @@ class Media extends GP_Controller
             $filetype = $file->filetype;
             $filetype = str_replace( '/', '_', $filetype );
 
+            // If is image show the image, otherwise show default image based on extension.
+            $image = $file->is_image
+                ? $static_url . $file->filename
+                : base_url('/images/default_' . $filetype . '.png');
+
+            // Define target for link
+            $target = ( $file->is_image ) ? '' : '_blank';
+
             $data[] = array(
-                "DT_RowId" => $file->id,
-                0 => '<input type="checkbox" class="checkboxes" id="'.$file->id.'" data-url="'.$static_url . $file->filename.'" filename="'.$file->filename.'" data-jsb-class="CheckBox" />',
-                1 => $file->name,
-                2 => $file->filename,
-                3 => byte_format( $file->filesize * 1000 ),
+                '$link' => array(
+                    'href'   => $static_url . $file->filename,
+                    'target' => $target,
+                    '$image' => array( 'src' => $image )
+                ),
+                '$title' => array(
+                    'filename' => $file->filename,
+                    'value' => $file->name,
+                ),
+                '$size'  => byte_format( $file->filesize * 1000 )
             );
+        }
+
+        // Define More action
+        $action = ( $files->paged->total_rows == count( $data ) ) ? 'hide' : 'show';
+
+        if ( $files->paged->total_rows == 0 ) 
+        {
+            $data[] = array( 'template' => '$warning', 'value' => $this->lang->line('not_found') );
         }
 
         $this->output
             ->set_content_type('application/json')
             ->set_output( json_encode( array(
-                "sEcho"                => $this->input->post('sEcho'),
-                "iTotalRecords"        => $files->paged->total_rows,
-                "iTotalDisplayRecords" => $files->paged->total_rows,
-                "aaData"               => $data,
-                "page"                 => $page
-            ) ) );
+                    '$results' => $data,
+                    '$more'    => array( $action => 1 ),
+                ) 
+            ) );
     }
 
     /**

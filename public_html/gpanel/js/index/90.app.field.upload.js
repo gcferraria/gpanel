@@ -41,9 +41,18 @@
                
                 return 1;
             }
-            , 'reset': function() {
+            , reset: function() {
                 Field.Super.prototype.reset.call( this );
                 this.parent.$files.empty();
+            }
+        })
+        , DelBtn = my.Class( JsB, {
+            constructor: function( elem, caller ) {
+                DelBtn.Super.call( this, elem, caller );
+                this.bind( 'click' );
+            }
+            , click: function(ev) {
+                this.parent.$files[0].$delete.click();
             }
         })
         , Progress = my.Class( JsB, {
@@ -93,12 +102,12 @@
             }
         })
         , Delete = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
+            constructor: function( elem, caller ) {
                 Delete.Super.call( this, elem, caller );
                 
                 this.bind( 'click' );
             }
-            , 'click': function( ev ) {
+            , click: function( ev ) {
                 var item      = this.parent,
                     container = item.parent;
                 
@@ -138,78 +147,14 @@
                 return false;
             }
         })
-        , OpenModal = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
-                OpenModal.Super.call( this, elem, caller );
-                this.bind( 'click' );
-            }
-            , 'click': function( ev ) {
-                // Change modal results based on selection type
-                var table = app.$upload.$table;
-                if ( table !== undefined && this.isImage ) {
-                    var src = table.$.attr('data-source'); 
-                    table.$.attr('data-source', src + '?image=1');
-                }
-
-                app.$upload.show( this );
-                return false;
-            }
-        })
-        , Modal = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
-                Modal.Super.call( this, elem, caller );
-                
-                this.values = [];
-                this.button;
-
-                var that = this;
-                this.$.modal({'show': false})
-                .on('shown.bs.modal', function (e) {
-                    that.values = [];
-                    that.$table.table.fnUpdate();
-                })
-                .on('hide.bs.modal', function (e) {
-                    if( that.values instanceof Array ) {
-                        if( that.values.length ) {
-                            for ( var idx in that.values ) {
-                                var file = that.values[idx];
-                                that.button.parent.$files.update({
-                                    '$filename' : file.filename,
-                                    '$open' : {'href' : file.url }
-                                });
-                            }
-                        }
-                    }
-                });
-            }
-            , show: function( caller ) {
-                this.button = caller;
-                this.$.modal('show'); 
-            }
-            , hide: function() {
-                this.$.modal('hide');
-            }
-        })
-        , Save = my.Class( JsB, {
-            'constructor': function( elem, caller ) {
-                Save.Super.call( this, elem, caller );
-                this.bind('click')
-            }
-            , click: function() {
-                this.parent.values = this.parent.$table.getRowsSelected();
-                this.parent.hide(); 
-            }
-        })
     ;
     
-    JsB.object( 'App.Upload.Field'       , Field     );
-    JsB.object( 'App.Upload.Progress'    , Progress  );
-    JsB.object( 'App.Upload.Files'       , Files     );
-    JsB.object( 'App.Upload.Files.Delete', Delete    );
-    JsB.object( 'App.Upload.Up'          , Up        );
-    JsB.object( 'App.Upload.Down'        , Down      );
-    JsB.object( 'App.Upload.OpenModal'   , OpenModal );
-    JsB.object( 'App.Modal.Upload'       , Modal     );
-    JsB.object( 'App.Modal.Upload.Save'  , Save      );
+    JsB.object( 'App.Upload.Field'       , Field    );
+    JsB.object( 'App.Upload.Delete'      , DelBtn   );
+    JsB.object( 'App.Upload.Progress'    , Progress );
+    JsB.object( 'App.Upload.Files'       , Files    );
+    JsB.object( 'App.Upload.Files.Delete', Delete   );
+    JsB.object( 'App.Upload.Up'          , Up       );
+    JsB.object( 'App.Upload.Down'        , Down     );
 
 })( JsB );

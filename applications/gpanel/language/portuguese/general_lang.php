@@ -18,10 +18,13 @@ $lang = array (
     'add'              => 'Adicionar',
     'edit'             => 'Editar',
     'delete'           => 'Apagar',
+    'remove'           => 'Remover',
+    'change'           => 'Alterar',
     'open'             => 'Abrir',
     'close'            => 'Fechar',
     'download'         => 'Download',
     'save'             => 'Gravar',
+    'upload'           => 'Upload',
     'operations'       => 'Operações',
     'active'           => 'Ativo',
     'actions'          => 'Ações',
@@ -48,6 +51,8 @@ $lang = array (
     'cancel'           => 'Cancelar',
     'view_all'         => 'Ver todas',
     'pendents'         => 'pendentes',
+    'search'           => 'Pesquisar...',
+    'not_found'        => 'Dados não encontrados',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',
@@ -94,5 +99,11 @@ $lang = array (
     'forget_email'        => 'Email',
     'forget_btn_submit'   => 'Recuperar',
     'forget_btn_back'     => 'Voltar',
+
+    /* Sort */
+    'sort_by'        => 'Ordenar por...',
+    'sort_direction' => 'Direção...',
+    'sort_asc'       => 'Ascendente',
+    'sort_desc'      => 'Descendente',    
 
 );

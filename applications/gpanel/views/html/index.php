@@ -1,12 +1,12 @@
 <div class="page-container">
 
     <div class="page-sidebar-wrapper">
-        <?=$this->load->view('html/_mobile_menu', array('data' => $menu_data), true)?>
+        <?=$this->load->view('html/_menu', array('data' => $menu_data), true)?>
     </div>
 
     <div class="page-content-wrapper">
 
-        <div class="page-content" data-jsb-name="<?=$module?>" data-jsb-class="JsB">
+        <div class="page-content full-height-content" data-jsb-name="<?=$module?>" data-jsb-class="JsB">
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">

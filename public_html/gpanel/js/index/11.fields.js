@@ -72,7 +72,10 @@
             constructor: function( elem, caller ) {
                 Spinner.Super.call( this, elem, caller );
 
-                this.$.spinner( { value:0, min: 0, max: 200 } );
+                var that = this;
+                this.root.queue.push(function(){
+                    that.$.spinner( { value:0, min: 0, max: 200 } );    
+                });
             }
             , reset: function() {
                 this.$.val(0);
@@ -119,8 +122,9 @@
                                 '$open' : {'href' : data.result.url }
                             });
                         }
-                        else
-                            that.parent.$error.value( data.result.error );
+                        else {
+                            that.parent.$error.value( data.error );
+                        }
                     }
                  });
             }
@@ -136,7 +140,7 @@
 
                 this.bind('change');
             }
-            , change: function() {
+            , change: function(ev) {
                 return false;
             }
             , value: function( value ) {
@@ -159,9 +163,9 @@
                 this.$.append( $('<option></option>').attr('value',option.value).text(option.text).prop('selected', true) );
             }
         })
-        , SelectBase = my.Class( Field, {
+        , Select2Base = my.Class( Field, {
             constructor: function( elem, caller ) {
-                SelectBase.Super.call( this, elem, caller );
+                Select2Base.Super.call( this, elem, caller );
 
                 var that = this;
                 this.root.queue.push(function(){
@@ -170,13 +174,22 @@
                         'allowClear'     : true,
                         'multiple'       : that.isMultiple,
                         'formatResult'   : that.format,
-                        'formatSelection': that.format
+                        'formatSelection': that.format,
+                        'width'          : null,
+                        'theme'          : "bootstrap",
+                    }).on('change', function (ev) {
+                        that.change(ev);
                     });
                 });
             }
-            , format: function(state) {}
+            , format: function(state) {
+                return;
+            }
+            , reset: function() {
+                this.$.select2("val","");
+            }
         })
-        , Select2 = my.Class( SelectBase, {
+        , Select2 = my.Class( Select2Base, {
             constructor: function( elem, caller ) {
                 Select2.Super.call( this, elem, caller );
             }
@@ -184,7 +197,7 @@
                 return state.text;
             }
         })
-        , Country = my.Class( SelectBase, {
+        , Country = my.Class( Select2Base, {
             constructor: function( elem, caller ) {
                 JsB.FLAGS_PATH = jQuery(elem).attr('data-flags-path');
                 Country.Super.call( this, elem, caller );

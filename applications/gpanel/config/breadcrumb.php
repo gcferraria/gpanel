@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Default value:
  * $config['delimiter'] = ' >> ';
  */
- $config['divider'] = '<i class="fa fa-circle"></i>';
+ $config['divider'] = '<i class="fa fa-angle-right"></i>';
 
 /**
  * --------------------------

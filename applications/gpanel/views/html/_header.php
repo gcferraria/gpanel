@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="<?=base_url('css/theme.css')?>" type="text/css" />
 
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-content-white page-full-width">
+<body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-container-bg-solid">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -33,9 +33,12 @@
                 <a href="<?=site_url('dashboard')?>">
                     <img src="<?=base_url('images/logo.png')?>" alt="logo" class="logo-default" />
                 </a>
+                <div class="menu-toggler sidebar-toggler" data-jsb-name="toggler" data-jsb-class="App.Toogle">
+                    <span></span>
+                </div>
             </div>
 
-            <?=$this->load->view('html/_menu', array('data' => $menu_data), true)?>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
 
             <div class="top-menu">
 
@@ -94,7 +97,7 @@
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li><a href="<?=site_url('profile')?>"><i class="icon-user"></i><?=$this->lang->line('my_profile')?></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?=site_url('logout')?>"><i class="icon-key"></i><?=$this->lang->line('logout')?></a></li>
+                            <li><a href="<?=site_url('logout')?>"><i class="icon-logout"></i><?=$this->lang->line('logout')?></a></li>
                         </ul>
                     </li>
                 </ul>

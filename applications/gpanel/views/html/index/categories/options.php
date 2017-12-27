@@ -1,4 +1,4 @@
-<div class="portlet light bordered" data-jsb-name="options" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet light" data-jsb-name="options" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title tabbable-line">
         <div class="caption font-green-sharp uppercase">
             <i class="icon-globe font-green-sharp"></i><?=$title?>

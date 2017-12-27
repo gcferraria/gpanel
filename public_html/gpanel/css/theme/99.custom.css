@@ -13,6 +13,13 @@ select:-webkit-autofill:focus {
     background-color: #dde3ec;
     transition: background-color 5000s ease-in-out 0s;
 }
+.modal-assets{
+      overflow-y: initial !important
+}
+.modal-assets .modal-body{
+  height: 500px;
+  overflow-y: auto;
+}
 li.mega-menu-dropdown >  ul.dropdown-menu {
     min-width: 700px;
 }
@@ -90,7 +97,7 @@ div.row.media {
 div.row.media .table-scrollable>.table-bordered>tbody>tr>td:first-child {
     width: 15%;
 }
-div.row.media .table-scrollable>.table-bordered>tbody>tr>td a.file {
+.table-scrollable>.table-bordered>tbody>tr>td a.file {
     height  : 50px;
     display : block;
     overflow: hidden;
@@ -138,4 +145,97 @@ div.login.content .input-icon > i {
 }
 div.login.content .has-error .input-icon > i {
     color: #e73d4a!important;
+}
+.fileinput {
+    width: 100%;
+}
+div.files.image.reseter {
+    display: none;
+}
+#assets-modal > .modal-dialog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60%;
+    margin: 0 auto
+}
+#assets-modal > .modal-dialog .modal-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: auto
+}
+ul.thumbsview {
+    margin: -20px 0 0 -15px;
+    list-style: none;
+    padding: 0;
+}
+ul.thumbsview li {
+    margin: 20px 0 0 21px;
+    float: left;
+    position: relative;
+    outline: none;
+}
+ul.thumbsview li.note {
+    float: none;
+}
+ul.thumbsview li.selected div.thumbnail {
+    border: 3px solid #0088cc;
+}
+ul.thumbsview li div.element {
+    position: relative;
+    cursor: default;
+    outline: none !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    display: block;
+    padding: 105px 0 5px;
+    width: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul.thumbsview li div.element div.elementthumb {
+    left: 0;
+    position: absolute;
+    top: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-align: center;
+    width: 100px;
+    height: 100px;
+}
+ul.thumbsview li div.element div.label { 
+    display: block; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    word-wrap: normal; 
+    color: #999;
+    font-size: 12px;
+}
+.load {
+    text-align: center;
+    margin: 30px 0;
+}
+
+@media (max-width: 991px) {
+    #todo-task-modal>.modal-dialog {
+        width:95%
+    }
 }

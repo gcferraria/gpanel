@@ -1,4 +1,4 @@
-<div class="portlet light bordered" data-jsb-name="category" data-jsb-type="context" data-jsb-class="App.Portlet">
+<div class="portlet light" data-jsb-name="category" data-jsb-type="context" data-jsb-class="App.Portlet">
     <div class="portlet-title">
         <div class="caption font-red-sunglo">
             <i class="fa fa-globe font-red-sunglo"></i> <?=$title?>

@@ -31,7 +31,7 @@
 	                            </div>
 								<div class="cont-col2">
 									<div class="desc">
-										<?=$content->name?>
+										<?=word_limiter($content->name,7)?>
 										<?php foreach ( $content->categories as $category ) : ?>
 	                                    <a href="<?=$category->link?>" title="<?=$category->name?>" class="label label-sm label-default"><?=$category->name?></a>    
 	                                    <?php endforeach ?>

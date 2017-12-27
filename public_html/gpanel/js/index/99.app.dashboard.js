@@ -31,7 +31,7 @@
         })
         , Element = my.Class( JsB, {
             constructor: function ( elem, caller ) {
-                Statistics.Super.call( this, elem, caller );
+                Element.Super.call( this, elem, caller );
             }
             , update: function(data) {
                 this.$.attr('data-value', data);

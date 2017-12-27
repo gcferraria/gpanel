@@ -125,11 +125,11 @@
                 AjaxForm.Super.prototype.show_errors.call( this, errors );
             }
             , _beforeSend: function() {
-                this.$button.$.button('loading');
+                if ( this.$button !== undefined ) this.$button.$.button('loading');
                 this.disable();
             }
             , _onComplete    : function() {
-                this.$button.$.button('reset');
+                if ( this.$button !== undefined ) this.$button.$.button('reset');
                 this.enable();
             }
             , _onError       : function( XHR, textStatus ) {}

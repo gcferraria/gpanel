@@ -64,7 +64,7 @@ class Dashboard extends HTML_Controller
         $contents
             ->where( array( 'publish_flag' => 1 ) )
             ->order_by( 'creation_date DESC' )
-            ->limit(10);
+            ->limit(20);
 
         $data = array();
         foreach ( $contents->get() as $content ) 

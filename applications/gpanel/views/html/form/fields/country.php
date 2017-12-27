@@ -4,7 +4,7 @@
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>
     </label>
     <div class="col-md-9" data-jsb-name="<?=$field?>" data-jsb-class="JsB">
-        <select name="<?=$field?>" id="<?=$field?>" <?=$attrs?> class="form-control select2 input-medium" data-jsb-name="field" data-jsb-class="Country">
+        <select name="<?=$field?>" id="<?=$field?>" <?=$attrs?> class="form-control" data-jsb-name="field" data-jsb-class="Country">
         <?php foreach( $values as $name => $option ) { ?>
         <?php $selected = ( isset( $value ) && $value == $option ) ? 'selected' : '' ?>
             <option <?=$selected?> value="<?=$option?>"><?=$name?></option>
