@@ -15,7 +15,7 @@
                     <ul class="list-unstyled profile-nav">
                         <li>
                             <?php if( empty($user->object->avatar) ) : ?>
-                            <img src="<?=base_url('images/default_avatar_big.jpg')?>" class="img-responsive" alt="" />
+                            <img src="<?=base_url('img/default_avatar_big.jpg')?>" class="img-responsive" alt="" />
                             <?php else: ?>
                             <img src="<?=base_url('uploads/$user->object->avatar')?>" class="img-responsive" alt="" />
                             <?php endif ?>

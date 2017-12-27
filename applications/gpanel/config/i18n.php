@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Define the path to the folder that contents country flags.
  */
- $config['i18n_flags_path'] = '/images/flags/';
+ $config['i18n_flags_path'] = '/img/flags/';
 
 /**
  * ------------------------

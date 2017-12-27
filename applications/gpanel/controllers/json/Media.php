@@ -77,7 +77,7 @@ class Media extends GP_Controller
             // If is image show the image, otherwise show default image based on extension.
             $image = $file->is_image
                 ? $static_url . $file->filename
-                : base_url('/images/default_' . $filetype . '.png');
+                : base_url('/img/default_' . $filetype . '.png');
 
             $data[] = array(
                 "DT_RowId" => $file->id,
@@ -187,7 +187,7 @@ class Media extends GP_Controller
             // If is image show the image, otherwise show default image based on extension.
             $image = $file->is_image
                 ? $static_url . $file->filename
-                : base_url('/images/default_' . $filetype . '.png');
+                : base_url('/img/default_' . $filetype . '.png');
 
             // Define target for link
             $target = ( $file->is_image ) ? '' : '_blank';

@@ -58,7 +58,7 @@
 					<div class="row">
 					<?php endif ?>
 						<div class="col-md-6 user-info">
-							<img alt="<?=$session->name?>" src="<?=base_url('images/'.$session->avatar)?>" class="img-responsive">
+							<img alt="<?=$session->name?>" src="<?=base_url('img/'.$session->avatar)?>" class="img-responsive">
 							<div class="details">
 								<div>
 									<a href="#"><?=$session->name?></a>

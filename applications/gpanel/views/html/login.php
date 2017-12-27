@@ -1,6 +1,6 @@
 <div class="login logo">
     <a href="<?=site_url()?>">
-        <img src="<?=base_url('images/logo-big.png')?>" alt="logo" />
+        <img src="<?=base_url('img/logo-big.png')?>" alt="logo" />
     </a>
 </div>
 <div class="login content" data-jsb-name="login" data-jsb-class="App.Login">

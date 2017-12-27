@@ -31,7 +31,7 @@
         <div class="page-header-inner">
             <div class="page-logo">
                 <a href="<?=site_url('dashboard')?>">
-                    <img src="<?=base_url('images/logo.png')?>" alt="logo" class="logo-default" />
+                    <img src="<?=base_url('img/logo.png')?>" alt="logo" class="logo-default" />
                 </a>
                 <div class="menu-toggler sidebar-toggler" data-jsb-name="toggler" data-jsb-class="App.Toogle">
                     <span></span>
@@ -87,7 +87,7 @@
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <?php if( empty($this->administrator->avatar ) ) : ?>
-                            <img class="img-circle" src="<?=base_url('images/default_avatar.png')?>" alt="avatar" />
+                            <img class="img-circle" src="<?=base_url('img/default_avatar.png')?>" alt="avatar" />
                             <?php else: ?>
                             <img class="img-circle" src="<?=base_url('uploads/".$this->administrator->avatar')?>" alt="avatar" />
                             <?php endif ?>
