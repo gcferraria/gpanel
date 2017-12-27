@@ -27,8 +27,9 @@
                 <button type="submit" data-loading-text="Loading..." class="btn green uppercase" data-jsb-class="App.Form.Ajax.Submit">
                     <?=$this->lang->line('login_btn')?>
                 </button>
-                <label class="rememberme check">
+                <label class="rememberme check mt-checkbox mt-checkbox-outline">
                     <input type="checkbox" name="remember" data-jsb-name="field" data-jsb-class="CheckBox" /><?=$this->lang->line('login_remember')?>
+                    <span></span>
                 </label>
                 <a href="javascript:;" class="forget-password" data-jsb-name="forget-password" data-jsb-class="App.Login.Navigation">
                     <?=$this->lang->line('login_recoverr')?>

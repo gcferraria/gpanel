@@ -53,7 +53,6 @@
 
                 // Save the initial status.
                 this.enabled = ( this.value() != undefined );
-                this.$.uniform();
             }
             , reset: function() {
                 this.$.attr("checked", this.enabled);
@@ -65,7 +64,6 @@
         , Radio = my.Class( Input, {
             constructor: function( elem, caller ) {
                 Radio.Super.call( this, elem, caller );
-                this.$.uniform();
             }
         })
         , Spinner = my.Class( Input, {
