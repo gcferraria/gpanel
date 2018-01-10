@@ -4,11 +4,12 @@
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>
     </label>
     <div class="col-md-9" data-jsb-name="<?=$field?>" data-jsb-class="JsB">
-        <div class="radio-list">
+        <div class="mt-radio-inline">
             <?php foreach( $values as $name => $option ) : ?>
-            <label class="radio-inline">
+            <label class="mt-radio">
                 <?php $checked = ( isset( $value ) && $value == $option ) ? 'checked' : '' ?>
-                <input type="radio" name="<?=$field?>" id="<?=$field?>" value="<?=$option?>" <?=$checked?> data-jsb-name="field" data-jsb-class="Radio"><?=$name?></label>
+                <input type="radio" name="<?=$field?>" id="<?=$field?>" value="<?=$option?>" <?=$checked?> data-jsb-name="field" data-jsb-class="Input"><?=$name?>
+                <span></span>   
             </label>
             <?php endforeach ?>
             <span class="help-block" for="<?=$field?>" data-jsb-name="error" data-jsb-class="JsB"></span>

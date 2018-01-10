@@ -95,9 +95,17 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-                            <li><a href="<?=site_url('profile')?>"><i class="icon-user"></i><?=$this->lang->line('my_profile')?></a></li>
+                            <li>
+                                <a href="<?=site_url('profile')?>">
+                                    <i class="icon-user"></i> <?=$this->lang->line('my_profile')?>
+                                </a>
+                            </li>
                             <li class="divider"></li>
-                            <li><a href="<?=site_url('logout')?>"><i class="icon-logout"></i><?=$this->lang->line('logout')?></a></li>
+                            <li>
+                                <a href="<?=site_url('logout')?>">
+                                    <i class="icon-logout"></i> <?=$this->lang->line('logout')?>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

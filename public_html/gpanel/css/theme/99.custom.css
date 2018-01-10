@@ -233,6 +233,9 @@ ul.thumbsview li div.element div.label {
     text-align: center;
     margin: 30px 0;
 }
+.bootstrap-touchspin input {
+    border-left: 0px;
+}
 
 @media (max-width: 991px) {
     #todo-task-modal>.modal-dialog {

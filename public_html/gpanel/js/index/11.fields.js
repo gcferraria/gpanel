@@ -61,18 +61,13 @@
                 return this.$.attr('checked');
             }
         })
-        , Radio = my.Class( Input, {
-            constructor: function( elem, caller ) {
-                Radio.Super.call( this, elem, caller );
-            }
-        })
         , Spinner = my.Class( Input, {
             constructor: function( elem, caller ) {
                 Spinner.Super.call( this, elem, caller );
 
                 var that = this;
                 this.root.queue.push(function(){
-                    that.$.spinner( { value:0, min: 0, max: 200 } );    
+                    that.$.TouchSpin( { initval:0, min: 0, max: 200 } );    
                 });
             }
             , reset: function() {
@@ -83,13 +78,9 @@
             constructor: function( elem, caller ) {
                 Tag.Super.call( this, elem, caller );
 
-                this.$.tagsInput({
-                    width       : 'auto',
-                    defaultText : this.$.attr('data-text'),
+                this.$.tagsinput({
+                    trimValue: true
                 });
-            }
-            , reset: function() {
-                this.$.importTags('');
             }
         })
         , Upload = my.Class( Input, {
@@ -330,7 +321,6 @@
     JsB.object( 'Input'         , Input          );
     JsB.object( 'Password'      , Password       );
     JsB.object( 'CheckBox'      , CheckBox       );
-    JsB.object( 'Radio'         , Radio          );
     JsB.object( 'Select'        , Select         );
     JsB.object( 'Select2'       , Select2        );
     JsB.object( 'Textarea'      , Textarea       );
