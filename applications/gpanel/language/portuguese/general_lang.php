@@ -52,6 +52,7 @@ $lang = array (
     'view_all'         => 'Ver todas',
     'pendents'         => 'pendentes',
     'search'           => 'Pesquisar...',
+    'check'            => 'Verificar',
     'not_found'        => 'Dados não encontrados',
 
     /* Messages */

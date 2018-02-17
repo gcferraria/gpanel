@@ -45,6 +45,25 @@
         , Password = my.Class( Input, {
             constructor: function( elem, caller ) {
                 Password.Super.call( this, elem, caller );
+
+                var that = this;
+                that.initialized = false;
+                this.root.queue.push(function(){
+                    that.$.keydown(function () {
+                        if (that.initialized === false) {
+                            that.$.pwstrength({
+                                ui: { showVerdictsInsideProgressBar: false, showVerdicts: false }
+                            });
+
+                            that.$.pwstrength("addRule", "myRule", function (options, word, score) {
+                                return word.match(/[a-z].[0-9]/) && score;
+                            }, 10, true);
+
+                            // set as initialized 
+                            that.initialized = true;
+                        }
+                    });    
+                });
             }
         })
         , CheckBox = my.Class( Input, {
@@ -316,6 +335,20 @@
                 });
             }
         })
+        , Username = my.Class(JsB, {
+            constructor: function( elem, caller ) {
+                Username.Super.call( this, elem, caller );
+                this.bind('click');
+            }
+            , click: function( ev, args ) {
+                var that = this;
+                $.post( that.$.attr('data-url'), { username: that.parent.$field.value() }, function (res) {
+                    console.log(res);
+                }, 'json');
+
+                return false;
+            }
+        })
     ;
 
     JsB.object( 'Input'         , Input          );
@@ -333,5 +366,6 @@
     JsB.object( 'Country'       , Country        );
     JsB.object( 'IconPicker'    , IconPicker     );
     JsB.object( 'Email'         , Email          );
+    JsB.object( 'Username'      , Username       );
 
 })( JsB );

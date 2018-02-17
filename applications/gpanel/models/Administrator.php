@@ -26,7 +26,7 @@ class Administrator extends DataMapper
             'rules' => array('required'),
         ),
         'username' => array(
-            'type'  => 'text',
+            'type'  => 'username',
             'rules' => array('required','unique','spaces','trim'),
         ),
         'password' => array(

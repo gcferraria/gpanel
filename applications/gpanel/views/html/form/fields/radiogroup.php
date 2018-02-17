@@ -8,7 +8,7 @@
             <?php foreach( $values as $name => $option ) : ?>
             <label class="mt-radio">
                 <?php $checked = ( isset( $value ) && $value == $option ) ? 'checked' : '' ?>
-                <input type="radio" name="<?=$field?>" id="<?=$field?>" value="<?=$option?>" <?=$checked?> data-jsb-name="field" data-jsb-class="Input"><?=$name?>
+                <input type="radio" name="<?=$field?>" id="<?=$field?>_<?=$option?>" value="<?=$option?>" <?=$checked?> data-jsb-name="field" data-jsb-class="Input"><?=$name?>
                 <span></span>   
             </label>
             <?php endforeach ?>

@@ -1,4 +1,4 @@
-<form method="<?=$method?>" action="<?=$action?>" <?=$attrs?> data-jsb-type="context" data-jsb-class="App.Form.Ajax" class="form-horizontal form-bordered form-row-stripped">
+<form method="<?=$method?>" action="<?=$action?>" <?=$attrs?> data-jsb-type="context" data-jsb-class="App.Form.Ajax" autocomplete="off" class="form-horizontal form-bordered form-row-stripped">
     <div class="form-body" data-jsb-name="fields" data-jsb-class="JsB">
         <?=$fields?>
     </div>

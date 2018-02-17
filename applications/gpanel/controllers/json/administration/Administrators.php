@@ -159,4 +159,31 @@ class Administrators extends JSON_Controller
 
         parent::index( $data );
     }
+
+    /**
+     * Check if username is available
+     */
+    public function check() 
+    {
+        // Inicialize Administrator Object.
+        $administrator = new Administrator();
+
+        // Get username from request
+        $username = $this->input->post('username'); 
+
+        // Initialize response
+        $data = array( 'result' => false );
+
+        if ( $username ) 
+        {
+            $administrator->get_by_username( $username );
+
+            if ( $administrator->exists() ) 
+            {
+                $data['result'] = true;
+            }
+        }
+
+        parent::index( $data );
+    }
 }
