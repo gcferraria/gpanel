@@ -9,8 +9,11 @@ class Translations extends JSON_Controller
      * @access public
      * @return json
     **/
-    public function index( $id ) 
+    public function index( $id = array() ) 
     {
+        if ( !is_numeric( $id ) )
+            return;
+
         // Initialize Category Object.
         $category = new Category();
 
@@ -180,7 +183,7 @@ class Translations extends JSON_Controller
                 $translation->save();
             }
 
-            $data = array('notification' => array('success', $this->lang->line('save_success_message') ) );
+            $data = array('notification' => array('success', $this->lang->line('save_success_message') ));
 
             if ( empty( $operation ) )
                 $data['reset'] = 1;

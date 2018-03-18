@@ -21,7 +21,7 @@ class Translations extends Categories
 
         // Add Default Breadcrumb.
         $this->breadcrumb->add( array(
-                'text' => $this->lang->line('category_translation_title'),
+                'text' => sprintf($this->lang->line('category_translation_title'),$this->category->name),
                 'href' => 'categories/translations/index/' . $this->category->id,
             )
         );
@@ -33,10 +33,10 @@ class Translations extends Categories
      * @access public
      * @return void
     **/
-    public function index() 
+    public function index( $template = 'index' )
     {
         $this->add_data( array(
-                'title'   => $this->lang->line('category_translation_title'),
+                'title'   => sprintf($this->lang->line('category_translation_title'),$this->category->name),
                 'table'   =>  (object) array(
                     'source' => 'categories/translations/index/' . $this->category->id . '.json',
                     'header' => array(

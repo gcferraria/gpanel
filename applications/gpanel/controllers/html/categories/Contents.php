@@ -46,7 +46,7 @@ class Contents extends Categories
      * @access public
      * @return void
     **/
-    public function index( $template = 'index' ) 
+    public function index( $template = 'index' )
     {
         $actions = $languages = array();
 
