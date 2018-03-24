@@ -54,6 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     'fascinioclub.com' 		       => '56065546' ,
     'nautibras.pt'     		       => '128365160',
     'sesimbrabeachsoccer.pt'       => '140134601',
-    'goncaloferraria.pt'	       => '81936010',
-    'casamento.goncaloferraria.pt' => '157248898'
+    'goncaloferraria.pt'	       => '81936010' ,
+    'cabazdopeixe.pt'              => '128951797',
+    'visitsesimbra.pt'             => '172142624',
  );
