@@ -50,17 +50,6 @@ class Translations extends Categories
     }
 
     /**
-     * index: Function not allowed.
-     *
-     * @access public
-     * @return void
-    **/
-    public function index( $id ) 
-    {
-        show_404();
-    }
-
-    /**
      * save: Build and Render Form.
      *
      * @access public
