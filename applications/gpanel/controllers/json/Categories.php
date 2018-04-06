@@ -126,7 +126,7 @@ class Categories extends JSON_Controller
                 $data = array(
                     'reset'        => 1,
                     'notification' => array('success', $this->lang->line('save_success_message') ),
-                    'root.$categories.$body.reload' => 1
+                    'root.$categories.$categories.$body.reload' => 1
                 );
             }
         }
@@ -215,7 +215,7 @@ class Categories extends JSON_Controller
                 $data = array(
                     'show_errors'  => array(),
                     'notification' => array('success', $this->lang->line('save_success_message') ),
-                    'root.$categories.$body.reload' => 1
+                    'root.$categories.$categories.$body.reload' => 1
                 );
             }
         }
