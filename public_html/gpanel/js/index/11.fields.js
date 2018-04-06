@@ -193,6 +193,9 @@
             , format: function(state) {
                 return;
             }
+            , change: function( ev ) {
+                return;
+            }
             , reset: function() {
                 this.$.select2("val","");
             }
