@@ -222,14 +222,21 @@ class Contents extends Categories
         // Get Categories for this Content and convert to JSON.
         $categories = array();
         foreach ( $content->categories->order_by('contents_category_content.id')->get() as $category ) 
-        {
-            array_push( $categories, array(
-                    'name'  => $category->id,
-                    '$name' => $category->name,
-                    '$path' => implode( ' » ', $category->path_name_array() ),
-                )
+        {   
+            $obj = array(
+                'name'   => $category->id,
+                '$name'  => $category->name,
+                '$path'  => implode( ' » ', $category->path_name_array() ),
             );
+
+            if ( ( $category->uripath == $content->uripath ) ) {
+                $obj['select'] = true;
+            }
+
+            array_push( $categories, $obj);
         }
+
+        //die(var_dump($categories));
 
         $content->categories = htmlentities( json_encode( $categories ) );
 

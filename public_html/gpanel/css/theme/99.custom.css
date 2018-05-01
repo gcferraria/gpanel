@@ -192,6 +192,7 @@ ul.thumbsview li div.element {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    user-select: none;
     display: block;
     padding: 105px 0 5px;
     width: 100px;
@@ -235,6 +236,10 @@ ul.thumbsview li div.element div.label {
 }
 .bootstrap-touchspin input {
     border-left: 0px;
+}
+.star {
+    font-size: 16px;
+    color:gold;
 }
 
 @media (max-width: 991px) {

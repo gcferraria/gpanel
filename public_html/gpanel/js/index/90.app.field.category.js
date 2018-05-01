@@ -1,32 +1,32 @@
 (function( JsB ) {
-    
+
     var
         Selector = my.Class( JsB.object('Input'), {
             constructor: function( elem, caller ) {
                 Selector.Super.call( this, elem, caller );
-                
+
                 this.name    = 'category';
                 this.min     = 2;
                 this.delay   = 0;
                 this.timeout = null;
-                
+
                 var that = this;
                 this.context.bind('mouseleave', function() {
                     that.context.$results.hide();
-                })
-                
-                this.bind('focus');
+                });
+
+                this.bind('focus', function() {
+                    if ( this.value() != '' )
+                    that.context.$results.show();
+                });
+
                 this.bind('keydown');
-            }
-            , focus: function() {
-                if ( this.value() != '' )
-                    this.context.$results.show();
             }
             , keydown: function( ev ) {
                 var that     = this,
                     keypress = ev.keyCode,
                     value    = this.value();
-                    
+
                 switch ( keypress ) {
                     case 38: // up
                         ev.preventDefault();
@@ -42,7 +42,7 @@
                         this.timeout = setTimeout( function() {
                             that.search();
                         }, this.delay);
-                        
+
                     break;
                 }
             }
@@ -50,12 +50,14 @@
                 var value  = this.value().replace(/[\\]+|[\/]+/g,""),
                     length = value.length,
                     min    = this.min;
-                
-                if ( length >= min ) 
+
+                if ( length >= min ) { 
                     this._load();
-                else
+                }
+                else {
                     this.context.$results.hide();
-                
+                }
+
                 return;
             }
             , _load: function() {
@@ -123,8 +125,12 @@
                 for ( i in children ) {
                     var child = children[ i ];
                     
-                    if ( typeof( child ) === 'object' )
+                    if ( typeof( child ) === 'object' && this.isPrimary ) {
+                        data.push( {value: child.name, primary: child.selected() });
+                    }
+                    else if ( typeof( child ) === 'object' ) {
                         data.push( child.name );
+                    }
                 }
                 
                 if ( data.length <= 0 )
@@ -214,11 +220,7 @@
                 
                 // Update Hidden Field.
                 this.context.$field.update();
-                
-                // Select first item.
-                if ( this.length > 0 )
-                    this[0].select();
-                
+
                 // Show Container.
                 this.show();
             }
@@ -230,74 +232,116 @@
                 // Hide Container if there are no children.
                 if ( this.length == 0 )
                     this.hide();
-                else
-                    this[0].select()
             }
             , swap: function( child1, child2 ) {
                 Container.Super.prototype.swap.call( this, child1,child2 );
                 
                 this.context.$field.update();
-                this[0].select();
+            }
+        })
+        , Item = my.Class( JsB, {
+            constructor: function( elem, caller ) {
+                Item.Super.call( this, elem, caller );
+            }
+            ,   select: function() {
+                this.$primary.$.children('i').removeClass("glyphicon-star-empty");
+                this.$primary.$.children('i').addClass("glyphicon-star");
+                Item.Super.prototype.select.call( this );
+            }
+            ,   deselect: function() {
+                this.$primary.$.children('i').removeClass("glyphicon-star");
+                this.$primary.$.children('i').addClass("glyphicon-star-empty");
+                Item.Super.prototype.deselect.call( this );
             }
         })
         , Delete = my.Class( JsB, {
             constructor: function( elem, caller ) {
                 Delete.Super.call( this, elem, caller );
-                
+
                 this.name = 'delete';
                 this.bind( 'click' );
             }
             , click: function( ev ) {
-                var item      = this.parent,
-                    container = item.parent;
-                
+                var 
+                    item      = this.parent,
+                    container = item.parent
+                ;
+
                 // Delete Item.
                 container.dettach( item );
-                
+
                 return false;
             }
         })
         , Up = my.Class( JsB, {
             constructor: function( elem, caller ) {
                 Up.Super.call( this, elem, caller );
-                
+
                 this.name = 'up';
                 this.bind( 'click' );
             }
             , click: function( ev ) {
-                var item = this.parent,
-                    prev = item.previous();
-                    
+                var 
+                    item = this.parent,
+                    prev = item.previous()
+                ;
+    
                 item.parent.swap( item, prev );
-                
+
                 return false;
             }
         })
         , Down = my.Class( JsB, {
             constructor: function( elem, caller ) {
                 Down.Super.call( this, elem, caller );
-                
+
                 this.name = 'down';
                 this.bind( 'click' );
             }
             , click: function( ev ) {
-                var item = this.parent,
-                    next = item.next();
-                    
+                var 
+                    item = this.parent,
+                    next = item.next()
+                ;
+
                 item.parent.swap( item, next );
-                
+
+                return false;
+            }
+        })
+        , Primary = my.Class( JsB, {
+            constructor: function( elem, caller ) {
+                Down.Super.call( this, elem, caller );
+
+                this.name = 'primary';
+                this.bind( 'click' );
+            }
+            , click: function( ev ) {
+
+                // Tell to my parent to selected me.
+                if ( this.parent.selected() ) {
+                    this.parent.parent.deselect( this.parent );
+                } else {
+                    this.parent.parent.select( this.parent );
+                }
+
+                // Update Field Value.
+                this.context.$field.update();
+
                 return false;
             }
         })
     ;
 
-    JsB.object( 'App.Category.Selector'     , Selector  );
-    JsB.object( 'App.Category.Field'        , Field     );
-    JsB.object( 'App.Category.Results'      , Results   );
-    JsB.object( 'App.Category.Results.Item' , Result    );
-    JsB.object( 'App.Category.Container'    , Container );
-    JsB.object( 'App.Category.Delete'       , Delete    );
-    JsB.object( 'App.Category.Up'           , Up        );
-    JsB.object( 'App.Category.Down'         , Down      );
+    JsB.object( 'App.Category.Selector'       , Selector  );
+    JsB.object( 'App.Category.Field'          , Field     );
+    JsB.object( 'App.Category.Results'        , Results   );
+    JsB.object( 'App.Category.Results.Item'   , Result    );
+    JsB.object( 'App.Category.Container'      , Container );
+    JsB.object( 'App.Category.Container.Item' , Item      );
+    JsB.object( 'App.Category.Delete'         , Delete    );
+    JsB.object( 'App.Category.Up'             , Up        );
+    JsB.object( 'App.Category.Down'           , Down      );
+    JsB.object( 'App.Category.Primary'        , Primary   );
 
 })( JsB );

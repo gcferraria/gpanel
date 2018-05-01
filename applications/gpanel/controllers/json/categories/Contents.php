@@ -214,13 +214,29 @@ class Contents extends JSON_Controller
             if ( $this->input->post('categories') )
                 $categories = json_decode( $this->input->post('categories') );
 
+            $ids = [];
+            $primary_id = false;
+            if ( !empty( $categories ) && is_object( $categories[0] ) ) {
+                foreach ( $categories as $child ) {
+                    $ids[] = $child->value;
+                    if ( $child->primary ) {
+                        $primary_id = $child->value;
+                    }
+                }
+                $categories = $ids;
+            }
+
             // If the current category is not listed, add it.
             if ( !in_array( $id, $categories) )
                 array_push( $categories, $id );
 
+            if ( !$primary_id ) { // No primary defined, assume the first.
+                $primary_id = $categories[0];
+            }
+
             // Get main category uripath.
             $category = new Category();
-            $category = $category->get_by_id( $categories[0] );
+            $category = $category->get_by_id( $primary_id );
 
             // Set main uripath in content.
             $content->uripath = $category->uripath;
@@ -329,13 +345,31 @@ class Contents extends JSON_Controller
             if ( $this->input->post('categories') )
                 $categories = json_decode( $this->input->post('categories') );
 
+            $ids = [];
+            $primary_id = false;
+            $ids = [];
+            $primary_id = false;
+            if ( !empty( $categories ) && is_object( $categories[0] ) ) {
+                foreach ( $categories as $child ) {
+                    $ids[] = $child->value;
+                    if ( $child->primary ) {
+                        $primary_id = $child->value;
+                    }
+                }
+                $categories = $ids;
+            }
+
             // If the current category is not listed, and not have any category add it.
             if ( !in_array( $category_id, $categories ) && empty( $categories ) )
                 array_push( $categories, $category_id );
+            
+            if ( !$primary_id ) { // No primary defined, assume the first.
+                $primary_id = $categories[0];
+            }
 
             // Get main category uripath.
             $category = new Category();
-            $category = $category->get_by_id( $categories[0] );
+            $category = $category->get_by_id( $primary_id );
 
             // Set main uripath in content.
             $content->uripath = $category->uripath;
