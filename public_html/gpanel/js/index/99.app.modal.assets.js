@@ -41,6 +41,9 @@
 
                 if ( this.isImage !== undefined && this.isImage )
                     app.$upload.params = {'name': 'type', 'value': 'image'};
+                  
+                if ( this.isVideo !== undefined && this.isVideo )
+                    app.$upload.params = {'name': 'type', 'value': 'video'};
                 
                 return app.$upload.open( this );
             }

@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Separate multiple types with a pipe.
  *
  */
- $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ai';
+ $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ai|mp4';
 
 /**
  * ------------------------
@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * as specified in the php.ini file. Usually 2 MB (or 2048 KB) by default.
  *
  */
- $config['max_size'] = '5000';
+ $config['max_size'] = '32000'; // 32MB
 
 /**
  * ------------------------

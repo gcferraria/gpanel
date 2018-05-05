@@ -123,6 +123,10 @@ div.form-group .added-files .open {
     width: 100px;
     margin-left: -100px;
 }
+.feeds li .col2 {
+    width: 90px;
+    margin-left: -90px;
+}
 .feeds .col3 .visits {
     padding: 4px 9px 5px 4px;
     text-align: right;

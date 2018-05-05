@@ -54,7 +54,7 @@
                                 $(this).prop("checked", false);
                             }
                         });
-                        jQuery.uniform.update(set);
+                        //jQuery.uniform.update(set);
                     });
                 });
             }
@@ -68,7 +68,7 @@
                 var selectAll = $('thead > tr > th:nth-child(1) input[type="checkbox"]');
                 if ( selectAll !== undefined ) {
                     $(selectAll).prop("checked", false);
-                    jQuery.uniform.update(selectAll);
+                    //jQuery.uniform.update(selectAll);
                 }
 
                 window.setTimeout(function () {

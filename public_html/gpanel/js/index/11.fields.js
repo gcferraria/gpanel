@@ -110,6 +110,7 @@
                 this.$.fileupload({
                     url            : '/media/upload.json',
                     dataType       : 'json',
+                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|pdf)$/i,
                     formData       : { 'element' : this.$.attr('id') },
                     start: function( e ) {
                         that.parent.$progress.show();
@@ -131,10 +132,10 @@
                             });
                         }
                         else {
-                            that.parent.$error.value( data.error );
+                            that.parent.$error.value( data.result.error );
                         }
                     }
-                 });
+                });
             }
         })
         , Textarea = my.Class( Field, {
