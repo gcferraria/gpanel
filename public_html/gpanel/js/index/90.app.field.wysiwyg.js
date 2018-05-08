@@ -15,6 +15,27 @@
                             'startupOutlineBlocks'   : true,
                         }
                     );
+
+                    CKEDITOR.on('instanceReady', function (ev) {
+
+                        ev.editor.dataProcessor.htmlFilter.addRules( {
+                            elements : {
+                                $ : function( el ) {
+                    
+                                    if (el.name == 'img') {
+                                        // Add bootstrap "img-responsive" class to each inserted image
+                                        el.addClass('img-responsive');
+
+                                        // Removes
+                                        el.attributes.style = "";
+
+                                        if (!el.attributes.style)
+                                            delete el.attributes.style;
+                                    }
+                                }
+                            }
+                        });
+                    });
                 });
             }
             , ckeditor: function() {
