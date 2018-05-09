@@ -347,7 +347,7 @@
             , click: function( ev, args ) {
                 var that = this;
                 $.post( that.$.attr('data-url'), { username: that.parent.$field.value() }, function (res) {
-                    console.log(res);
+                    // TODO
                 }, 'json');
 
                 return false;

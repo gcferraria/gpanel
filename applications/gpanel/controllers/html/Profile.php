@@ -187,7 +187,7 @@ class Profile extends HTML_Controller
         $contents = $this->administrator->contents
             ->where( array( 'publish_flag' => 1 ) )
             ->order_by( 'publish_date DESC' )
-            ->limit(10);
+            ->limit(14);
 
         $data = array();
         foreach ( $contents->get() as $content ) 
@@ -227,7 +227,7 @@ class Profile extends HTML_Controller
     {
         $sessions = $this->administrator->sessions
             ->order_by( 'creation_date DESC' )
-            ->limit(10);
+            ->limit(15);
 
         $data = array();
         foreach ( $sessions->get() as $session ) 

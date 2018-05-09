@@ -42,10 +42,6 @@
     </div>   
     <div>
         <div class="margin-top-20 profile-desc-link">
-            <i class="fa fa-globe"></i>
-            <a href="<?=site_url()?>"><?=site_url()?></a>
-        </div>
-        <div class="margin-top-20 profile-desc-link">
             <i class="fa fa-envelope"></i>
             <a href="mailto:<?=$administrator->email?>"><?=$administrator->email?></a>
         </div>

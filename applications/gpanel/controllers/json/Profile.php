@@ -9,7 +9,7 @@ class Profile extends JSON_Controller
      * @access public
      * @return json
     **/
-    public function index() 
+    public function index( $id = array() ) 
     {
         // Get administrator logged to update.
         $administrator = $this->administrator;
