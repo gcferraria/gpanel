@@ -153,9 +153,6 @@ div.login.content .has-error .input-icon > i {
 .fileinput {
     width: 100%;
 }
-div.files.image.reseter {
-    display: none;
-}
 #assets-modal > .modal-dialog {
     position: absolute;
     top: 0;
