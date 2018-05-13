@@ -64,4 +64,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     ,   'iconpicker'
     ,   'video'
     ,   'location'
+    ,   'timeline'
 );
