@@ -54,6 +54,8 @@ $lang = array (
     'search'           => 'Pesquisar...',
     'check'            => 'Verificar',
     'not_found'        => 'Dados não encontrados',
+    'up'               => 'Mover para cima',
+    'down'             => 'Mover para baixo',
 
     /* Messages */
     'save_success_message'   => 'O registo foi gravador com sucesso.',
