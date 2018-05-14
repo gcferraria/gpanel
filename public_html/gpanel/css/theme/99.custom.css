@@ -108,8 +108,11 @@ div.row.media .table-scrollable>.table-bordered>tbody>tr>td:first-child {
 div.form-group .progress {
     margin: 10px 0;
 }
+.timeline-item {
+    position: relative;
+}
 .timeline-time {
-    font-size: 24px;
+    font-size: 22px;
     position: absolute;
     top: 25px;
     left: 23px;

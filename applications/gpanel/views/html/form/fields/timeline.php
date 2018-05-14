@@ -16,7 +16,7 @@
             <div class="form-group">
                 <input type="text" value="" data-jsb-name="plan" class="form-control input-xlarge" placeholder="Descrição" data-jsb-class="Input" />
             </div>
-            <button type="submit" class="btn default" data-jsb-name="save" data-jsb-class="App.Timeline.Save">
+            <button type="button" class="btn default" data-jsb-name="save" data-jsb-class="App.Timeline.Save">
                 <i class="fa fa-save"></i>
             </button>
         </div>
