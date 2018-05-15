@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `creation_date` datetime DEFAULT '0000-00-00 00:00:00',
   `last_update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text NOT NULL,
+  `image` VARCHAR2(500),
   `creator_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_uriname` (`uriname`,`parent_id`),

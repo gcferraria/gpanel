@@ -1,7 +1,7 @@
     
     <?php 
         if ( isset( $_REQUEST['load_media_modal'] ) ) {
-            $this->load->view('html/index/categories/contents/_upload', array( 'table' => $table ) );
+            $this->load->view('html/index/categories/contents/_upload');
         }
     ?>
 
