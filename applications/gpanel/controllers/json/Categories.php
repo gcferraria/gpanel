@@ -85,7 +85,8 @@ class Categories extends JSON_Controller
         $category->parent_id    = $id;
         $category->name         = $this->input->post('name');
         $category->uriname      = $this->input->post('uriname');
-		$category->description  = $this->input->post('description');
+        $category->description  = $this->input->post('description');
+        $category->image        = $this->input->post('image');
         $category->weight       = $this->input->post('weight');
         $category->publish_flag = $this->input->post('publish_flag');
         $category->listed       = $this->input->post('listed');
@@ -164,6 +165,7 @@ class Categories extends JSON_Controller
         $category->name         = $this->input->post('name');
         $category->uriname      = $this->input->post('uriname');
         $category->description  = $this->input->post('description');
+        $category->image        = $this->input->post('image');
 		$category->weight       = $this->input->post('weight');
         $category->publish_flag = $this->input->post('publish_flag');
         $category->listed       = $this->input->post('listed');
