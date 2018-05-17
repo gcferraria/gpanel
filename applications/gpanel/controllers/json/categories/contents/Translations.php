@@ -39,7 +39,7 @@ class Translations extends JSON_Controller
             show_404();
 
         // Get Translatable fields to be validate.
-        $fields = array( 'name' => $content->validation['name'] );
+        $fields = array( 'name' => $content->validation['name'], 'keywords' => $content->validation['keywords'] );
 
         // Get Translatable fields to be validate.
         $fields = $fields + $content->content_type->get()->translatable_fields();
