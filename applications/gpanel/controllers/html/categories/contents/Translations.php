@@ -98,8 +98,8 @@ class Translations extends Categories
         // Gets associated content type.
         $content_type = $this->content->content_type->get();
 
-        // Content name is always translatable.
-        $fields = array( 'name' => $this->content->validation['name'] );
+        // Content name and keywords is always translatable.
+        $fields = array( 'name' => $this->content->validation['name'], 'keywords' => $this->content->validation['keywords'] );
 
         // Gets translatable fields for this content type.
         $fields = $fields + $content_type->translatable_fields();
