@@ -15,5 +15,6 @@ $lang = array (
     'i18n_language_gb'         => 'Grã-Bretalha',
     'i18n_language_es'         => 'Espanha',
     'i18n_language_us'         => 'Estados Unidos da América',
+    'i18n_language_fr'         => 'Françês'
 
 );
