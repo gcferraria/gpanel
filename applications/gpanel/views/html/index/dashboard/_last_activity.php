@@ -52,12 +52,20 @@
 			</div>
 			<div class="tab-pane" id="tab_1_2">
 				<div class="scroller" data-height="340" data-jsb-class="App.Scroll">
-					<?php $i=0?>
+					<?php 
+						$count   = 1;
+						$columns = 2;
+					?>
 					<?php foreach ( $dashboard->activity->sessions as $session ) : ?>
-					<?php if( $i%2 == 0 ) : ?>
-					<div class="row">
-					<?php endif ?>
-						<div class="col-md-6 user-info">
+
+						<?php if ( $count%$columns == 1 ) : ?>
+						<div class="row">
+						<?php endif ?>
+
+						<?php 
+							$cols = ( count($dashboard->activity->sessions) > $columns ) ? 12 / $columns  : 12 / count($dashboard->activity->sessions);
+						?>
+						<div class="col-md-<?=$cols?> col-sm-<?=$cols?>">
 							<img alt="<?=$session->name?>" src="<?=base_url('img/'.$session->avatar)?>" class="img-responsive">
 							<div class="details">
 								<div>
@@ -67,10 +75,12 @@
 								<div><?=$session->date?></div>
 							</div>
 						</div>
-					<?php if( $i%2 == 1 ): ?>
-					</div>
-					<?php endif ?>
-					<?php $i++?>
+
+						<?php if ( $count%$columns == 0 || $count == count($dashboard->activity->sessions) ) : ?>
+						</div>
+						<?php endif ?>
+
+					<?php $count++;?>
 					<?php endforeach?>
 				</div>
 			</div>

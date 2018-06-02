@@ -25,13 +25,13 @@
 		<div class="btn-toolbar margin-bottom-10">
 			<div class="btn-group btn-group-circle" data-toggle="buttons" data-jsb-name="metrics" data-jsb-class="JsB">
 				<label class="btn grey-salsa btn-sm active" data-jsb-class="App.Chart.Metric">
-					<input type="radio" name="options" class="toggle" id="metric" value="visits"><?=$this->lang->line('dashboard_box_visits_visits')?>
+					<input type="radio" name="options" class="toggle" value="visits"><?=$this->lang->line('dashboard_box_visits_visits')?>
 				</label>
 				<label class="btn grey-salsa btn-sm" data-jsb-class="App.Chart.Metric">
-					<input type="radio" name="options" class="toggle" id="metric" value="uniquepageviews"><?=$this->lang->line('dashboard_box_visits_unique_page_views')?> 
+					<input type="radio" name="options" class="toggle" value="uniquepageviews"><?=$this->lang->line('dashboard_box_visits_unique_page_views')?> 
 				</label>
 				<label class="btn grey-salsa btn-sm" data-jsb-class="App.Chart.Metric">
-					<input type="radio" name="options" class="toggle" id="metric" value="pageviews"><?=$this->lang->line('dashboard_box_visits_page_views')?>
+					<input type="radio" name="options" class="toggle" value="pageviews"><?=$this->lang->line('dashboard_box_visits_page_views')?>
 				</label>
 			</div>
 		</div>

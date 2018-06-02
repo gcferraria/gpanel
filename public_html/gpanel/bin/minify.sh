@@ -4,6 +4,17 @@ JS_FILE='main.js'
 CSS_FILE='main.css'
 THEME_FILE='theme.css'
 
+# Detect SO in Machine
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+echo "Running in ${machine}"
+
 # Minify JavaScripts
 
 echo "\nMinifying JavaScripts..."
@@ -12,7 +23,11 @@ jslist=`find ../js/index -type f -name \*.js | sort`
 for jsfile in $jslist
 do
     echo "Processing: ${jsfile}"
-    yui-compressor --type=js ${jsfile} >> $JS_FILE
+    if [ "$machine" == "Mac" ]; then
+        yuicompressor --type=js ${jsfile} >> $JS_FILE
+    else
+        yui-compressor --type=js ${jsfile} >> $JS_FILE
+    fi
 done
 
 # Minify Css
@@ -23,7 +38,11 @@ csslist=`find ../css/main -type f -name \*.css | sort`
 for cssfile in $csslist
 do
     echo "Processing: ${cssfile}"
-    yui-compressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    if [ "$machine" == "Mac" ]; then
+        yuicompressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    else 
+        yui-compressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    fi
 done
 
 csslist=`find ../css/theme -type f -name \*.css | sort` 
@@ -31,7 +50,11 @@ csslist=`find ../css/theme -type f -name \*.css | sort`
 for cssfile in $csslist
 do
     echo "Processing: ${cssfile}"
-    yui-compressor --type=css --preserve-semi ${cssfile} >> $THEME_FILE
+    if [ "$machine" == "Mac" ]; then
+        yuicompressor --type=css --preserve-semi ${cssfile} >> $THEME_FILE
+    else
+        yui-compressor --type=css --preserve-semi ${cssfile} >> $THEME_FILE
+    fi
 done
 
 # Copy file

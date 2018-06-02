@@ -3,6 +3,17 @@
 JS_FILE='3rdparty.js'
 CSS_FILE='3rdparty.css'
 
+# Detect SO in Machine
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+
+echo "Running in ${machine}"
+
 # Minify JavaScripts
 
 echo "\nMinifying JavaScripts..."
@@ -11,7 +22,11 @@ jslist=`find ../js/3rdparty -type f -name \*.js | sort`
 for jsfile in $jslist
 do
     echo "Processing: ${jsfile}"
-    yui-compressor --type=js ${jsfile} >> $JS_FILE
+    if [ "$machine" == "Mac" ]; then
+        yuicompressor --type=js ${jsfile} >> $JS_FILE
+    else
+        yui-compressor --type=js ${jsfile} >> $JS_FILE
+    fi
 done
 
 # Minify Css
@@ -22,7 +37,11 @@ csslist=`find ../css/3rdparty -type f -name \*.css | sort`
 for cssfile in $csslist
 do
     echo "Processing: ${cssfile}"
-    yui-compressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    if [ "$machine" == "Mac" ]; then
+        yuicompressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    else 
+        yui-compressor --type=css --preserve-semi ${cssfile} >> $CSS_FILE
+    fi
 done
 
 # Copy file

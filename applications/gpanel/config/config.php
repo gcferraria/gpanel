@@ -37,26 +37,6 @@ $config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Static URL
-|--------------------------------------------------------------------------
-|
-| URL to static files.
-|
-*/
-$config['static_url'] = '';
-
-/*
-|--------------------------------------------------------------------------
-| Download URL
-|--------------------------------------------------------------------------
-|
-| Base URL to download files.
-|
-*/
-$config['download_url'] = '';
-
-/*
-|--------------------------------------------------------------------------
 | Index File
 |--------------------------------------------------------------------------
 |
@@ -264,7 +244,7 @@ $config['log_threshold'] = 0;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = HOMEPATH . 'applications/gpanel/logs/';;
+$config['log_path'] = APPPATH . 'logs/';
 
 /*
 |--------------------------------------------------------------------------
@@ -323,7 +303,7 @@ $config['error_views_path'] = '';
 | application/cache/ directory.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = HOMEPATH . 'applications/common/cache/';;
+$config['cache_path'] = APPPATH . 'cache/';
 
 /*
 |--------------------------------------------------------------------------
@@ -354,7 +334,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'This is an encrypt key';
+$config['encryption_key'] = 'This is an encrypt key for gpanel website';
 
 /*
 |--------------------------------------------------------------------------
@@ -410,8 +390,8 @@ $config['encryption_key'] = 'This is an encrypt key';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'gpanel_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
-$config['sess_match_ip'] = FALSE;
+$config['sess_save_path'] = sys_get_temp_dir();
+$config['sess_match_ip'] = TRUE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
