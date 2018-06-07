@@ -65,7 +65,7 @@
 						<?php 
 							$cols = ( count($dashboard->activity->sessions) > $columns ) ? 12 / $columns  : 12 / count($dashboard->activity->sessions);
 						?>
-						<div class="col-md-<?=$cols?> col-sm-<?=$cols?>">
+						<div class="col-md-<?=$cols?> col-sm-<?=$cols?> user-info">
 							<img alt="<?=$session->name?>" src="<?=base_url('img/'.$session->avatar)?>" class="img-responsive">
 							<div class="details">
 								<div>
