@@ -126,7 +126,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = $home_folder . 'applications/gpanel';
+	$application_folder = $home_folder . 'applications/admin';
 
 /*
  *---------------------------------------------------------------
