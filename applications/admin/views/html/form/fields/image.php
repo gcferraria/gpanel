@@ -64,7 +64,13 @@
                     <?php endif ?>
 
                     <input type="hidden" name="<?=$field?>" id="<?=$field?>" value="<?=$value?>" data-jsb-name="field" data-jsb-type="<?=isset( $multiple ) ? 'multiple' : ''?>" data-jsb-class="App.Upload.Field">
+                    
+                    <?php if ( isset( $multiple ) ) : ?>
+                    <input type="file" name="<?=$field?>_file" id="<?=$field?>_file" multiple value="<?=$value?>" <?=$attrs?> data-jsb-class="Upload" />
+                    <?php else : ?>
                     <input type="file" name="<?=$field?>_file" id="<?=$field?>_file" value="<?=$value?>" <?=$attrs?> data-jsb-class="Upload" />
+                    <?php endif ?>
+
                 </span>
                 
                 <?php if ( !isset( $multiple ) ) : ?>
