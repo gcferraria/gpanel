@@ -6,5 +6,5 @@
 */cache/!.htaccess
 
 applications/common
-applications/gpanel/cache/*
+applications/admin/cache/*
 public_html/static
