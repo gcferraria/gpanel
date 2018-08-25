@@ -64,10 +64,24 @@
                                         <a href="<?=site_url('notifications/open/' . $notification->id )?>">
                                             <span class="time">
                                                 <?php
-                                                $diff = get_spent_hours( $notification->creation_date);
-                                                $diff = ( $diff->d > 0 ) ? $diff->format('%d') . $this->lang->line('day(s)') : $diff->format('%h') . $this->lang->line('hour(s)'); 
+                                                $time = new DateTime( date( 'Y-m-d H:i:s', strtotime( $notification->creation_date ) ) );
+                                                $now  = new DateTime( date( 'Y-m-d H:i:s') );
+                                                $diff = $now->diff( $time );
+                                    
+                                                if ( $diff->y >= 1 )
+                                                    $time = $diff->y . ' ' .$this->lang->line('years');
+                                                elseif ( $diff->m >= 1 )
+                                                    $time = $diff->m . ' ' .$this->lang->line('months');
+                                                elseif ( $diff->d >= 1 )
+                                                    $time = $diff->d . ' ' . $this->lang->line('days');
+                                                elseif ( $diff->h >= 1 )
+                                                    $time = $diff->h . ' ' .$this->lang->line('hours');
+                                                elseif ( $diff->i >= 1 )
+                                                    $time = $diff->i . ' ' .$this->lang->line('minutes');
+                                                else
+                                                    $time = $this->lang->line('right_now');
                                                 ?>
-                                                <?=$diff?>
+                                                <?=$time?>
                                             </span>
                                             <span class="details">
                                                 <span class="label label-sm label-icon label-warning">

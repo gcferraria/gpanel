@@ -56,16 +56,21 @@ $lang = array (
     'not_found'        => 'Dados não encontrados',
     'up'               => 'Mover para cima',
     'down'             => 'Mover para baixo',
+    'activate'         => 'Ativar',
+    'inactivate'       => 'Inativar',
 
-    /* Messages */
-    'save_success_message'   => 'O registo foi gravador com sucesso.',
-    'save_error_message'     => 'Não foi possível gravar o registo.',
-    'delete_success_message' => 'O registo foi apagado com sucesso.',
-    'delete_error_message'   => 'Não foi possível apagar o registo.',
-    'unespected_error'       => 'Erro inesperado, contacte o administrador de sistema!',
-    'confirm_record'         => 'Deseja prosseguir com a operação?',
-    'please_select_record'   => 'Deve selecionar pelo menos um registo',
-    'read_success_message'   => 'O(s) registos foram lidos com sucesso',
+    /* Operation Messages */
+    'save_success_message'       => 'O registo foi gravador com sucesso.',
+    'save_error_message'         => 'Não foi possível gravar o registo.',
+    'delete_success_message'     => 'O registo foi apagado com sucesso.',
+    'delete_error_message'       => 'Não foi possível apagar o registo.',
+    'unespected_error'           => 'Erro inesperado, contacte o administrador de sistema!',
+    'confirm_record'             => 'Deseja prosseguir com a operação?',
+    'please_select_record'       => 'Deve selecionar pelo menos um registo.',
+    'read_success_message'       => 'O(s) registo(s) foram lidos com sucesso.',
+    'unread_success_message'     => 'O(s) registo(s) foram marcados com não lidos.',
+    'activate_success_message'   => 'O(s) registos foram activados com sucesso',
+    'inactivate_success_message' => 'O(s) registos foram inactivados com sucesso',
 
     /* General Menu */
     'menu_dashboard'      => 'Dashboard',

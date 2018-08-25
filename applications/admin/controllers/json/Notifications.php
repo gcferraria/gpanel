@@ -60,21 +60,30 @@ class Notifications extends JSON_Controller
             if ( $notification->attach ) 
             {
                 $file   = explode( '/', $notification->attach);
-                $attach = '<a href="' . $this->config->item('download_url') . end( $file ) . '" title="'.$this->lang->line('download').'" target="_blank" class="btn default btn-xs black"><i class="fa fa fa-file-pdf-o"></i></a> '; 
+                $attach = '<a href="' . $this->config->item('download_url') . end( $file ) . '" title="' . lang('download') . '" target="_blank" class="btn default btn-xs black"><i class="fa fa fa-file-pdf-o"></i></a> '; 
             }
 
             $data[] = array(
                 "DT_RowId" => $notification->id,
-                0 => '<input type="checkbox" class="checkboxes" id="'.$notification->id.'" data-jsb-class="CheckBox" />',
+                0 => 
+                    '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                        <input type="checkbox" class="checkboxes" value="'.$notification->id.'" data-jsb-class="CheckBox" />
+                        <span></span>
+                    </label>',
                 1 => '<a href="mailto:'.strtolower($notification->email).'">'.word_limiter( $notification->name, 10 ).'</a>',
                 2 => $notification->source,
                 3 => word_limiter( $notification->subject, 10 ),
                 4 => $notification->creation_date,
                 5 => ( $notification->status == 1 )
-                        ? '<span class="label label-sm label-success">' . $this->lang->line('read')   . '</span>'
-                        : '<span class="label label-sm label-warning">' . $this->lang->line('pendent'). '</span>',
-                6 => $attach . '<a href="' . site_url('notifications/open/'. $notification->id) . '" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' . $this->lang->line('open') . '</a>
-                      <a href="#" class="btn btn-xs red-sunglo" data-text="' . $this->lang->line('delete_record') . '" data-url="'.base_url('notifications/delete/' . $notification->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' . $this->lang->line('delete') . '</a>',
+                        ? '<span class="label label-sm label-success"><i class="fa fa-envelope-o"></i> ' . lang('read')   . '</span>'
+                        : '<span class="label label-sm label-warning"><i class="fa fa-envelope"></i> '   . lang('pendent'). '</span>',
+                6 => $attach . '
+                    <a href="' . site_url('notifications/open/'. $notification->id) . '" class="btn btn-xs blue-madison"><i class="fa fa-search"></i> ' 
+                        . lang('open') . 
+                    '</a>
+                    <a href="#" class="btn btn-xs red-sunglo" data-text="' . lang('delete_record') . '" data-url="'.base_url('notifications/delete/' . $notification->id ).'.json" data-jsb-class="App.DataTable.Delete"><i class="fa fa-trash-o"></i> ' 
+                        . lang('delete') . 
+                    '</a>',
             );
         }
 
@@ -90,29 +99,44 @@ class Notifications extends JSON_Controller
     }
 
     /**
-     * delete: Delete Notification.
+     * delete: Delete Notifications.
      *
      * @access public
-     * @param  int $id, Notification Id
      * @return json
     **/
-    public function delete( $id ) 
+    public function delete( $id = null ) 
     {
-        $notification = new Notification();
+        $ids = array();
+        $rows = $this->input->post('rows');
+        if( isset($rows) && !empty($rows) ) 
+        {
+            foreach( $rows as $row ) 
+            {
+                foreach( $row as $key => $value )
+                {
+                    $ids[] = $value;
+                }
+            }
+        } 
+        else 
+        {
+            $ids[] = $id;
+        }
 
-        // Find Notification to be Deleted.
-        $notification->get_by_id( $id );
+        // Find Notifications to be Deleted.
+        $notifications = new Notification();
+        $notifications->where_in( 'id', $ids )->get();
 
         /*
-            If the Notification has been deleted successfully, updates the list,
+            If the Notifications has been deleted successfully, updates the list,
             otherwise shows an unexpected error.
         */
-        if ( $notification->delete() ) 
+        if( $notifications->delete_all() ) 
         {
             return parent::index(
                 array(
-                    'result'  => 1,
-                    'message' => $this->lang->line('delete_success_message')
+                    'root.$notifications.$notifications.$reload.click' => 1,
+                    'notification' => array('success', lang('delete_success_message') ),
                 )
             );
         }
@@ -120,22 +144,20 @@ class Notifications extends JSON_Controller
         {
             return parent::index(
                 array(
-                    'result'  => 0,
-                    'message' => $this->lang->line('delete_error_message'),
+                    'notification' => array('error', lang('delete_error_message') ),
                 )
             );
         }
     }
 
     /**
-     * read: Mark a notification as read
+     * read: Mark notifications as read
      *
      * @access public
      * @return json 
-     */
-    public function read() 
+     */  
+    public function read()
     {
-
         $rows = $this->input->post('rows');
         if ( isset($rows) && !empty($rows)) 
         {
@@ -146,30 +168,21 @@ class Notifications extends JSON_Controller
                     $ids[] = $value;
             }
 
-            // Find Notification to be Mark as Read.
+            // Find Notifications to be Marked as Read.
             $notifications = new Notification();
             $notifications->where_in( 'id', $ids )->get();
-
-            /* Save all Notifications */
-            $result = TRUE;
-            foreach ($notifications as $notification) 
-            {
-                $notification->status = 1;
-                if ( !$notification->save() )
-                    $result = FALSE;
-            }
 
             /*
                 If the Notification(s) has been marked as read with successfully, updates the list,
                 otherwise shows an unexpected error.
             */
-            if ( $result ) 
+            if ( $notifications->update_all('status', 1) ) 
             {
                 return parent::index(
                     array(
                         'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
-                        'root.$notifications.$reload.click' => 1,
-                        'notification'                      => array('success', $this->lang->line('read_success_message') ),
+                        'root.$notifications.$notifications.$reload.click' => 1,
+                        'notification' => array('success', lang('read_success_message') ),
                     )
                 );
 
@@ -179,7 +192,7 @@ class Notifications extends JSON_Controller
             {
                 return parent::index(
                     array(
-                        'notification' => array('error', $this->lang->line('unespected_error') ),
+                        'notification' => array('error', lang('unespected_error') ),
                     )
                 );
             }
@@ -188,7 +201,64 @@ class Notifications extends JSON_Controller
         {
             return parent::index(
                 array(
-                    'notification' => array('error', $this->lang->line('please_select_record') ),
+                    'notification' => array('error', lang('please_select_record') ),
+                )
+            );
+        }
+    }
+
+    /**
+     * read: Mark notifications as unread
+     *
+     * @access public
+     * @return json 
+     */  
+    public function unread()
+    {
+        $rows = $this->input->post('rows');
+        if ( isset($rows) && !empty($rows)) 
+        {
+            $ids = array();
+            foreach ($rows as $row) 
+            {
+                foreach ($row as $key => $value)
+                    $ids[] = $value;
+            }
+
+            // Find Notifications to be Marked as Read.
+            $notifications = new Notification();
+            $notifications->where_in( 'id', $ids )->get();
+
+            /*
+                If the Notification(s) has been marked as read with successfully, updates the list,
+                otherwise shows an unexpected error.
+            */
+            if ( $notifications->update_all('status', 0) ) 
+            {
+                return parent::index(
+                    array(
+                        'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
+                        'root.$notifications.$notifications.$reload.click' => 1,
+                        'notification' => array('success', lang('unread_success_message') ),
+                    )
+                );
+
+                $notifications->refresh_all();
+            }
+            else 
+            {
+                return parent::index(
+                    array(
+                        'notification' => array('error', lang('unespected_error') ),
+                    )
+                );
+            }
+        }
+        else 
+        {
+            return parent::index(
+                array(
+                    'notification' => array('error', lang('please_select_record') ),
                 )
             );
         }

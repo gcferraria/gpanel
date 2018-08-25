@@ -77,7 +77,7 @@
                     dataType  : 'json',
                     data      : params,
                     beforeSend: function() { app.blockUI(elem); },
-                    error     : function( XHR, textStatus ) {},
+                    error     : function() {},
                     complete  : function() { app.unblockUI(elem); },
                     success   : function( data ) {
                         that.update( data );
@@ -88,9 +88,9 @@
                 app.notification( args[0], args[1] );
             }
         }) 
-        , Read =  my.Class( Actions, {
+        , Action =  my.Class( Actions, {
             constructor: function ( elem, caller ) {
-                Read.Super.call( this, elem, caller );
+                Action.Super.call( this, elem, caller );
             }
             , click: function(ev) {
                 var that = this;
@@ -109,11 +109,11 @@
         })
     ;
 
-    JsB.object( 'App.Portlet'             , Portlet  );
-    JsB.object( 'App.Portlet.Collapse'    , Collapse );
-    JsB.object( 'App.Portlet.Reload'      , Reload   );
-    JsB.object( 'App.Portlet.Remove'      , Remove   );
-    JsB.object( 'App.Portlet.Actions'     , Actions  );
-    JsB.object( 'App.Portlet.Actions.Read', Read     );
+    JsB.object( 'App.Portlet'               , Portlet  );
+    JsB.object( 'App.Portlet.Collapse'      , Collapse );
+    JsB.object( 'App.Portlet.Reload'        , Reload   );
+    JsB.object( 'App.Portlet.Remove'        , Remove   );
+    JsB.object( 'App.Portlet.Actions'       , Actions  );
+    JsB.object( 'App.Portlet.Actions.Action', Action   );
 
 })( JsB );

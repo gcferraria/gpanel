@@ -15,15 +15,22 @@
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu" data-jsb-name="actions" data-jsb-type="context" data-jsb-class="App.Portlet.Actions">
                     <?php foreach ( $table_actions as $action => $attrs ) : ?>
+                    <?php if (empty( $attrs ) ) : ?>
+                    <li class="divider"></li>
+                    <?php else : ?>
                     <li>
                         <a  href="javascript:;" 
                             data-text="<?=$attrs['data-text']?>" 
                             data-url="<?=base_url($attrs['url'])?>"
                             data-jsb-name="<?=$action?>"
                             data-jsb-class="<?=$attrs['data-jsb-class']?>">
+                            <?php if ( isset($attrs['icon']) ) : ?>
+                            <i class="<?php echo $attrs['icon']; ?>"></i>
+                            <?php endif ?>
                             <?=$attrs['text']?>
                         </a>
                     </li>
+                    <?php endif ?>
                     <?php endforeach ?>
                 </ul>
             </div>

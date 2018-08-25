@@ -48,8 +48,24 @@ class Notifications extends HTML_Controller
                     'read' => array(
                         'data-text'      => $this->lang->line('confirm_record'),
                         'url'            => 'notifications/read.json',
-                        'data-jsb-class' => 'App.Portlet.Actions.Read',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
                         'text'           => $this->lang->line('notifications_mark_as_read'),
+                        'icon'           => 'fa fa-envelope-o'
+                    ),
+                    'unread' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'notifications/unread.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
+                        'text'           => $this->lang->line('notifications_mark_as_unread'),
+                        'icon'           => 'fa fa-envelope'
+                    ),
+                    'separator' => array(),
+                    'delete' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'notifications/delete.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
+                        'text'           => $this->lang->line('delete'),
+                        'icon'           => 'fa fa-trash-o'
                     ),
                 ),
             )

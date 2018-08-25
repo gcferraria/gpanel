@@ -1,10 +1,18 @@
-<table class="table table-striped table-bordered table-hover <?=( isset( $table->showAll ) ? 'table-checkable' : '') ?> order-column" data-source="/<?=$table->source?>" data-jsb-name="table" data-jsb-type="context" data-jsb-class="App.DataTable">
+<table 
+        class="table table-striped table-bordered table-hover <?=( isset( $table->showAll ) ? 'table-checkable' : '') ?> order-column" 
+        data-source="/<?=$table->source?>" 
+        data-jsb-name="table" 
+        data-jsb-type="context" 
+        data-jsb-class="App.DataTable"
+    >
     <thead>
         <tr>
-
             <?php if( isset( $table->showAll ) ) : ?>
-            <th data-jsb-name="selectAll" data-jsb-class="JsB">
-                <input type="checkbox" class="group-checkable" data-jsb-class="CheckBox"/>
+            <th>
+                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline" data-jsb-name="selectAll" data-jsb-class="JsB">
+                    <input type="checkbox" class="group-checkable" data-jsb-class="CheckBox"  />
+                    <span></span>
+                </label>
             </th>
             <?php endif ?>
 

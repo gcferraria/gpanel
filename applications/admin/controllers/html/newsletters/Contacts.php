@@ -30,8 +30,9 @@ class Contacts extends HTML_Controller
     public function index( $template = 'index' ) 
     {
         $data = (object) array(
-            'source' => 'newsletters/contacts.json',
-            'header' => array(
+            'source'  => 'newsletters/contacts.json',
+            'showAll' => TRUE,
+            'header'  => array(
                 $this->lang->line('newsletter_contact_email'),
                 $this->lang->line('newsletter_contact_name'),
                 $this->lang->line('newsletter_contact_source'),
@@ -43,36 +44,57 @@ class Contacts extends HTML_Controller
         $this->add_data( array(
                 'title' => $this->lang->line('newsletter_contact_title'),
                 'table' => $data,
+                'table_actions' => array(
+                    'activate' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'newsletters/contacts/activate.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
+                        'text'           => $this->lang->line('activate'),
+                        'icon'           => 'fa fa-check-square-o',
+                    ),
+                    'inactivate' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'newsletters/contacts/inactivate.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
+                        'text'           => $this->lang->line('inactivate'),
+                        'icon'           => 'fa fa-power-off',
+                    ),
+                    'separator' => array(),
+                    'delete' => array(
+                        'data-text'      => $this->lang->line('confirm_record'),
+                        'url'            => 'newsletters/contacts/delete.json',
+                        'data-jsb-class' => 'App.Portlet.Actions.Action',
+                        'text'           => $this->lang->line('delete'),
+                        'icon'           => 'fa fa-trash-o',
+                    ),
+                ),
             )
         );
 
         parent::index();
     }
 
-    /**
-     * edit: Build and Render Newsletter Contact Form with data to edit.
+   /**
+     * save: Save a contact for newsletter
      *
      * @access public
      * @return void
     **/
-    public function edit( $id ) 
+    public function save( $id ) 
     {
         $newsletter_contact = new Newsletter_Contact();
 
-        // Find Newsletter Contact to Edit.
+        // Find contact to Edit.
         $newsletter_contact->get_by_id( $id );
 
-        // Check if Newsletter Contact exists.
+        // Check if contact exists.
         if ( ! $newsletter_contact->exists() )
-            return;
+            show_404();
 
-        // Add Breadcrumb to edit Newsletter Contact.
+        // Add Breadcrumb to edit Contact.
         $this->breadcrumb->add( array(
-                'text' => sprintf(
-                    $this->lang->line('newsletter_contact_title_edit'),
-                    $newsletter_contact->email
-                ),
-                'href' => uri_string(),
+                'text' => sprintf( $this->lang->line('newsletter_contact_title_edit'), $newsletter_contact->email),
+                'href' => uri_string()
             )
         );
 
@@ -81,18 +103,11 @@ class Contacts extends HTML_Controller
 
         // Build Newsletter Contact Form.
         $newsletter_contact_form
-            ->builder('post', '/newsletters/contacts/edit/' . $newsletter_contact->id . '.json')
-            ->add_fields(
-                $this->_fields( $newsletter_contact ),
-                $newsletter_contact
-            );
+            ->builder('post', '/newsletters/contacts/save/' . $newsletter_contact->id . '.json')
+            ->add_fields( $this->_fields( $newsletter_contact ), $newsletter_contact );
 
         $this->add_data( array(
-                'title' => 
-                sprintf(
-                    $this->lang->line('newsletter_contact_title_edit'),
-                    $newsletter_contact->email
-                ),
+                'title' => sprintf( $this->lang->line('newsletter_contact_title_edit'), $newsletter_contact->email ),
                 'newsletter_contact' => (object) array(
                     'form' => $newsletter_contact_form->render_form()
                 )
@@ -107,12 +122,12 @@ class Contacts extends HTML_Controller
      *          well as their attributes.
      *
      * @access private
-     * @param  object $newsletter_contact, [Required] Newsletter Contact Object.
+     * @param  object $newsletter_contact, [Required] Newsletter Contact Object for fields definition.
      * @return array
     **/
     private function _fields( $newsletter_contact ) 
     {
-        // Get Newsletter Contact base fields.
+        // Get newsletter contact base fields.
         $fields = $newsletter_contact->validation;
 
         // Define Newsletter Contact Fields Attributes.

@@ -11,7 +11,11 @@ class DataTables extends JSON_Controller
     **/
     public function index($data = array()) 
     {
-        parent::index( array(
+        parent::index( 
+            array(
+                // metronic spesific
+                "metronicGroupActions" => "_TOTAL_ registos seleccionados:  ",
+                //
                 "sProcessing"   => "A processar...",
                 "sLengthMenu"   => "Mostrar _MENU_ registos",
                 "sInfo"         => "Encontrados um total de _TOTAL_ registos",

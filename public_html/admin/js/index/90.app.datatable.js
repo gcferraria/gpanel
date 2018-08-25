@@ -20,22 +20,25 @@
                         "aaSorting"     : [],
                         "sServerMethod" : "POST",
                         "sAjaxSource"   : that.source,
+                        "pagingType"    : 'bootstrap_full_number',
                         "bProcessing"   : true,
                         "bServerSide"   : true,
                         'bAutoWidth'    : false,
                         'bDeferRender'  : true,
                         "bStateSave"    : true, // save datatable state(pagination, sort, etc) in cookie.
                         "iDisplayLength": 10,
-                        "oLanguage"     : { "sUrl": "/datatables.json" },
-                        "aoColumnDefs" : [{  // define columns sorting options(by default all columns are sortable extept the first checkbox column)
+                        "language"      : { "url": "/datatables.json" },
+                        "aoColumnDefs"  : [{  // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                             'bSortable' : false,
                             'aTargets'  : sorting
                         }],
-                        fnDrawCallback: function( oSettings ) {
+                        fnDrawCallback: function( oSettings ) 
+                        {
                             caller.$.find('.dataTables_filter input').addClass("form-control input-small input-inline");
                             caller.$.find('.dataTables_length select').addClass("form-control input-xsmall");
                         },
-                        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+                        fnRowCallback: function( nRow, aData, iDisplayIndex ) 
+                        {
                             var id = $( nRow ).attr('id');
                             if( that['$' + id ] !== undefined )
                                 that.dettach( that['$' + id ] )
@@ -50,11 +53,16 @@
                         jQuery(set).each(function () {
                             if (checked) {
                                 $(this).prop("checked", true);
+                                $(this).parents('tr').addClass("active");
                             } else {
                                 $(this).prop("checked", false);
+                                $(this).parents('tr').removeClass("active");
                             }
                         });
-                        //jQuery.uniform.update(set);
+                    });
+
+                    that.table.on('change', 'tbody tr .checkboxes', function () {
+                        $(this).parents('tr').toggleClass("active");
                     });
                 });
             }
@@ -68,7 +76,6 @@
                 var selectAll = $('thead > tr > th:nth-child(1) input[type="checkbox"]');
                 if ( selectAll !== undefined ) {
                     $(selectAll).prop("checked", false);
-                    //jQuery.uniform.update(selectAll);
                 }
 
                 window.setTimeout(function () {
@@ -90,18 +97,17 @@
                     'error'     : function( XHR, textStatus ) {},
                     'complete'  : function() { app.unblockUI(elem); },
                     'success'   : function( data ) {
-                        if ( data.result == 1 )
-                            that.table._fnAjaxUpdate();
-
-                        var type =  ( data.result == 1 ) ? 'success' : 'error';
-                        app.notification( type, data.message );
+                        that.update( data );
                     }
                 });
+            }
+            , notification: function( args ) {
+                app.notification( args[0], args[1] );
             }
             , getRowsSelected: function() {
                 var rows = [];
                 $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', this.$ ).each(function(){
-                    rows.push({name: $(this).attr("name"), value: $(this).attr("id"), filename: $(this).attr("filename"), url: $(this).attr("data-url") });
+                    rows.push({name: $(this).attr("name"), value: $(this).val(), filename: $(this).attr("filename"), url: $(this).attr("data-url") });
                 });
 
                 return rows;

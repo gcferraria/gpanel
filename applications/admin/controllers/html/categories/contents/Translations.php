@@ -50,7 +50,7 @@ class Translations extends Categories
     }
 
     /**
-     * save: Build and Render Form.
+     * save: Save a content translation
      *
      * @access public
      * @return void
