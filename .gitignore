@@ -5,6 +5,19 @@
 */cache/!index.html
 */cache/!.htaccess
 
+node_modules
+bower_components
+
+DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+.dropbox
+
 applications/common
 applications/admin/cache/*
 public_html/static

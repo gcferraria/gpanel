@@ -1,0 +1,33 @@
+{
+    "name"       : "ci_projects_node",
+    "version"    : "1.0.0",
+    "description": "Codeigniter frontend projects",
+    "author"     : "gcferraria",
+    "email"      : "goncalo.ferraria@gmail.com",
+    "private"    : true,
+    "devDependencies": {
+        "autoprefixer": "*",
+        "grunt": "^0.4.5",
+        "grunt-autoprefixer": "^3.0.4",
+        "grunt-contrib-clean": "~0.7.0",
+        "grunt-contrib-concat": "~0.5.1",
+        "grunt-contrib-copy": "~0.8.0",
+        "grunt-contrib-cssmin": "~0.14.0",
+        "grunt-contrib-imagemin": "~1.0.0",
+        "grunt-contrib-jshint": "~0.11.2",
+        "grunt-contrib-uglify": "^0.11.1",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-contrib-htmlmin": "~0.3.0",
+        "grunt-notify": "~0.4.1",
+        "grunt-postcss": "~0.7.0",
+        "grunt-prettify": "~0.4.0",
+        "grunt-sass": "^2.0.0",
+        "imagemin-jpeg-recompress": "~4.2.1",
+        "jshint-stylish": "~2.0.0",
+        "load-grunt-configs": "~0.4.3",
+        "load-grunt-tasks": "~3.2.0",
+        "grunt-bower-install-simple": "~0.9.3",
+        "time-grunt": "~1.2.1"
+    }
+}
+  

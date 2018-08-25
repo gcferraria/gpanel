@@ -1,0 +1,10 @@
+{
+    "name"       : "ci_projects_bower",
+    "version"    : "1.0.0",
+    "author"     : "gcferraria",
+    "description": "Codeigniter JavaScript dependencies.",
+    "private"    : true,
+    "dependencies": {
+        "jquery": "1.11.3"
+    }
+}
