@@ -2,7 +2,7 @@
     echo 
         $this->load->view('html/portlets/form.php', array(
             'name' => 'newsletter',
-            'icon' => 'icon-envelope',
+            'icon' => 'icon-layers',
             'form' => $newsletter->form,
         ));
     ;

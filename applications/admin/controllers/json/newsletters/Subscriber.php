@@ -1,24 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Contacts extends JSON_Controller {
+class Subscriber extends JSON_Controller {
 
     /**
-     * index: Get Newsletter Contacts.
+     * index: Get subscriber list.
      *
      * @access public
      * @return json
     **/
     public function index( $data = array() ) 
     {
-        $newsletter_contacts = new Newsletter_Contact();
+        $subscribers = new Newsletter_Subscriber();
         $columns = array( 'email','name','source','creation_date','active_flag');
 
         // Add Search Text if defined.
         $search_text = $this->input->post('sSearch');
         if( !empty($search_text) ) 
         {
-            $newsletter_contacts->or_like( array(
+            $subscribers->or_like( array(
                     'name'    => $search_text,
                     'email'   => $search_text,
                 )
@@ -32,13 +32,13 @@ class Contacts extends JSON_Controller {
             {
                 if( $this->input->post('bSortable_' . $this->input->post('iSortCol_' . $i) ) == "true" ) 
                 {
-                    $newsletter_contacts->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
+                    $subscribers->order_by($columns[ intval( $this->input->post('iSortCol_'.$i) ) ], $this->input->post('sSortDir_'.$i) );
                 }
             }
         }
         else 
         {
-            $newsletter_contacts->order_by('creation_date', 'desc');
+            $subscribers->order_by('creation_date', 'desc');
         }
 
         // Pagination
@@ -48,32 +48,32 @@ class Contacts extends JSON_Controller {
             $page = ceil( $this->input->post('iDisplayStart') / $this->input->post('iDisplayLength')  ) + 1;
         }
 
-        $newsletter_contacts->get_paged( $page, $this->input->post('iDisplayLength') );
+        $subscribers->get_paged( $page, $this->input->post('iDisplayLength') );
 
         $data = array();
-        foreach( $newsletter_contacts as $contact ) 
+        foreach( $subscribers as $subscriber ) 
         {
             $data[] = array(
-                "DT_RowId" => $contact->id,
+                "DT_RowId" => $subscriber->id,
                 0 => 
                     '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                        <input type="checkbox" class="checkboxes" value="'.$contact->id.'" data-jsb-class="CheckBox" />
+                        <input type="checkbox" class="checkboxes" value="' . $subscriber->id . '" data-jsb-class="CheckBox" />
                         <span></span>
                     </label>', 
-                1 => '<a href="mailto:' . strtolower( $contact->email ) . '">' . word_limiter( $contact->email, 10 ) . '</a>',
-                2 => $contact->name,
-                3 => $contact->source,
-                4 => $contact->creation_date,
-                5 => ( $contact->active_flag == 1 )
+                1 => '<a href="mailto:' . strtolower( $subscriber->email ) . '">' . word_limiter( $subscriber->email, 10 ) . '</a>',
+                2 => $subscriber->name,
+                3 => $subscriber->source,
+                4 => $subscriber->creation_date,
+                5 => ( $subscriber->active_flag == 1 )
                     ? '<a class="label label-sm label-success" title="'. lang('inactivate') .'" data-jsb-class="Tooltip">' . lang('active')  . '</a>'
                     : '<a class="label label-sm label-danger"  title="'. lang('activate')   .'" data-jsb-class="Tooltip">' . lang('inactive'). '</a>',
                 6 => '
-                    <a href="'.site_url('newsletters/contacts/save/' . $contact->id) .'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' 
+                    <a href="'.site_url('newsletters/subscriber/save/' . $subscriber->id) .'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' 
                         . lang('edit') .  
                     ' </a>
                     <a href="#" class="btn btn-xs red-sunglo" 
                         data-text="' . lang('delete_record') . '" 
-                        data-url="' . base_url('newsletters/contacts/delete/' . $contact->id ) . '.json" 
+                        data-url="' . base_url('newsletters/subscriber/delete/' . $subscriber->id ) . '.json" 
                         data-jsb-class="App.DataTable.Delete">
                             <i class="fa fa-trash-o"></i> ' . lang('delete') . 
                     '</a>',
@@ -83,8 +83,8 @@ class Contacts extends JSON_Controller {
         parent::index(
             array(
                 "sEcho"                => $this->input->post('sEcho'),
-                "iTotalRecords"        => $newsletter_contacts->paged->total_rows,
-                "iTotalDisplayRecords" => $newsletter_contacts->paged->total_rows,
+                "iTotalRecords"        => $subscribers->paged->total_rows,
+                "iTotalDisplayRecords" => $subscribers->paged->total_rows,
                 "aaData"               => $data,
                 "page"                 => $page
             )
@@ -92,26 +92,26 @@ class Contacts extends JSON_Controller {
     }
 
     /**
-     * edit: Validate and Update a Newsletter Contact.
+     * save: Save a subscriber.
      *
      * @access public
-     * @param  int $id, [Required] Newsletter Contact Id
+     * @param  int $id, [Required] subscriber identifier to be saved
      * @return json
     **/
     public function save( $id ) 
     {
-        // Initialize newsletter contact object.
-        $newsletter_contact = new Newsletter_Contact();
+        // Initialize subscriber object.
+        $subscriber = new Newsletter_Subscriber();
 
-        // Find contact to edit.
-        $newsletter_contact->get_by_id( $id );
+        // Find subscriber to edit.
+        $subscriber->get_by_id( $id );
 
-        // Set contact properties
-        $newsletter_contact->name        = $this->input->post('name');
-        $newsletter_contact->active_flag = $this->input->post('active_flag');
+        // Set subscriber properties
+        $subscriber->name        = $this->input->post('name');
+        $subscriber->active_flag = $this->input->post('active_flag');
 
-        // If the contact is valid and exists, update the record.
-        if( $newsletter_contact->save() ) 
+        // If the subscriber is valid and exists, update the record.
+        if( $subscriber->save() ) 
         {
             $data = array(
                 'show_errors'  => array(),
@@ -121,7 +121,7 @@ class Contacts extends JSON_Controller {
         else 
         {
             $data = array(
-                'show_errors'  => $newsletter_contact->errors->all,
+                'show_errors'  => $subscriber->errors->all,
                 'notification' => array('error', lang('save_error_message') ),
             );
         }
@@ -130,13 +130,13 @@ class Contacts extends JSON_Controller {
     }
 
     /**
-     * delete: Delete a newsletter contacts.
+     * delete: Delete a subscriber.
      *
      * @access public
-     * @param  int $id, Contact identifier to be deleted.
+     * @param  int $id, [Optional] subscriber identifier to be deleted.
      * @return json
     **/
-    public function delete( $id = NULL) 
+    public function delete( $id = NULL ) 
     {
         $ids = array();
         $rows = $this->input->post('rows');
@@ -155,21 +155,21 @@ class Contacts extends JSON_Controller {
             $ids[] = $id;
         }
 
-        // Initialize newsletter contact object.
-        $newsletter_contact = new Newsletter_Contact();
+        // Initialize subscriber object.
+        $subscriber = new Newsletter_Subscriber();
 
-        // Find contact to be deleted.
-        $newsletter_contact->where_in( 'id', $ids )->get();
+        // Find subscribers to be deleted.
+        $subscriber->where_in( 'id', $ids )->get();
 
         /*
-          If the contact has been deleted successfully updates the list,
+          If the subscriber has been deleted successfully updates the list,
           otherwise shows an unexpected error.
         */
-        if( $newsletter_contact->delete_all() ) 
+        if( $subscriber->delete_all() ) 
         {
             return parent::index(
                 array(
-                    'root.$newsletters.$contacts.$reload.click' => 1,
+                    'root.$newsletters.$subscriber.$reload.click' => 1,
                     'notification' => array('success', lang('delete_success_message') ),
                 )
             );
@@ -185,7 +185,7 @@ class Contacts extends JSON_Controller {
     }
 
     /**
-     * read: Activate Newsletter Contacts
+     * read: Activate Subscriber List
      *
      * @access public
      * @return json 
@@ -202,15 +202,15 @@ class Contacts extends JSON_Controller {
                     $ids[] = $value;
             }
 
-            // Find Contacts to be Activated.
-            $newsletter_contact = new Newsletter_Contact();
-            $newsletter_contact->where_in( 'id', $ids )->get();
+            // Find Subscribers to be Activated.
+            $subscriber = new Newsletter_Subscriber();
+            $subscriber->where_in( 'id', $ids )->get();
 
-            if( $newsletter_contact->update_all('active_flag', 1) ) 
+            if( $subscriber->update_all('active_flag', 1) ) 
             {
                 return parent::index(
                     array(
-                        'root.$newsletters.$contacts.$reload.click' => 1,
+                        'root.$newsletters.$subscriber.$reload.click' => 1,
                         'notification' => array('success', lang('activate_success_message') ),
                     )
                 );
@@ -235,7 +235,7 @@ class Contacts extends JSON_Controller {
     }
 
     /**
-     * read: Inactivate Newsletter Contacts
+     * read: Inactivate Subscriber list
      *
      * @access public
      * @return json 
@@ -252,15 +252,15 @@ class Contacts extends JSON_Controller {
                     $ids[] = $value;
             }
 
-            // Find Contacts to be Activated.
-            $newsletter_contact = new Newsletter_Contact();
-            $newsletter_contact->where_in( 'id', $ids )->get();
+            // Find Subscribers to be Inactivated.
+            $subscriber = new Newsletter_Subscriber();
+            $subscriber->where_in( 'id', $ids )->get();
 
-            if( $newsletter_contact->update_all('active_flag', 0) ) 
+            if( $subscriber->update_all('active_flag', 0) ) 
             {
                 return parent::index(
                     array(
-                        'root.$newsletters.$contacts.$reload.click' => 1,
+                        'root.$newsletters.$subscriber.$reload.click' => 1,
                         'notification' => array('success', lang('inactivate_success_message') ),
                     )
                 );

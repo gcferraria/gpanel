@@ -45,7 +45,7 @@ class Dashboard extends JSON_Controller
         $notifications = new Notification();
         $counters      = new Content_Counter();
         $contents      = new Content();
-        $users         = new Newsletter_Contact();
+        $users         = new Newsletter_Subscriber();
 
         parent::index(
             array(
@@ -64,7 +64,7 @@ class Dashboard extends JSON_Controller
                         'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
                     ))->count() 
                 ),
-                '$contacts' => number_format( $users->where( array(
+                '$subscribers' => number_format( $users->where( array(
                         'creation_date >=' => date("Y-m-d H:i:s", strtotime(trim($range[0]))),
                         'creation_date <=' => date("Y-m-d H:i:s", strtotime(trim($range[1]))),
                     ))->count() 

@@ -53,9 +53,9 @@
 				<i class="fa fa-user"></i>
 			</div>
 			<div class="details">
-				<div class="number" data-jsb-name="contacts" data-value="0" data-jsb-class="App.DashBoard.Statistics.Element">0</div>
+				<div class="number" data-jsb-name="subscribers" data-value="0" data-jsb-class="App.DashBoard.Statistics.Element">0</div>
 				<div class="desc">
-					<?=$this->lang->line('dashboard_newsletter_contacts_count')?>
+					<?=$this->lang->line('dashboard_subscribers_count')?>
 				</div>
 			</div>
 	        <a class="more" href="<?=site_url('newsletters/contacts')?>">

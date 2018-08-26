@@ -13,7 +13,7 @@ class HTML_Controller extends GP_Controller
         parent::__construct( $access );
 
         // Default Data.
-        $this->data = array( 'title' => $this->lang->line('title') );
+        $this->data = array( 'title' => lang('title') );
 
         // Restrict Access. Only logged administrators.
         if ( $access == 'restrict' ) 
@@ -110,43 +110,43 @@ class HTML_Controller extends GP_Controller
 
         $data = array(
             array(
-                'title'    => $this->lang->line('menu_dashboard'),
+                'title'    => lang('menu_dashboard'),
                 'url'      => 'dashboard',
                 'path'     => 'dashboard',
                 'icon'     => 'home',
             ),
             array(
-                'title'    => $this->lang->line('menu_contents'),
+                'title'    => lang('menu_contents'),
                 'url'      => 'categories/contents/index/1',
                 'path'     => 'categories/',
                 'icon'     => 'folder',
             ),
             array(
-                'title'    => $this->lang->line('menu_media'),
+                'title'    => lang('menu_media'),
                 'url'      => 'media',
                 'path'     => 'media',
                 'icon'     => 'picture',
             ),
             array(
-                'title'    => $this->lang->line('menu_notifications'),
+                'title'    => lang('menu_notifications'),
                 'url'      => 'notifications',
                 'path'     => 'notifications',
                 'icon'     => 'bell',
                 'badges'   => $notifications->get_unread_messages_number(),
             ),
             array(
-                'title'    => $this->lang->line('menu_private_area'),
+                'title'    => lang('menu_private_area'),
                 'path'     => 'private-area', 
                 'icon'     => 'users',
                 'children' => array(
                     array(
-                        'title'    => $this->lang->line('menu_users'),
+                        'title'    => lang('menu_users'),
                         'url'      => 'private-area/users',
                         'path'     => 'private-area/users', 
                         'icon'     => 'user',
                     ),
                     array(
-                        'title'    => $this->lang->line('menu_roles'),
+                        'title'    => lang('menu_roles'),
                         'url'      => 'private-area/roles',
                         'path'     => 'private-area/roles', 
                         'icon'     => 'wrench',
@@ -154,18 +154,18 @@ class HTML_Controller extends GP_Controller
                 ),
             ),
             array(
-                'title'    => $this->lang->line('menu_newsletters'),
+                'title'    => lang('menu_newsletters'),
                 'path'     => 'newsletters',
                 'icon'     => 'envelope',
                 'children' => array(
                     array(
-                        'title'    => $this->lang->line('menu_contacts'),
-                        'url'      => 'newsletters/contacts',
-                        'path'     => 'newsletters/contacts',  
+                        'title'    => lang('menu_subscribers'),
+                        'url'      => 'newsletters/subscriber',
+                        'path'     => 'newsletters/subscriber',  
                         'icon'     => 'user-follow',
                     ),
                     array(
-                        'title'    => $this->lang->line('menu_newsletters'),
+                        'title'    => lang('menu_newsletters'),
                         'url'      => 'newsletters/newsletters',
                         'path'     => 'newsletters/newsletters',  
                         'icon'     => 'envelope',
@@ -176,17 +176,17 @@ class HTML_Controller extends GP_Controller
 
         $admin_data = array(
             array(
-                'title'    => $this->lang->line('menu_administration'),
+                'title'    => lang('menu_administration'),
                 'path'     => 'administration',
                 'icon'     => 'settings',
                 'children' => array(
                     array(
-                        'title'    => $this->lang->line('menu_access'),
+                        'title'    => lang('menu_access'),
                         'path'     => 'administration/access',
                         'icon'     => 'login',
                         'children' => array(
                             array(
-                                'title' => $this->lang->line('menu_administrators'),
+                                'title' => lang('menu_administrators'),
                                 'url'   => 'administration/administrators',
                                 'path'  => 'administration/access/administrators',
                                 'icon'  => 'users'
@@ -194,18 +194,18 @@ class HTML_Controller extends GP_Controller
                         ),
                     ),
                     array(
-                        'title'    => $this->lang->line('menu_content_types'),
+                        'title'    => lang('menu_content_types'),
                         'url'      => 'administration/content_types',
                         'path'     => 'administration/content_types',
                         'icon'     => 'puzzle',
                     ),
                     array(
-                        'title'    => $this->lang->line('menu_i18N'),
+                        'title'    => lang('menu_i18N'),
                         'path'     => 'administration/i18n',
                         'icon'     => 'flag',
                         'children' => array(
                             array(
-                                'title' => $this->lang->line('menu_languages'),
+                                'title' => lang('menu_languages'),
                                 'url'   => 'administration/i18n/languages',
                                 'path'  => 'administration/i18n/languages',
                                 'icon'  => 'bubble'
@@ -213,12 +213,12 @@ class HTML_Controller extends GP_Controller
                         ),
                     ),
                     array(
-                        'title'    => $this->lang->line('menu_settings'),
+                        'title'    => lang('menu_settings'),
                         'path'     => 'administration/settings',
                         'icon'     => 'grid',
                         'children' => array(
                             array(
-                                'title' => $this->lang->line('menu_websites'),
+                                'title' => lang('menu_websites'),
                                 'url'   => 'administration/settings/websites',
                                 'path'  => 'administration/settings/websites',
                                 'icon'  => 'star', 

@@ -18,7 +18,7 @@ class Newsletters extends HTML_Controller
 
         // Add Breadcrumb for Newsletters.
         $this->breadcrumb->add( array(
-                'text' => $this->lang->line('newsletter_title'),
+                'text' => lang('newsletter_title'),
                 'href' => 'newsletters/newsletters',
             )
         );
@@ -35,16 +35,16 @@ class Newsletters extends HTML_Controller
         $data = (object) array(
             'source' => 'newsletters/newsletters.json',
             'header' => array(
-                $this->lang->line('newsletter_name'),
-                $this->lang->line('newsletter_creation_date'),
-            ),
+                lang('newsletter_name'),
+                lang('newsletter_creation_date'),
+            )
         );
 
         $this->add_data( array(
-                'title'   => $this->lang->line('newsletter_title'),
+                'title'   => lang('newsletter_title'),
                 'table'   => $data,
                 'actions' => array(
-                    $this->lang->line('newsletter_title_add') => 'newsletters/newsletters/add',
+                    lang('newsletter_title_add') => 'newsletters/newsletters/add',
                 )
             )
         );
@@ -53,16 +53,17 @@ class Newsletters extends HTML_Controller
     }
 
     /**
-     * add: Build and Render Newsletter Form.
+     * add: Build and Render Newsletter Form based on step.
      *
      * @access public
+     * @param  int step_number, Step Number 
      * @return void
     **/
-    public function add() 
+    public function step( $step_number = 1 ) 
     {
         // Add Breadcumb to Add Newsletter.
         $this->breadcrumb->add( array(
-                'text' => $this->lang->line('newsletter_title_add'),
+                'text' => lang('newsletter_title_add'),
                 'href' => uri_string()
             )
         );
@@ -78,23 +79,27 @@ class Newsletters extends HTML_Controller
             ->builder( 'post', '/newsletters/newsletters/add.json' )
             ->add_fields( array(
                     array(
-                        'title'  => $this->lang->line('newsletter_step1'),
+                        'title'  => lang('newsletter_step1'),
                         'fields' => $this->_general_information_fields( $newsletter ),
                     ),
                     array(
-                        'title'  => $this->lang->line('newsletter_step2'),
+                        'title'  => lang('newsletter_step2'),
                         'fields' => $this->_contents_fields( $newsletter ),
                     ),
                     array(
-                        'title'  => $this->lang->line('newsletter_step3'),
+                        'title'  => lang('newsletter_step3'),
                         'fields' => $this->_confirmation_fields( $newsletter ),
                     ),
+                    array(
+                        'title'  => lang('newsletter_step4'),
+                        'fields' => array(),
+                    )
                 )
             );
 
         $this->add_data( array(
-                'title'      => $this->lang->line('newsletter_title_add'),
-                'newsletter' => (object)array(
+                'title'      => lang('newsletter_title_add'),
+                'newsletter' => (object) array(
                     'form' => $newsletter_form->render_form(),
                 )
             )
@@ -123,15 +128,15 @@ class Newsletters extends HTML_Controller
 
         $attrs = array(
             'name' => array(
-                'help' => $this->lang->line('newsletter_name_help'),
+                'help' => lang('newsletter_name_help'),
             ),
             'from' => array(
                 'values' => $this->config->item('newsletter_from_emails'),
-                'help'   => $this->lang->line('newsletter_from_help'),
+                'help'   => lang('newsletter_from_help'),
             ),
             'template' => array(
                 'values' => $this->config->item('newsletter_templates'),
-                'help'   => $this->lang->line('newsletter_template_help'),
+                'help'   => lang('newsletter_template_help'),
             )
         );
 
@@ -170,14 +175,14 @@ class Newsletters extends HTML_Controller
         $attrs = array(
             'website' => array(
                 'values' => $this->config->item('newsletter_websites'),
-                'help'   => $this->lang->line('newsletter_website_help'),
+                'help'   => lang('newsletter_website_help'),
             ),
             'date_range' => array(
-                'help' => $this->lang->line('newsletter_date_range_help'),
+                'help' => lang('newsletter_date_range_help'),
             ),
             'content_types' => array(
                 'values' => $values,
-                'help' => $this->lang->line('newsletter_content_types_help'),
+                'help' => lang('newsletter_content_types_help'),
             )
         );
 

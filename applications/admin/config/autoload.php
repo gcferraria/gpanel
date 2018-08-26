@@ -138,7 +138,7 @@ $autoload['language'] = array(
     ,   'categories/translations'
     ,   'categories/options'
     ,   'media'
-    ,   'newsletters/contacts'
+    ,   'newsletters/subscriber'
     ,   'newsletters/newsletters'
     ,   'notifications'
     ,   'private-area/roles'
