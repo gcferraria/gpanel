@@ -34,6 +34,29 @@ class Migration_Change_entity_newsletter extends CI_Migration {
             ALTER TABLE newsletter_contact RENAME TO newsletter_subscriber;
         ");
 
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS `newsletter_template` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `settings_website_id` int(11) NOT NULL,
+                `name` varchar(50) NOT NULL,
+                `header` TEXT NOT NULL,
+                `body` TEXT NOT NULL,
+                `footer` TEXT NOT NULL,
+                `custom_css` TEXT NOT NULL,
+                `creation_date` datetime DEFAULT '0000-00-00 00:00:00',
+                `created_by` int(11) DEFAULT NULL,
+                `last_update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                `last_update_by` int(11) DEFAULT NULL,                
+                PRIMARY KEY (`id`),
+                KEY `fk_news_temp_settings_website` (`settings_website_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+        ");
+
+        $this->db->query("
+            ALTER TABLE `newsletter_template`
+            ADD CONSTRAINT `fk_news_temp_settings_website` FOREIGN KEY (`settings_website_id`) REFERENCES `settings_website` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        ");
+
     }
 
     public function down() {
