@@ -159,6 +159,12 @@ class HTML_Controller extends GP_Controller
                 'icon'     => 'envelope',
                 'children' => array(
                     array(
+                        'title'    => lang('menu_newsletter_templates'),
+                        'url'      => 'newsletters/template',
+                        'path'     => 'newsletters/template',  
+                        'icon'     => 'wrench',
+                    ),
+                    array(
                         'title'    => lang('menu_subscribers'),
                         'url'      => 'newsletters/subscriber',
                         'path'     => 'newsletters/subscriber',  
