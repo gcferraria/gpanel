@@ -109,7 +109,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = $home_folder . 'libs/CI_3.1.9';
+	$system_path = $home_folder . 'libs/CI_3.1.9/system';
 
 /*
  *---------------------------------------------------------------
