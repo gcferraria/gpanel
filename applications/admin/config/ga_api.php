@@ -57,4 +57,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     'goncaloferraria.pt'	       => '81936010' ,
     'cabazdopeixe.pt'              => '128951797',
     'visitsesimbra.pt'             => '172142624',
+    'acdc.pt'                      => '181118871',
  );
