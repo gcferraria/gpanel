@@ -20,5 +20,5 @@ Thumbs.db
 
 applications/common
 applications/admin/cache/*
-applications/admin/config/development/*
+applications/admin/config/development/database.php
 public_html/static
