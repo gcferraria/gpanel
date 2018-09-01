@@ -38,7 +38,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * CodeIgniter Session Memcached Driver
+ * CodeIgniter Session Redis Driver
  *
  * @package	CodeIgniter
  * @subpackage	Libraries
@@ -46,14 +46,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author	Andrey Andreev
  * @link	https://codeigniter.com/user_guide/libraries/sessions.html
  */
-class CI_Session_memcached_driver extends CI_Session_driver implements SessionHandlerInterface {
+class CI_Session_redis_driver extends CI_Session_driver implements SessionHandlerInterface {
 
 	/**
-	 * Memcached instance
+	 * phpRedis instance
 	 *
-	 * @var	Memcached
+	 * @var	Redis
 	 */
-	protected $_memcached;
+	protected $_redis;
 
 	/**
 	 * Key prefix
@@ -69,6 +69,13 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	protected $_lock_key;
 
+	/**
+	 * Key exists flag
+	 *
+	 * @var bool
+	 */
+	protected $_key_exists = FALSE;
+
 	// ------------------------------------------------------------------------
 
 	/**
@@ -83,7 +90,24 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 
 		if (empty($this->_config['save_path']))
 		{
-			log_message('error', 'Session: No Memcached save path configured.');
+			log_message('error', 'Session: No Redis save path configured.');
+		}
+		elseif (preg_match('#(?:tcp://)?([^:?]+)(?:\:(\d+))?(\?.+)?#', $this->_config['save_path'], $matches))
+		{
+			isset($matches[3]) OR $matches[3] = ''; // Just to avoid undefined index notices below
+			$this->_config['save_path'] = array(
+				'host' => $matches[1],
+				'port' => empty($matches[2]) ? NULL : $matches[2],
+				'password' => preg_match('#auth=([^\s&]+)#', $matches[3], $match) ? $match[1] : NULL,
+				'database' => preg_match('#database=(\d+)#', $matches[3], $match) ? (int) $match[1] : NULL,
+				'timeout' => preg_match('#timeout=(\d+\.\d+)#', $matches[3], $match) ? (float) $match[1] : NULL
+			);
+
+			preg_match('#prefix=([^\s&]+)#', $matches[3], $match) && $this->_key_prefix = $match[1];
+		}
+		else
+		{
+			log_message('error', 'Session: Invalid Redis save path format: '.$this->_config['save_path']);
 		}
 
 		if ($this->_config['match_ip'] === TRUE)
@@ -97,55 +121,41 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	/**
 	 * Open
 	 *
-	 * Sanitizes save_path and initializes connections.
+	 * Sanitizes save_path and initializes connection.
 	 *
-	 * @param	string	$save_path	Server path(s)
+	 * @param	string	$save_path	Server path
 	 * @param	string	$name		Session cookie name, unused
 	 * @return	bool
 	 */
 	public function open($save_path, $name)
 	{
-		$this->_memcached = new Memcached();
-		$this->_memcached->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE); // required for touch() usage
-		$server_list = array();
-		foreach ($this->_memcached->getServerList() as $server)
+		if (empty($this->_config['save_path']))
 		{
-			$server_list[] = $server['host'].':'.$server['port'];
-		}
-
-		if ( ! preg_match_all('#,?([^,:]+)\:(\d{1,5})(?:\:(\d+))?#', $this->_config['save_path'], $matches, PREG_SET_ORDER))
-		{
-			$this->_memcached = NULL;
-			log_message('error', 'Session: Invalid Memcached save path format: '.$this->_config['save_path']);
 			return $this->_fail();
 		}
 
-		foreach ($matches as $match)
+		$redis = new Redis();
+		if ( ! $redis->connect($this->_config['save_path']['host'], $this->_config['save_path']['port'], $this->_config['save_path']['timeout']))
 		{
-			// If Memcached already has this server (or if the port is invalid), skip it
-			if (in_array($match[1].':'.$match[2], $server_list, TRUE))
-			{
-				log_message('debug', 'Session: Memcached server pool already has '.$match[1].':'.$match[2]);
-				continue;
-			}
-
-			if ( ! $this->_memcached->addServer($match[1], $match[2], isset($match[3]) ? $match[3] : 0))
-			{
-				log_message('error', 'Could not add '.$match[1].':'.$match[2].' to Memcached server pool.');
-			}
-			else
-			{
-				$server_list[] = $match[1].':'.$match[2];
-			}
+			log_message('error', 'Session: Unable to connect to Redis with the configured settings.');
+		}
+		elseif (isset($this->_config['save_path']['password']) && ! $redis->auth($this->_config['save_path']['password']))
+		{
+			log_message('error', 'Session: Unable to authenticate to Redis instance.');
+		}
+		elseif (isset($this->_config['save_path']['database']) && ! $redis->select($this->_config['save_path']['database']))
+		{
+			log_message('error', 'Session: Unable to select Redis database with index '.$this->_config['save_path']['database']);
+		}
+		else
+		{
+			$this->_redis = $redis;
+			return $this->_success;
 		}
 
-		if (empty($server_list))
-		{
-			log_message('error', 'Session: Memcached server pool is empty.');
-			return $this->_fail();
-		}
+		$this->php5_validate_id();
 
-		return $this->_success;
+		return $this->_fail();
 	}
 
 	// ------------------------------------------------------------------------
@@ -160,12 +170,17 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	public function read($session_id)
 	{
-		if (isset($this->_memcached) && $this->_get_lock($session_id))
+		if (isset($this->_redis) && $this->_get_lock($session_id))
 		{
 			// Needed by write() to detect session_regenerate_id() calls
 			$this->_session_id = $session_id;
 
-			$session_data = (string) $this->_memcached->get($this->_key_prefix.$session_id);
+			$session_data = $this->_redis->get($this->_key_prefix.$session_id);
+
+			is_string($session_data)
+				? $this->_key_exists = TRUE
+				: $session_data = '';
+
 			$this->_fingerprint = md5($session_data);
 			return $session_data;
 		}
@@ -186,7 +201,7 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	public function write($session_id, $session_data)
 	{
-		if ( ! isset($this->_memcached, $this->_lock_key))
+		if ( ! isset($this->_redis, $this->_lock_key))
 		{
 			return $this->_fail();
 		}
@@ -198,32 +213,26 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 				return $this->_fail();
 			}
 
-			$this->_fingerprint = md5('');
+			$this->_key_exists = FALSE;
 			$this->_session_id = $session_id;
 		}
 
-		$key = $this->_key_prefix.$session_id;
-
-		$this->_memcached->replace($this->_lock_key, time(), 300);
-		if ($this->_fingerprint !== ($fingerprint = md5($session_data)))
+		$this->_redis->setTimeout($this->_lock_key, 300);
+		if ($this->_fingerprint !== ($fingerprint = md5($session_data)) OR $this->_key_exists === FALSE)
 		{
-			if ($this->_memcached->set($key, $session_data, $this->_config['expiration']))
+			if ($this->_redis->set($this->_key_prefix.$session_id, $session_data, $this->_config['expiration']))
 			{
 				$this->_fingerprint = $fingerprint;
+				$this->_key_exists = TRUE;
 				return $this->_success;
 			}
 
 			return $this->_fail();
 		}
-		elseif (
-			$this->_memcached->touch($key, $this->_config['expiration'])
-			OR ($this->_memcached->getResultCode() === Memcached::RES_NOTFOUND && $this->_memcached->set($key, $session_data, $this->_config['expiration']))
-		)
-		{
-			return $this->_success;
-		}
 
-		return $this->_fail();
+		return ($this->_redis->setTimeout($this->_key_prefix.$session_id, $this->_config['expiration']))
+			? $this->_success
+			: $this->_fail();
 	}
 
 	// ------------------------------------------------------------------------
@@ -237,19 +246,28 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	public function close()
 	{
-		if (isset($this->_memcached))
+		if (isset($this->_redis))
 		{
-			$this->_release_lock();
-			if ( ! $this->_memcached->quit())
+			try {
+				if ($this->_redis->ping() === '+PONG')
+				{
+					$this->_release_lock();
+					if ($this->_redis->close() === FALSE)
+					{
+						return $this->_fail();
+					}
+				}
+			}
+			catch (RedisException $e)
 			{
-				return $this->_fail();
+				log_message('error', 'Session: Got RedisException on close(): '.$e->getMessage());
 			}
 
-			$this->_memcached = NULL;
+			$this->_redis = NULL;
 			return $this->_success;
 		}
 
-		return $this->_fail();
+		return $this->_success;
 	}
 
 	// ------------------------------------------------------------------------
@@ -264,9 +282,13 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	public function destroy($session_id)
 	{
-		if (isset($this->_memcached, $this->_lock_key))
+		if (isset($this->_redis, $this->_lock_key))
 		{
-			$this->_memcached->delete($this->_key_prefix.$session_id);
+			if (($result = $this->_redis->delete($this->_key_prefix.$session_id)) !== 1)
+			{
+				log_message('debug', 'Session: Redis::delete() expected to return 1, got '.var_export($result, TRUE).' instead.');
+			}
+
 			$this->_cookie_destroy();
 			return $this->_success;
 		}
@@ -286,8 +308,24 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	public function gc($maxlifetime)
 	{
-		// Not necessary, Memcached takes care of that.
+		// Not necessary, Redis takes care of that.
 		return $this->_success;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Validate ID
+	 *
+	 * Checks whether a session ID record exists server-side,
+	 * to enforce session.use_strict_mode.
+	 *
+	 * @param	string	$id
+	 * @return	bool
+	 */
+	public function validateId($id)
+	{
+		return (bool) $this->_redis->exists($this->_key_prefix.$id);
 	}
 
 	// ------------------------------------------------------------------------
@@ -307,14 +345,7 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		// correct session ID.
 		if ($this->_lock_key === $this->_key_prefix.$session_id.':lock')
 		{
-			if ( ! $this->_memcached->replace($this->_lock_key, time(), 300))
-			{
-				return ($this->_memcached->getResultCode() === Memcached::RES_NOTFOUND)
-					? $this->_memcached->add($this->_lock_key, time(), 300)
-					: FALSE;
-			}
-
-			return TRUE;
+			return $this->_redis->setTimeout($this->_lock_key, 300);
 		}
 
 		// 30 attempts to obtain a lock, in case another request already has it
@@ -322,14 +353,17 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		$attempt = 0;
 		do
 		{
-			if ($this->_memcached->get($lock_key))
+			if (($ttl = $this->_redis->ttl($lock_key)) > 0)
 			{
 				sleep(1);
 				continue;
 			}
 
-			$method = ($this->_memcached->getResultCode() === Memcached::RES_NOTFOUND) ? 'add' : 'set';
-			if ( ! $this->_memcached->$method($lock_key, time(), 300))
+			$result = ($ttl === -2)
+				? $this->_redis->set($lock_key, time(), array('nx', 'ex' => 300))
+				: $this->_redis->setex($lock_key, 300, time());
+
+			if ( ! $result)
 			{
 				log_message('error', 'Session: Error while trying to obtain lock for '.$this->_key_prefix.$session_id);
 				return FALSE;
@@ -344,6 +378,10 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 		{
 			log_message('error', 'Session: Unable to obtain lock for '.$this->_key_prefix.$session_id.' after 30 attempts, aborting.');
 			return FALSE;
+		}
+		elseif ($ttl === -1)
+		{
+			log_message('debug', 'Session: Lock for '.$this->_key_prefix.$session_id.' had no TTL, overriding.');
 		}
 
 		$this->_lock = TRUE;
@@ -361,9 +399,9 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 	 */
 	protected function _release_lock()
 	{
-		if (isset($this->_memcached, $this->_lock_key) && $this->_lock)
+		if (isset($this->_redis, $this->_lock_key) && $this->_lock)
 		{
-			if ( ! $this->_memcached->delete($this->_lock_key) && $this->_memcached->getResultCode() !== Memcached::RES_NOTFOUND)
+			if ( ! $this->_redis->delete($this->_lock_key))
 			{
 				log_message('error', 'Session: Error while trying to free lock for '.$this->_lock_key);
 				return FALSE;
@@ -375,4 +413,5 @@ class CI_Session_memcached_driver extends CI_Session_driver implements SessionHa
 
 		return TRUE;
 	}
+
 }
