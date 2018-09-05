@@ -169,7 +169,6 @@ class Subscriber extends JSON_Controller {
         {
             return parent::index(
                 array(
-                    'root.$newsletters.$subscriber.$reload.click' => 1,
                     'notification' => array('success', lang('delete_success_message') ),
                 )
             );
@@ -210,7 +209,6 @@ class Subscriber extends JSON_Controller {
             {
                 return parent::index(
                     array(
-                        'root.$newsletters.$subscriber.$reload.click' => 1,
                         'notification' => array('success', lang('activate_success_message') ),
                     )
                 );
@@ -260,7 +258,6 @@ class Subscriber extends JSON_Controller {
             {
                 return parent::index(
                     array(
-                        'root.$newsletters.$subscriber.$reload.click' => 1,
                         'notification' => array('success', lang('inactivate_success_message') ),
                     )
                 );

@@ -135,7 +135,6 @@ class Notifications extends JSON_Controller
         {
             return parent::index(
                 array(
-                    'root.$notifications.$notifications.$reload.click' => 1,
                     'notification' => array('success', lang('delete_success_message') ),
                 )
             );
@@ -180,8 +179,7 @@ class Notifications extends JSON_Controller
             {
                 return parent::index(
                     array(
-                        'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
-                        'root.$notifications.$notifications.$reload.click' => 1,
+                        'root.$notification.$value.update' => $notifications->get_unread_messages_number(),
                         'notification' => array('success', lang('read_success_message') ),
                     )
                 );
@@ -237,8 +235,7 @@ class Notifications extends JSON_Controller
             {
                 return parent::index(
                     array(
-                        'root.$notification.$value.update'  => $notifications->get_unread_messages_number(),
-                        'root.$notifications.$notifications.$reload.click' => 1,
+                        'root.$notification.$value.update' => $notifications->get_unread_messages_number(),
                         'notification' => array('success', lang('unread_success_message') ),
                     )
                 );

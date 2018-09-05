@@ -32,13 +32,11 @@
                             'bSortable' : false,
                             'aTargets'  : sorting
                         }],
-                        fnDrawCallback: function( oSettings ) 
-                        {
+                        fnDrawCallback: function( oSettings ) {
                             caller.$.find('.dataTables_filter input').addClass("form-control input-small input-inline");
                             caller.$.find('.dataTables_length select').addClass("form-control input-xsmall");
                         },
-                        fnRowCallback: function( nRow, aData, iDisplayIndex ) 
-                        {
+                        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
                             var id = $( nRow ).attr('id');
                             if( that['$' + id ] !== undefined )
                                 that.dettach( that['$' + id ] )
@@ -64,6 +62,7 @@
                     that.table.on('change', 'tbody tr .checkboxes', function () {
                         $(this).parents('tr').toggleClass("active");
                     });
+
                 });
             }
             , reload: function() {
@@ -86,17 +85,23 @@
                 return this.$.find('thead>tr:first th').size() - 1;
             }
             , delete_row: function( url ) {
-                var that = this,
-                    elem = this.context.parent;
+                var 
+                    that = this,
+                    elem = this.context.parent
+                ;
 
                 $.ajax({
                     'type'      : 'GET',
                     'url'       : url,
                     'dataType'  : 'json',
                     'beforeSend': function() { app.blockUI(elem, {animate:true}); },
-                    'error'     : function( XHR, textStatus ) {},
+                    'error'     : function( XHR, textStatus ) { alert(textStatus)},
                     'complete'  : function() { app.unblockUI(elem); },
                     'success'   : function( data ) {
+                        // force reload.
+                        that.table._fnAjaxUpdate();
+
+                        // Update element with data and actions with JSON origin.
                         that.update( data );
                     }
                 });

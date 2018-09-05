@@ -340,7 +340,7 @@ AddDefaultCharset utf-8
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ - [env=proto:http]
 
-    RewriteCond %{REQUEST_FILENAME} !^(.+)\.(js|css|png|jpg|gif|ico|woff|woff2|mp4)$
+    RewriteCond %{REQUEST_FILENAME} !^(.+)\.(js|css|png|jpg|gif|ico|woff|woff2|mp4|txt|jpeg)$
     RewriteRule ^(.*)$ index.php [NC]
 
 </IfModule>

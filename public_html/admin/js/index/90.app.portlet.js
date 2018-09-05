@@ -68,8 +68,10 @@
                 return false;
             }
             , execute: function( url, params ) {
-                var that = this,
-                    elem = this.context.parent;
+                var    
+                    that = this,
+                    elem = this.context.parent
+                ;
 
                 $.ajax({
                     type      : 'POST',
@@ -80,6 +82,10 @@
                     error     : function() {},
                     complete  : function() { app.unblockUI(elem); },
                     success   : function( data ) {
+                        // force reload.
+                        that.context.$body.$table.table._fnAjaxUpdate();
+
+                        // Update element with data and actions with JSON origin.
                         that.update( data );
                     }
                 });
