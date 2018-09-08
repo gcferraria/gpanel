@@ -35,7 +35,7 @@ class Migration_Change_entity_newsletter extends CI_Migration {
         ");
 
         $this->db->query("
-            ALTER TABLE newsletter_contact RENAME TO newsletter_subscriber;
+            ALTER TABLE newsletter_contact RENAME TO newsletter_subscriber
         ");
 
         $this->db->query("
@@ -53,7 +53,7 @@ class Migration_Change_entity_newsletter extends CI_Migration {
                 `last_update_by` int(11) DEFAULT NULL,                
                 PRIMARY KEY (`id`),
                 KEY `fk_news_temp_settings_website` (`settings_website_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1
         ");
 
         $this->db->query("
