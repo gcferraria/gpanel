@@ -21,4 +21,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Define list of available languages.
  */
- $config['i18n_available_languages'] = array('pt','gb','us','es','fr');
+ $config['i18n_available_languages'] = array('pt','gb','us','es','fr','de');
