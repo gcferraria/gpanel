@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * The folder must be writable and the path can be absolute or relative.
  *
  */
- $config['upload_path'] = HOMEPATH . '/public_html/static/jfcastelo';
+ $config['upload_path'] = HOMEPATH . '/public_html/static';
 
 /**
  * ------------------------
