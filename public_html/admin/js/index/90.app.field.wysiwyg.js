@@ -32,6 +32,17 @@
                                         if (!el.attributes.style)
                                             delete el.attributes.style;
                                     }
+
+                                    if (el.name == 'table') {
+                                        // Add bootstrap "table" class to each inserted table
+                                        el.addClass('table table-responsive');
+
+                                        // Removes
+                                        el.attributes.style = "";
+
+                                        if (!el.attributes.style)
+                                            delete el.attributes.style;
+                                    }
                                 }
                             }
                         });
