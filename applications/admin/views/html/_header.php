@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="<?=base_url('favicon.ico')?>">
     <link rel="apple-touch-icon" href="<?=base_url('apple-touch-icon.png')?>">
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 
     <link rel="stylesheet" href="<?=base_url('css/3rdparty.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?=base_url('css/main.css')?>" type="text/css" />

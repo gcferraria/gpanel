@@ -20,7 +20,7 @@
     <script>window.jQuery || document.write('<script src="<?=base_url('js/vendor/jquery-1.11.3.min.js')?>"><\/script>')</script>
 
     <!--[if lt IE 10]><script src="http://polyfill.io"></script><![endif]-->
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
     <script src="<?=base_url('js/3rdparty.js')?>"></script>
     <script src="<?=base_url('js/main.js')?>"></script>
