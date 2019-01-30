@@ -35,7 +35,7 @@ class Migration_Change_entity_newsletter extends CI_Migration {
         ");
 
         $this->db->query("
-            ALTER TABLE newsletter_contact RENAME TO newsletter_subscriber
+            ALTER TABLE `newsletter_contact` RENAME TO `newsletter_subscriber`
         ");
 
         $this->db->query("
