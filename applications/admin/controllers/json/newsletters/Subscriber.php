@@ -53,6 +53,14 @@ class Subscriber extends JSON_Controller {
         $data = array();
         foreach( $subscribers as $subscriber ) 
         {
+            $status = '';
+            switch( $subscriber->active_flag ) 
+            {
+                case 0 : $status = '<a class="label label-sm label-danger"  title="'. lang('activate')   .'" data-jsb-class="Tooltip">' . lang('inactive'). '</a>';
+                case 1 : $status = '<a class="label label-sm label-success" title="'. lang('inactivate') .'" data-jsb-class="Tooltip">' . lang('active')  . '</a>';
+                default: $status = '<a class="label label-sm label-warning" title="'. lang('pending')    .'" data-jsb-class="Tooltip">' . lang('pending') . '</a>';
+            }
+
             $data[] = array(
                 "DT_RowId" => $subscriber->id,
                 0 => 
@@ -64,9 +72,7 @@ class Subscriber extends JSON_Controller {
                 2 => $subscriber->name,
                 3 => $subscriber->source,
                 4 => $subscriber->creation_date,
-                5 => ( $subscriber->active_flag == 1 )
-                    ? '<a class="label label-sm label-success" title="'. lang('inactivate') .'" data-jsb-class="Tooltip">' . lang('active')  . '</a>'
-                    : '<a class="label label-sm label-danger"  title="'. lang('activate')   .'" data-jsb-class="Tooltip">' . lang('inactive'). '</a>',
+                5 => $status,
                 6 => '
                     <a href="'.site_url('newsletters/subscriber/save/' . $subscriber->id) .'" class="btn btn-xs green-meadow"><i class="fa fa-edit"></i> ' 
                         . lang('edit') .  

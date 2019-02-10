@@ -9,35 +9,43 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
     -webkit-text-fill-color: #8290a3;
-    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    box-shadow: 0 0 0px 1000px #000 inset;
     background-color: #dde3ec;
     transition: background-color 5000s ease-in-out 0s;
 }
+
 .modal-assets{
       overflow-y: initial !important
 }
+
 .modal-assets .modal-body{
   height: 500px;
   overflow-y: auto;
 }
+
 li.mega-menu-dropdown >  ul.dropdown-menu {
     min-width: 700px;
 }
+
 .template {
     display: none;
 }
+
 div.portlet-body.jstree.jstree-default {
 	min-height: 250px;
 }
+
 span.help-block.no-error {
     color: #737373;
 }
+
 ul.fields {
     display        : none;
     list-style-type: none;
     margin         : 0;
     padding        : 10px 0 0 0;
 }
+
 li.fields {
     margin    : 0px 0px -1px;
     background: -moz-linear-gradient(center 70% , #F9F9F9, #EEE) repeat scroll 0 0 transparent;
@@ -45,17 +53,21 @@ li.fields {
     padding   : 10px;
     border    : 1px solid #e5e5e5;
 }
+
 li.fields span {
     display: inline;
 }
+
 li.fields span.icon {
     margin: 3px 0;
     cursor: pointer;
     float : right;
 }
+
 div.multicategory {
     position: inherit;
 }
+
 div.multicategory ul.results {
     display               : none;
     overflow-x            : hidden;
@@ -73,95 +85,119 @@ div.multicategory ul.results {
     -webkit-border-radius : 5px;
     -moz-border-radius    : 5px;
 }
+
 div.multicategory li.results {
     margin       : 0;
     padding      : 5px 12px;
     border-bottom: 1px solid #DDD;
     cursor       : pointer;
 }
+
 div.multicategory li.selected {
     background : #FFE45C;
     color      : #363636;
     text-shadow: 0 0px 1px #777;
 }
+
 div.multicategory span { display: block; }
 div.multicategory span.path {
     font-size: 10px;
 }
+
 div.multicategory li.multicategory span.path {
     float: left; 
 }
+
 div.row.media {
     margin-top: 0px;
 }
+
 div.row.media .table-scrollable>.table-bordered>tbody>tr>td:first-child {
     width: 15%;
 }
+
 .table-scrollable>.table-bordered>tbody>tr>td a.file {
     height  : 50px;
     display : block;
     overflow: hidden;
 }
+
 .form .form-actions {
     border-top: 0 !important;
 }
+
 div.form-group .progress {
     margin: 10px 0;
 }
+
 .timeline-item {
     position: relative;
 }
+
 .timeline-time {
     font-size: 22px;
     position: absolute;
     top: 25px;
     left: 23px;
 }
+
 div.form-group .added-files {
     margin: 10px 0;
 }
+
 div.form-group .added-files .remove,
 div.form-group .added-files .open {
     margin-top: -5px;
 }
+
 div.form-group .added-files .open {
     margin-right: 10px;
 }
+
 .feeds .col3 {
     float: left;
     width: 100px;
     margin-left: -100px;
 }
+
 .feeds li .col2 {
     width: 90px;
     margin-left: -90px;
 }
+
 .feeds .col3 .visits {
     padding: 4px 9px 5px 4px;
     text-align: right;
     font-style: italic;
 }
+
 div.panel-body ul.list-group {
     margin: 0px;
 }
+
 div.panel-body ul.list-group span.path {
     display: inline-block;
     font-size: 11px;
     margin:0 10px
 }
+
 div.login.content .has-error .form-control {
     border-color: #e73d4a;
     color: #e73d4a;
 }
+
 div.login.content .input-icon > i {
     color: #32c5d2!important;
 }
+
 div.login.content .has-error .input-icon > i {
     color: #e73d4a!important;
 }
+
 .fileinput {
     width: 100%;
 }
+
 #assets-modal > .modal-dialog {
     position: absolute;
     top: 0;
@@ -170,6 +206,7 @@ div.login.content .has-error .input-icon > i {
     width: 60%;
     margin: 0 auto
 }
+
 #assets-modal > .modal-dialog .modal-content {
     position: absolute;
     top: 0;
@@ -178,23 +215,28 @@ div.login.content .has-error .input-icon > i {
     left: 0;
     overflow: auto
 }
+
 ul.thumbsview {
     margin: -20px 0 0 -15px;
     list-style: none;
     padding: 0;
 }
+
 ul.thumbsview li {
     margin: 20px 0 0 21px;
     float: left;
     position: relative;
     outline: none;
 }
+
 ul.thumbsview li.note {
     float: none;
 }
+
 ul.thumbsview li.selected div.thumbnail {
     border: 3px solid #0088cc;
 }
+
 ul.thumbsview li div.element {
     position: relative;
     cursor: default;
@@ -210,6 +252,7 @@ ul.thumbsview li div.element {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 ul.thumbsview li div.element div.elementthumb {
     left: 0;
     position: absolute;
@@ -231,6 +274,7 @@ ul.thumbsview li div.element div.elementthumb {
     width: 100px;
     height: 100px;
 }
+
 ul.thumbsview li div.element div.label { 
     display: block; 
     white-space: nowrap; 
@@ -240,36 +284,41 @@ ul.thumbsview li div.element div.label {
     color: #999;
     font-size: 12px;
 }
+
 .load {
     text-align: center;
     margin: 30px 0;
 }
+
 .bootstrap-touchspin input {
     border-left: 0px;
 }
+
 .star {
     font-size: 16px;
     color:gold;
 }
 
-table.dataTable thead .sorting {
-    background: url("/img/3rdparty/datatables/sort_both.png") no-repeat center right; }
-  
-  table.dataTable thead .sorting_asc {
-    background: url("/img/3rdparty/datatables/sort_asc.png") no-repeat center right; }
-  
-  table.dataTable thead .sorting_desc {
-    background: url("/img/3rdparty/datatables/sort_desc.png") no-repeat center right; }
-  
-  table.dataTable thead .sorting_asc_disabled {
-    background: url("/img/3rdparty/datatables/sort_asc_disabled.png") no-repeat center right; }
-  
-  table.dataTable thead .sorting_desc_disabled {
-    background: url("/img/3rdparty/datatables/sort_desc_disabled.png") no-repeat center right; }
-  
+.select2-container--bootstrap {
+    width: 420px;
+}
 
-@media (max-width: 991px) {
-    #todo-task-modal>.modal-dialog {
-        width:95%
-    }
+table.dataTable thead .sorting {
+    background: url("/img/3rdparty/datatables/sort_both.png") no-repeat center right; 
+}
+
+table.dataTable thead .sorting_asc {
+    background: url("/img/3rdparty/datatables/sort_asc.png") no-repeat center right; 
+}
+
+table.dataTable thead .sorting_desc {
+    background: url("/img/3rdparty/datatables/sort_desc.png") no-repeat center right; 
+}
+
+table.dataTable thead .sorting_asc_disabled {
+    background: url("/img/3rdparty/datatables/sort_asc_disabled.png") no-repeat center right; 
+}
+
+table.dataTable thead .sorting_desc_disabled {
+    background: url("/img/3rdparty/datatables/sort_desc_disabled.png") no-repeat center right; 
 }

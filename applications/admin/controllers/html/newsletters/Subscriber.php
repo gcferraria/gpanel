@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Subscriber extends HTML_Controller 
-{
+class Subscriber extends HTML_Controller {
     /**
      * __construct: Newsletter subscriber class constructor.
      *
@@ -15,7 +14,7 @@ class Subscriber extends HTML_Controller
 
         // Add Breadcrumb for Newsletter Contacts.
         $this->breadcrumb->add( array(
-                'text' => $this->lang->line('newsletter_subscriber_title'),
+                'text' => lang('newsletter_subscriber_title'),
                 'href' => 'newsletters/subscriber',
             )
         );
@@ -90,8 +89,10 @@ class Subscriber extends HTML_Controller
         $subscriber->get_by_id( $id );
 
         // Check if subscriber exists.
-        if ( ! $subscriber->exists() )
+        if( ! $subscriber->exists() ) 
+        {
             show_404();
+        }
 
         // Add Breadcrumb to edit subscriber.
         $this->breadcrumb->add( array(
@@ -145,9 +146,19 @@ class Subscriber extends HTML_Controller
                 )
             ),
             'active_flag' => array(
-                'values' => array( lang('yes') => 1, lang('no')  => 0 ),
+                'values' => array( lang('active') => 1, lang('inactive')  => 0 ),
             ),
+            'activation_token' => array(
+                'attrs' => array(
+                    'readonly' => 'readonly',
+                )
+            )
         );
+
+        if ( $subscriber->active_flag = -1 ) {
+            unset( $fields['active_flag'] );
+            unset( $attrs['active_flag'] );
+        }
 
         return array_replace_recursive( $fields, $attrs );
     }

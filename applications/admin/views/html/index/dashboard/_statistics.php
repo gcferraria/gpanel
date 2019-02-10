@@ -58,7 +58,7 @@
 					<?=$this->lang->line('dashboard_subscribers_count')?>
 				</div>
 			</div>
-	        <a class="more" href="<?=site_url('newsletters/contacts')?>">
+	        <a class="more" href="<?=site_url('newsletters/subscriber')?>">
 	            <?=$this->lang->line('view_more')?><i class="m-icon-swapright m-icon-white"></i>
 	        </a>
 		</div>

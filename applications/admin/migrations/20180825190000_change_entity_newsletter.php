@@ -39,6 +39,14 @@ class Migration_Change_entity_newsletter extends CI_Migration {
         ");
 
         $this->db->query("
+            ALTER TABLE `newsletter_subscriber` CHANGE `active_flag` `active_flag` INT(1) NULL DEFAULT -1
+        ");
+
+        $this->db->query("
+            ALTER TABLE `newsletter_subscriber` ADD `activation_token` VARCHAR(32) NULL AFTER `source`
+        ");
+
+        $this->db->query("
             CREATE TABLE IF NOT EXISTS `newsletter_template` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `settings_website_id` int(11) NOT NULL,
