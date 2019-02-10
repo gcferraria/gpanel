@@ -155,7 +155,7 @@ class Subscriber extends HTML_Controller {
             )
         );
 
-        if ( $subscriber->active_flag = -1 ) {
+        if ( $subscriber->active_flag === -1 ) {
             unset( $fields['active_flag'] );
             unset( $attrs['active_flag'] );
         }
