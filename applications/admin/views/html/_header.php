@@ -23,7 +23,7 @@
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-container-bg-solid">
     <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <?php if ( isset( $this->administrator ) ) : ?>

@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?=base_url('js/vendor/jquery-1.11.3.min.js')?>"><\/script>')</script>
 
-    <!--[if lt IE 10]><script src="http://polyfill.io"></script><![endif]-->
+    <!--[if lt IE 10]><script src="https://polyfill.io"></script><![endif]-->
     <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
     <script src="<?=base_url('js/3rdparty.js')?>"></script>
