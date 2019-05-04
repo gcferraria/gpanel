@@ -8,6 +8,7 @@ $lang = array (
     'i18n_language_title_edit' => 'Alterar a Língua %s',
     'i18n_language_code'       => 'Código',
     'i18n_language_name'       => 'Nome',
+    'i18n_language_region'     => 'Região',
     'i18n_language_active'     => 'Activo?',
     'i18n_language_default'    => 'Omissão?',
     'i18n_language_country'    => 'País',

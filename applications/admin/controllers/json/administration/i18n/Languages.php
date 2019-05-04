@@ -97,6 +97,7 @@ class Languages extends JSON_Controller
 
         $language->code    = $this->input->post('code');
         $language->name    = $this->input->post('name');
+        $language->region  = $this->input->post('region');
         $language->default = $this->input->post('default');
         $language->active  = $this->input->post('active');
         $language->country = $this->input->post('country');
