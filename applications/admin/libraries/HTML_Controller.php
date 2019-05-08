@@ -158,24 +158,24 @@ class HTML_Controller extends GP_Controller
                 'path'     => 'newsletters',
                 'icon'     => 'envelope',
                 'children' => array(
-                    array(
+                    /*array(
                         'title'    => lang('menu_newsletter_templates'),
                         'url'      => 'newsletters/template',
                         'path'     => 'newsletters/template',  
                         'icon'     => 'wrench',
-                    ),
+                    ),*/
                     array(
                         'title'    => lang('menu_subscribers'),
                         'url'      => 'newsletters/subscriber',
                         'path'     => 'newsletters/subscriber',  
                         'icon'     => 'user-follow',
                     ),
-                    array(
+                    /*array(
                         'title'    => lang('menu_newsletters'),
                         'url'      => 'newsletters/newsletters',
                         'path'     => 'newsletters/newsletters',  
                         'icon'     => 'envelope',
-                    ),
+                    ),*/
                 ),
             ),
         );

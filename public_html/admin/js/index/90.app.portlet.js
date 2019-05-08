@@ -61,11 +61,7 @@
         })
         , Actions = my.Class( JsB, {
             constructor: function( elem, caller ) {
-                Actions.Super.call( this, elem, caller );
-                this.bind('click');
-            }
-            , click: function(ev) {
-                return false;
+                Actions.Super.call( this, elem, caller );  
             }
             , execute: function( url, params ) {
                 var    
@@ -97,6 +93,8 @@
         , Action =  my.Class( Actions, {
             constructor: function ( elem, caller ) {
                 Action.Super.call( this, elem, caller );
+
+                this.bind('click');
             }
             , click: function(ev) {
                 var that = this;

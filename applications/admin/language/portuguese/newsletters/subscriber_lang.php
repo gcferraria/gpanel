@@ -12,5 +12,6 @@ $lang = array (
     'newsletter_subscriber_active_flag'      => 'Estado',
     'newsletter_subscriber_creation_date'    => 'Data de Criação',
     'newsletter_subscriber_activation_token' => 'Token de Segurança',
+    'newsletter_subscriber_title_filename'   => 'Subscritores'
 
 );

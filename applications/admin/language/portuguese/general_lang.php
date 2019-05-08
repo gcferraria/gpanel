@@ -59,6 +59,7 @@ $lang = array (
     'activate'         => 'Ativar',
     'inactivate'       => 'Inativar',
     'pending'          => 'Pendente',
+    'export_excel'     => 'Exportar Excel',
 
     /* Operation Messages */
     'save_success_message'       => 'O registo foi gravador com sucesso.',

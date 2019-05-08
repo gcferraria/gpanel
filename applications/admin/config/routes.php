@@ -54,5 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['logout'] = 'html/login/logout';
+$route['(.+)\.xlsx'] = 'xlsx/$1';
 $route['(.+)\.json'] = 'json/$1';
 $route['(.+)(\.html)?'] = 'html/$1';

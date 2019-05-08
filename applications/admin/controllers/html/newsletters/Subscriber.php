@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Subscriber extends HTML_Controller {
+class Subscriber extends HTML_Controller 
+{
     /**
      * __construct: Newsletter subscriber class constructor.
      *
@@ -59,7 +60,13 @@ class Subscriber extends HTML_Controller {
                         'text'           => lang('inactivate'),
                         'icon'           => 'fa fa-power-off',
                     ),
-                    'separator' => array(),
+                    'separator1' => array(),
+                    'export'    => array(
+                        'url'            => 'newsletters/subscriber.xlsx',
+                        'text'           => lang('export_excel'),
+                        'icon'           => 'fa fa-file-excel-o',
+                    ),
+                    'separator2' => array(),
                     'delete' => array(
                         'data-text'      => lang('confirm_record'),
                         'url'            => 'newsletters/subscriber/delete.json',
