@@ -2,8 +2,6 @@
 <html class="no-js" lang="">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
     <title><?=$title?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +9,9 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
+    <link rel="manifest" href="<?=base_url('site.webmanifest')?>">
+    <link rel="apple-touch-icon" href="<?=base_url('icon.png')?>">
     <link rel="shortcut icon" href="<?=base_url('favicon.ico')?>">
-    <link rel="apple-touch-icon" href="<?=base_url('apple-touch-icon.png')?>">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 
@@ -20,10 +19,11 @@
     <link rel="stylesheet" href="<?=base_url('css/main.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?=base_url('css/theme.css')?>" type="text/css" />
 
+    <meta name="theme-color" content="#fafafa">
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-container-bg-solid">
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->
 
     <?php if ( isset( $this->administrator ) ) : ?>

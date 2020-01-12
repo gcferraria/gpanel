@@ -3,12 +3,9 @@
 
 # TEAM
 
-    Gonçalo Ferraria -- <developer>-- <gferraria@gmail.com>
+    Gonçalo Ferraria -- <Developer>-- <gferraria@gmail.com>
 
 # TECHNOLOGY COLOPHON
 
-    HTML5, CSS3
-    jQuery, PHP, Codeigniter, Bootstrap
-
-/* the humans responsible & colophon */
-/* humanstxt.org */
+    CSS3, HTML5
+    Apache Server Configs, jQuery, Modernizr, Normalize.css, PHP, Codeigniter, Bootstrap

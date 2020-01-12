@@ -1,5 +1,6 @@
 
 */logs/log-*.php
+*.log
 */logs/!index.html
 */cache/*
 */cache/!index.html
@@ -19,6 +20,6 @@ Thumbs.db
 .dropbox
 
 applications/common
-applications/admin/cache/*
+applications/*/cache/*
 applications/admin/config/development/database.php
 public_html/static
