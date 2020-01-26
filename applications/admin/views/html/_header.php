@@ -17,7 +17,6 @@
 
     <link rel="stylesheet" href="<?=base_url('css/3rdparty.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?=base_url('css/main.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<?=base_url('css/theme.css')?>" type="text/css" />
 
     <meta name="theme-color" content="#fafafa">
 </head>
