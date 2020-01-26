@@ -26,14 +26,8 @@ Compilation with Grunt
 
 ```
 #!bash
-npm install grunt-contrib-cssmin --save
-npm install grunt-contrib-uglify --save
-```
-
-Install PHP extensison: curl
-```
-#!bash
-sudo apt-get install yui-compressor
+npm install -g grunt-contrib-cssmin --save
+npm install -g grunt-contrib-uglify --save
 ```
 
 ### Installing
@@ -66,7 +60,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Gon‡alo Ferraria** - *Initial work* - [Bitbucket](https://bitbucket.org/gcferraria)
+* **Gonï¿½alo Ferraria** - *Initial work* - [Bitbucket](https://bitbucket.org/gcferraria)
 
 ## License
 
