@@ -15,25 +15,11 @@ Install Node JS
 brew install node
 ```
 
-Install Bower
+Install Development Dependences
 
 ```
 #!bash
-npm install -g bower
-```
-
-Install Grunt
-```
-#!bash
-npm install -g grunt-cli
-```
-
-Compilation with Grunt
-
-```
-#!bash
-npm install -g grunt-contrib-cssmin --save
-npm install -g grunt-contrib-uglify --save
+npm install
 ```
 
 ### Installing
