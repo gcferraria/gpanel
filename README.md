@@ -9,18 +9,21 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Install Node JS
+
 ```
 #!bash
 brew install node
 ```
 
 Install Bower
+
 ```
 #!bash
 npm install -g bower
 ```
 
 Compilation with Grunt
+
 ```
 #!bash
 npm install grunt-contrib-cssmin --save
@@ -63,14 +66,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Gonçalo Ferraria** - *Initial work* - [Bitbucket](https://bitbucket.org/gcferraria)
+* **Gon‡alo Ferraria** - *Initial work* - [Bitbucket](https://bitbucket.org/gcferraria)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
