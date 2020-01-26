@@ -22,6 +22,12 @@ Install Bower
 npm install -g bower
 ```
 
+Install Grunt
+```
+#!bash
+npm install -g grunt-cli
+```
+
 Compilation with Grunt
 
 ```
