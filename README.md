@@ -22,6 +22,15 @@ Install Development Dependences
 npm install
 ```
 
+### Build
+
+Run Grunt task to build CSS and JS files
+
+```
+#!bash
+grunt build
+```
+
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
