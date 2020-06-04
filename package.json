@@ -12,5 +12,14 @@
     },
     "author": "Gonçalo Ferraria",
     "license": "ISC",
-    "homepage": "https://bitbucket.org/gcferraria/gpanel.pt#readme"
+    "homepage": "https://bitbucket.org/gcferraria/gpanel.pt#readme",
+    "devDependencies": {
+        "bower": "*",
+        "grunt": "^1.1.0",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-watch": "*"
+    }
 }
