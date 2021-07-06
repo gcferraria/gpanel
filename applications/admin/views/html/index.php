@@ -38,7 +38,7 @@
             <h3 class="page-title">
                 <?=$title?>
                 <?php if ( isset ($description) ) : ?>
-                <small><?=$description?></small>
+                <br /><small><?=word_limiter(strip_tags($description),75)?></small>
                 <?php endif ?>
             </h3>
             
