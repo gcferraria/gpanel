@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html class="no-js" lang="">
 <head>
-    <meta charset="utf-8" />
-    <title><?=$title?></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?=$title?></title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Progressive WebApp -->
+    <meta name="theme-color" content="#fafafa">
+    <link rel="manifest" href="<?php echo base_url('site.webmanifest'); ?>">
 
-    <link rel="manifest" href="<?=base_url('site.webmanifest')?>">
-    <link rel="apple-touch-icon" href="<?=base_url('icon.png')?>">
-    <link rel="shortcut icon" href="<?=base_url('favicon.ico')?>">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="<?php echo base_url('favicon.ico'); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('icon.png'); ?>">
 
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="<?=base_url('css/3rdparty.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?=base_url('css/main.css')?>" type="text/css" />
     <link rel="stylesheet" href="<?=base_url('css/theme.css')?>" type="text/css" />
 
-    <meta name="theme-color" content="#fafafa">
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo <?=(isset($class) ? $class : '' )?> page-container-bg-solid">
     <!--[if IE]>
