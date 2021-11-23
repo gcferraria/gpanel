@@ -13,6 +13,30 @@
                         alwaysShow: true
                     });
                 }
+
+                var that = this;
+                this.root.queue.push(function(){
+                    // Search for dependent fields and hide/show dependents
+                    $('[data-parent=' + that.parent.name + ']').each(function(){
+                        if( !$(this).attr('data-parent-values').includes( that.$.val() ) )
+                            $(this).addClass('hidden');
+                        else 
+                            $(this).removeClass('hidden');
+                    });
+                });
+            }
+            , change: function(ev) {
+                var that = this;
+
+                // Search for dependent fields and hide/show dependents
+                $('[data-parent=' + this.parent.name + ']').each(function(){
+                    if( !$(this).attr('data-parent-values').includes( that.$.val() ) )
+                        $(this).addClass('hidden');
+                    else 
+                        $(this).removeClass('hidden');
+                });
+
+                return false;
             }
             , enable: function() {
                 this.$.prop('disabled', false);
@@ -149,9 +173,6 @@
 
                 this.bind('change');
             }
-            , change: function(ev) {
-                return false;
-            }
             , value: function( value ) {
                 return ( value )
                     ? this.$.val( value )
@@ -192,9 +213,6 @@
                 });
             }
             , format: function(state) {
-                return;
-            }
-            , change: function( ev ) {
                 return;
             }
             , reset: function() {

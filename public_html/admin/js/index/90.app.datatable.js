@@ -82,7 +82,7 @@
                 }, 1000);
             }
             , get_columns_number: function() {
-                return this.$.find('thead>tr:first th').size() - 1;
+                return this.$.find('thead>tr:first th').lenght - 1;
             }
             , delete_row: function( url ) {
                 var 

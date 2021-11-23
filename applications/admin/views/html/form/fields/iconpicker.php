@@ -1,4 +1,7 @@
-<div class="form-group">
+<div class="form-group<?php echo ( !empty( $parent_field ) )  ? ' hidden' : ''; ?>"
+    <?php echo ( !empty( $parent_field ) ? 'data-parent="' . $parent_field .'"' : ''); ?>
+    <?php echo ( !empty( $parent_field ) ? 'data-parent-values="' . implode(",",$parent) .'"' : ''); ?>  
+    >
 	<label for="<?=$field?>" class="control-label col-md-3">
         <?=$label?>
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>

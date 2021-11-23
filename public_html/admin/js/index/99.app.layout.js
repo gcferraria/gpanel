@@ -69,7 +69,7 @@ var Layout = function () {
             });
         }
 
-        if (!el || el.size() == 0) {
+        if (!el || el.length == 0) {
             return;
         }
 
@@ -88,13 +88,13 @@ var Layout = function () {
         $('.page-sidebar-menu').on('click', 'li > a.nav-toggle, li > a > span.nav-toggle', function (e) 
         {
             var that = $(this).closest('.nav-item').children('.nav-link');
-            if ( app.getViewPort().width >= app.getResponsiveBreakpoint('md') && !$('.page-sidebar-menu').attr("data-initialized") && $('body').hasClass('page-sidebar-closed') &&  that.parent('li').parent('.page-sidebar-menu').size() === 1) 
+            if ( app.getViewPort().width >= app.getResponsiveBreakpoint('md') && !$('.page-sidebar-menu').attr("data-initialized") && $('body').hasClass('page-sidebar-closed') &&  that.parent('li').parent('.page-sidebar-menu').length === 1) 
             {
                 return;
             }
 
             var hasSubMenu = that.next().hasClass('sub-menu');
-            if (app.getViewPort().width >= app.getResponsiveBreakpoint('md') && that.parents('.page-sidebar-menu-hover-submenu').size() === 1) 
+            if (app.getViewPort().width >= app.getResponsiveBreakpoint('md') && that.parents('.page-sidebar-menu-hover-submenu').length === 1) 
             { 
                 return;
             }
@@ -181,7 +181,7 @@ var Layout = function () {
             e.preventDefault();
             if ($('body').hasClass("page-sidebar-closed")) {
                 if ($('.sidebar-search').hasClass('open') === false) {
-                    if ($('.page-sidebar-fixed').size() === 1) {
+                    if ($('.page-sidebar-fixed').length === 1) {
                         $('.page-sidebar .sidebar-toggler').click(); //trigger sidebar toggle button
                     }
                     $('.sidebar-search').addClass("open");
@@ -194,7 +194,7 @@ var Layout = function () {
         });
 
         // handle close on body click
-        if ($('.sidebar-search').size() !== 0) {
+        if ($('.sidebar-search').length !== 0) {
             $('.sidebar-search .input-group').on('click', function(e){
                 e.stopPropagation();
             });

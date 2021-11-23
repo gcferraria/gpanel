@@ -26,6 +26,7 @@ $lang = array (
     'content_type_field_label'            => 'Label',
     'content_type_field_content_type_id'  => 'Tipo de Conte&uacute;do',
     'content_type_field_type'             => 'Tipo',
+    'content_type_field_parent_id'        => 'Depende do campo',
     'content_type_field_required'         => 'Obrigat&oacute;rio',
     'content_type_field_required_yes'     => 'Sim',
     'content_type_field_required_no'      => 'N&atilde;o',

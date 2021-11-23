@@ -99,12 +99,19 @@ class Fields extends JSON_Controller
         // Inicialize Content Type and Content Type Field Object.
         $content_type       = new Content_Type;
         $content_type_field = new Content_Type_Field;
+        $parent_type_field  = new Content_Type_Field;
 
         // Get Content Type to Associate.
         $content_type->get_by_id( $id );
 
+        if( !empty( $this->input->post('parent') ) )
+        {
+            $parent_type_field->get_by_id( $this->input->post('parent') );
+        }
+
         // Set Content Type Field attributes.
         $content_type_field->content_type_id = $content_type->id;
+        $content_type_field->parent_id       = $parent_type_field->id;
         $content_type_field->name            = $this->input->post('name');
         $content_type_field->label           = $this->input->post('label');
         $content_type_field->type            = $this->input->post('type');
@@ -145,9 +152,15 @@ class Fields extends JSON_Controller
     {
         // Inicialize Content Type Field Object.
         $content_type_field = new Content_Type_Field;
+        $parent_type_field  = new Content_Type_Field;
 
         // Find Content Type Field to Edit.
         $content_type_field->get_by_id( $id );
+
+        if( !empty( $this->input->post('parent_id') ) )
+        {
+            $parent_type_field->get_by_id( $this->input->post('parent_id') );
+        }
 
         // Set Content Type Field attributes.
         $content_type_field->name          = $this->input->post('name');
@@ -159,6 +172,7 @@ class Fields extends JSON_Controller
         $content_type_field->position      = $this->input->post('position');
         $content_type_field->active_flag   = $this->input->post('active_flag');
         $content_type_field->translatable  = $this->input->post('translatable');
+        $content_type_field->parent_id     = $parent_type_field->id;
 
         // If the Content Type Field is valid insert the data.
         if ( $content_type_field->save() ) 

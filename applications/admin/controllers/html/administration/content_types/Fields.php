@@ -25,7 +25,6 @@ class Fields extends HTML_Controller
             $id = (int) $this->uri->segment(5);
         elseif ( $this->uri->segment(4) == 'edit' ) 
         {
-
             $this->content_type_field = new Content_Type_Field();
             $this->content_type_field->get_by_id(
                     (int) $this->uri->segment(5)
@@ -190,12 +189,32 @@ class Fields extends HTML_Controller
         // Load allowed type fields.
         $allowed_fields = array();
         foreach( $this->form->config['allowed_fields'] as $field_type )
+        {
             $allowed_fields[ $field_type ] = $field_type;
+        }
+
+        // Load dependent fields for same content type
+        $ContentTypeField = new Content_Type_Field();
+        $ContentTypeField
+            ->where_related( 'content_type', $this->content_type )
+            ->where('type','select')
+            ->order_by('position')
+        ;
+
+        // Load available content types.
+        $fields_to_select = array( $this->lang->line('select_options') => '' );
+        foreach ( $ContentTypeField->get() as $object ) 
+        {
+            $fields_to_select[ $object->label ] = $object->id;
+        }
 
         // Define Content Type Field Attributes.
         $attrs = array(
             'type' => array(
                 'values' => $allowed_fields,
+            ),
+            'parent_id' => array(
+                'values' => $fields_to_select,
             ),
             'required' => array(
                 'values' => array(
