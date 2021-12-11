@@ -15,15 +15,17 @@
                 }
 
                 var that = this;
-                this.root.queue.push(function(){
-                    // Search for dependent fields and hide/show dependents
-                    $('[data-parent=' + that.parent.name + ']').each(function(){
-                        if( !$(this).attr('data-parent-values').includes( that.$.val() ) )
-                            $(this).addClass('hidden');
-                        else 
-                            $(this).removeClass('hidden');
+                if( this.root.queue !== undefined ) {
+                    this.root.queue.push(function(){
+                        // Search for dependent fields and hide/show dependents
+                        $('[data-parent=' + that.parent.name + ']').each(function(){
+                            if( !$(this).attr('data-parent-values').includes( that.$.val() ) )
+                                $(this).addClass('hidden');
+                            else 
+                                $(this).removeClass('hidden');
+                        });
                     });
-                });
+                }
             }
             , change: function(ev) {
                 var that = this;
