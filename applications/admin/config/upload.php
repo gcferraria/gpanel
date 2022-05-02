@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Separate multiple types with a pipe.
  *
  */
- $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ai|mp4';
+ $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|xls|xlsx|ai|mp4|mp3';
 
 /**
  * ------------------------

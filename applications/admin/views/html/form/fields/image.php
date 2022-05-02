@@ -44,9 +44,6 @@
 
         <div class="fileinput fileinput-<?=( isset($value) && !empty($value) ) ? 'exists' : 'new'?>" data-provides="fileinput">
             <?php if ( !isset( $multiple ) ) : ?>
-            <div class="fileinput-new thumbnail hidden" style="width: 200px;">
-                <img src="http://www.placehold.it/200x100/EFEFEF/AAAAAA&amp;text=sem+imagem" alt="" />
-            </div>
 
             <div class="fileinput-preview fileinput-exists thumbnail hidden" style="max-width: 200px;"> 
                 <?php if ( isset($value) && !empty($value) ) : ?>
@@ -78,7 +75,7 @@
                 
                 <?php if ( !isset( $multiple ) ) : ?>
                 <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" data-jsb-class="App.Upload.Delete">
-                    <i class="fa fa-times"></i> <?=$this->lang->line('remove')?> 
+                    <i class="fa fa-times"></i> <?=$this->lang->line('remove')?>
                 </a>
                 <?php endif ?>
 

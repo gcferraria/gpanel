@@ -327,6 +327,29 @@ class Contents extends Categories
                     $values[$content_type_field['field'] ] = htmlentities( json_encode( $categories ) );
                 }
             }
+            else if ( $content_type_field['type'] == 'content' ) 
+            {
+                if ( isset( $values[$content_type_field['field'] ] ) ) 
+                {
+                    $ids = json_decode($values[$content_type_field['field'] ]);
+
+                    $contents = array();
+                    foreach ($ids as $id) 
+                    {
+                        $c = new Content();
+                        $c->get_by_id( $id );
+
+                        array_push( $contents, array(
+                                'name'  => $c->id,
+                                '$name' => character_limiter($c->name,50),
+                                '$path' => implode( ' » ', $c->categories->get(0)->path_name_array() ),
+                            )
+                        ); 
+                    }
+
+                    $values[$content_type_field['field'] ] = htmlentities( json_encode( $contents ) );
+                }
+            }
         }
 
         // Add Content Type Fields to Base Fields.

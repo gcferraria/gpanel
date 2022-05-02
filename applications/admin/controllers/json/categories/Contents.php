@@ -450,4 +450,49 @@ class Contents extends JSON_Controller
         }
     }
 
+     /**
+     * search: Search Content by Name.
+     *
+     * @access public
+     * @return json
+    **/
+    public function search()
+    {
+        // Instanciate Content Object.
+        $contents = new Content();
+
+        // Add Search Text if defined.
+        $search_text = $this->input->post('q');
+
+         // Get Content Type Filter.
+         $content_type = $this->input->get('content_type');
+
+        // Initialize Result.
+        $data = array();
+        if( !empty( $search_text ) )
+        {
+            // Add Search Text on name.
+            $contents->like( 'name', $search_text );
+
+            // Add Content Type filter if defined.
+            if( !empty ( $content_type ) )
+            {
+                $contents->where_related_content_type(
+                    'uriname', $content_type
+                );
+            }
+
+            foreach ( $contents->get() as $content ) 
+            {
+                $data[] = array(
+                    'name'  => $content->id,
+                    '$name' => character_limiter($content->name,50),
+                    '$path' => implode( ' » ', $content->categories->get(0)->path_name_array() ),
+                );
+            }
+        }
+
+        parent::index( $data );
+    }
+
 }

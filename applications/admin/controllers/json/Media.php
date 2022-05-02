@@ -74,6 +74,9 @@ class Media extends GP_Controller
             // Define target for link
             $target = ( $file->is_image ) ? '' : 'target="_blank"';
 
+            // Is Music
+            $isMusic = ( $file->filetype === "audio/mpeg");
+
             // If is image show the image, otherwise show default image based on extension.
             $image = $file->is_image
                 ? $static_url . $file->filename
@@ -81,7 +84,9 @@ class Media extends GP_Controller
 
             $data[] = array(
                 "DT_RowId" => $file->id,
-                0 => '<a href="'.$static_url . $file->filename.'" '.$target.' data-jsb-class="App.Fancybox" class="file"><img src="'.$image.'" alt="'.$file->filename.'"  class="img-responsive" /></a>',
+                0 => '<a href="' . $static_url . $file->filename . '" ' .$target . ' data-jsb-class="' . ( ( $isMusic ) ? 'JsB' : "App.Fancybox") .'" class="file">
+                      <img src="'.$image.'" alt="'.$file->filename.'"  class="img-responsive" />
+                      </a>',
                 1 => $file->name,
                 2 => $file->filename,
                 3 => $file->filetype,
@@ -168,7 +173,10 @@ class Media extends GP_Controller
                     $files->like('is_image', 1);
                     break;
                 case "video":
-                    $files->like('filename', 'mp4');
+                    $files
+                    ->like('filename', 'mp4')
+                    ->or_like('filename', 'mp3')
+                    ;
                 default:
                     "";
             }
