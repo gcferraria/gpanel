@@ -20,7 +20,7 @@
         <?=$label?>
         <?php if( $required ) { ?> <span class="required">*</span> <?php } ?>
     </label>
-    <div class="col-md-6" data-jsb-name="<?=$field?>" data-jsb-class="JsB">
+    <div class="col-md-10" data-jsb-name="<?=$field?>" data-jsb-class="JsB">
         <span class="btn btn-success fileinput-button">
             <i class="fa fa-upload"></i>
             <span>Upload</span>
