@@ -1,68 +1,56 @@
-# Project Title
+# CodeIgniter 4 Framework
 
-gPanel Admin - Content Management
+## What is CodeIgniter?
 
-## Getting Started
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](http://codeigniter.com).
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This repository holds the distributable version of the framework,
+including the user guide. It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-### Prerequisites
+More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
 
-Install Node JS
+The user guide corresponding to this version of the framework can be found
+[here](https://codeigniter4.github.io/userguide/).
 
-```
-#!bash
-brew install node
-```
 
-Install Development Dependences
+## Important Change with index.php
 
-```
-#!bash
-npm install
-```
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-### Build
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-Run Grunt task to build CSS and JS files
+**Please** read the user guide for a better explanation of how CI4 works!
 
-```
-#!bash
-grunt build
-```
+## Repository Management
 
-### Installing
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-A step by step series of examples that tell you have to get a development env running
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-Say what the step will be
+## Contributing
 
-```
-Give the example
-```
+We welcome contributions from the community.
 
-## Running the tests
+Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
 
-Explain how to run the automated tests for this system
+## Server Requirements
 
-## Deployment
+PHP version 7.4 or higher is required, with the following extensions installed:
 
-Add additional notes about how to deploy this on a live system
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
-## Built With
+Additionally, make sure that the following extensions are enabled in your PHP:
 
-* [NodeJS](https://nodejs.org) - JavaScript engine
-* [Bower](https://bower.io) - Package Manager
-* [Codeigniter](https://codeigniter.com) - PHP Framework
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Gon�alo Ferraria** - *Initial work* - [Bitbucket](https://bitbucket.org/gcferraria)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+- json (enabled by default - don't turn it off)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
+- xml (enabled by default - don't turn it off)

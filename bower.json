@@ -5,6 +5,5 @@
     "description": "Codeigniter JavaScript dependencies.",
     "private"    : true,
     "dependencies": {
-        "jquery": "1.11.3"
     }
 }
